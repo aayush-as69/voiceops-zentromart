@@ -1,0 +1,7 @@
+{
+  "status": "pending_missing_llm_configuration",
+  "turns_in_dataset": 96,
+  "turns_executed": 0,
+  "turns_passed": null,
+  "note": "Live conversation evaluation was not run because LLM_API_KEY is absent. No mock answers were substituted."
+}

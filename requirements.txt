@@ -1,0 +1,11 @@
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0
+python-multipart>=0.0.9
+openai>=1.40,<3.0
+scikit-learn>=1.4,<2.0
+pandas>=2.1,<4.0
+joblib>=1.3,<2.0
+python-dotenv>=1.0,<2.0
+pytest>=8.0,<9.0
+# Official Gnani.ai speech SDK; speech is never routed to another provider.
+gnani-vachana>=0.8.1,<0.9.0

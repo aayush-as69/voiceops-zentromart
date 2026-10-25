@@ -1,0 +1,94 @@
+{
+  "run_date": "2026-10-25",
+  "dataset_validator": {
+    "status": "passed",
+    "summary": "All 9 CSVs, 21 KB documents, primary/foreign keys, order math, practice evidence, verification gates, and company naming validated.",
+    "dataset_counts": {
+      "customers": 300,
+      "orders": 1000,
+      "order_items": 1783,
+      "products": 70,
+      "pincodes": 36,
+      "holidays": 4,
+      "support_logs": 244,
+      "practice_questions": 52,
+      "conversation_turns": 96,
+      "conversations": 23,
+      "knowledge_base_documents": 21
+    }
+  },
+  "pytest": {
+    "command": "$env:DATASET_DIR=(Resolve-Path .\\dataset\\Capstone_Project_Dataset_FTTT_2026).Path; python -m pytest -q --basetemp .pytest-temp",
+    "status": "passed",
+    "passed": 45,
+    "failed": 0,
+    "skipped": 0,
+    "notes": "45 automated tests passed after direct-browser-microphone source/UI, upload validation, voice-pipeline failure handling, read-only ticket lookup, no-duplicate-ticket routing, and supplied-data integration changes. Browser UI source checks are not a real microphone browser test."
+  },
+  "fastapi_smoke": {
+    "GET /": 200,
+    "GET /health": 200,
+    "POST /api/chat_without_llm_key": 503,
+    "notes": "Verified through FastAPI TestClient with the extracted dataset configured. Missing LLM key returned llm_not_configured; no success answer was fabricated."
+  },
+  "audio_route_tests": {
+    "status": "passed_with_mocks",
+    "details": [
+      "valid WAV accepted and temporary input removed",
+      "empty/unsupported/mismatched/oversized audio rejected",
+      "invalid or missing TTS output was not reported as successful",
+      "pipeline setup exceptions return sanitized 502 response"
+    ]
+  },
+  "browser_microphone": {
+    "status": "implemented_but_real_browser_e2e_not_verified",
+    "notes": "MediaRecorder UI, WAV conversion, preview and send are implemented. Chromium automation attempts were blocked by the execution environment policy (ERR_BLOCKED_BY_ADMINISTRATOR for local and file URLs); perform a real-microphone check on the target Windows browser."
+  },
+  "ticket_lookup": {
+    "status": "passed_in_unit_and_isolated_dataset_tests",
+    "notes": "Read-only ticket lookup matched persisted row in the supplied tools CSV in a temporary cloned dataset. No ticket file in the source dataset was modified. Status/assignment/resolution remain outside supplied CSV schema."
+  },
+  "retrieval_evaluation": {
+    "status": "passed",
+    "questions": 52,
+    "gold_evidence_found": 81,
+    "gold_evidence_total": 90,
+    "recall_at_5": 0.9,
+    "questions_with_gold": 47,
+    "question_hit_rate_at_5": 1.0
+  },
+  "baseline_vs_rag": {
+    "status": "pending_missing_llm_configuration",
+    "questions_scored": 0,
+    "notes": "Live answer accuracy pending because this packaging workspace has no LLM_API_KEY."
+  },
+  "conversation_evaluation": {
+    "status": "pending_missing_llm_configuration",
+    "turns_in_dataset": 96,
+    "turns_executed": 0,
+    "turns_passed": null,
+    "notes": "Live conversation evaluation was not run because LLM_API_KEY is absent. No mock answers were substituted."
+  },
+  "live_integrations": {
+    "llm": "not tested in packaging workspace: no LLM_API_KEY",
+    "gnani_stt": "a prior uploaded-audio test was reported by the user as transcribing successfully in their local run; not re-run here",
+    "gnani_tts": "a prior uploaded-audio test was reported by the user as playing a synthesized response in their local run; not re-run here",
+    "end_to_end_browser_microphone": "pending real Windows/browser microphone test with valid Gemini and Gnani keys"
+  },
+  "demo": {
+    "status": "pending",
+    "notes": "No MP4 was fabricated or included. Record a real <=120-second demo after the live browser microphone test."
+  },
+  "javascript_syntax": {
+    "status": "passed",
+    "command": "node --check static/app.js",
+    "notes": "Final JavaScript syntax check passed after UI error-message improvement."
+  },
+  "report_pdf": {
+    "status": "passed",
+    "pages": 4,
+    "page_size": "A4",
+    "rendered_pages": 4,
+    "notes": "Final report.pdf was regenerated, rendered to four page images and visually reviewed; no obvious clipping or overlaps observed."
+  }
+}

@@ -1,0 +1,38 @@
+# Environment secrets — keep the example template only
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Private challenge dataset and generated indexes
+/dataset/
+storage/*
+!storage/.gitkeep
+
+# Runtime output and audio artifacts
+outputs/*
+!outputs/.gitkeep
+sample_audio/*
+!sample_audio/README.md
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.ogg
+*.webm
+*.log
+
+# OS/editor artifacts
+.DS_Store
+Thumbs.db
+.pytest-temp/
