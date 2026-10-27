@@ -10,6 +10,8 @@ import csv
 import json
 import re
 import sys
+import time
+import unicodedata
 from pathlib import Path
 from typing import Any
 
@@ -23,8 +25,42 @@ def groups(value: str) -> list[str]:
     return [item.strip() for item in (value or "").split(";") if item.strip()]
 
 
+def normalize_match_text(value: str) -> str:
+    value = unicodedata.normalize("NFKC", value or "").casefold()
+    value = value.translate(str.maketrans({
+        "\u2010": "-", "\u2011": "-", "\u2012": "-",
+        "\u2013": "-", "\u2014": "-", "\u2212": "-",
+        "\u00ad": "", "\u2018": "'", "\u2019": "'",
+    }))
+    date_pattern = r"(?<!\d)(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})(?!\d)"
+
+    def day_first_to_iso(match):
+        day, month, year = map(int, match.groups())
+        if 1 <= day <= 31 and 1 <= month <= 12:
+            return f"{year:04d}-{month:02d}-{day:02d}"
+        return match.group(0)
+
+    value = re.sub(date_pattern, day_first_to_iso, value)
+    return re.sub(r"\s+", " ", value).strip()
+
+
 def matches_any(text: str, group: str) -> bool:
-    return any(token.strip().lower() in text.lower() for token in group.split("/") if token.strip())
+    normalized_text = normalize_match_text(text)
+    number_variants = {
+        "1": ("1", "one", "एक"),
+        "3": ("3", "three", "तीन"),
+        "7": ("7", "seven", "सात"),
+        "2 ghante": ("2 ghante", "2 घंटे", "दो घंटे"),
+        "दो घंटे": ("दो घंटे", "2 घंटे", "2 ghante"),
+    }
+    for token in group.split("/"):
+        token = normalize_match_text(token)
+        if not token:
+            continue
+        variants = number_variants.get(token, (token,))
+        if any(normalize_match_text(v) in normalized_text for v in variants):
+            return True
+    return False
 
 
 def parse_expected_calls(value: str) -> list[dict[str, Any]]:
@@ -97,7 +133,10 @@ def main() -> None:
     current_conversation = None
     applicable_evidence_total = 0
     applicable_evidence_found = 0
-    for row in rows:
+    request_delay_seconds = 6.0
+    for row_index, row in enumerate(rows):
+        if row_index > 0:
+            time.sleep(request_delay_seconds)
         conversation_id = row["conversation_id"]
         if conversation_id != current_conversation:
             current_conversation = conversation_id

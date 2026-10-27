@@ -1,0 +1,14 @@
+{
+  "input_filename": "01_delivery_delay.wav",
+  "transcription": "hello my order has not arrived yet can you check the delivery status",
+  "response_text": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+  "retrieved_sources": [],
+  "tool_calls": [],
+  "output_audio_filename": "01_delivery_delay_8e80a98b_reply.wav",
+  "status": "success",
+  "error": null,
+  "agent_ok": true,
+  "agent_error": null,
+  "decision": "clarify",
+  "result_json_filename": "01_delivery_delay_result.json"
+}

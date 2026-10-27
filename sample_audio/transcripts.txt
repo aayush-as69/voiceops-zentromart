@@ -1,0 +1,18 @@
+VoiceOps test audio transcripts
+
+01_delivery_delay.wav
+"Hello, my order has not arrived yet. Can you check the delivery status?"
+
+02_return_policy.wav
+"I received a damaged product. What is your return and refund policy?"
+
+03_order_lookup.wav
+"I want to check my order. Please tell me what details you need from me."
+
+04_human_handover.wav
+"I am not satisfied with this resolution. Please connect me to a human support agent."
+
+05_follow_up.wav
+"How long will the refund take after my returned item is approved?"
+
+These are synthetic test utterances generated for software testing, not real customer recordings. Check your agent's policies and order data before treating any response as correct.

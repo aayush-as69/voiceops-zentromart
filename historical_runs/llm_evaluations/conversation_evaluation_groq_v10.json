@@ -1,0 +1,4690 @@
+{
+  "status": "completed",
+  "turns_in_dataset": 96,
+  "turns_executed": 96,
+  "turns_passed": 96,
+  "turn_pass_rate": 1.0,
+  "conversations": 23,
+  "evidence_applicable_ids": 62,
+  "evidence_ids_found": 62,
+  "gold_evidence_recall_on_applicable_turns": 1.0,
+  "notes": [
+    "Verification values are not persisted in tool traces; only proof-presence and boolean verification results are recorded.",
+    "Evidence checks are skipped for clarification turns and explicit caller-verification failures because those states should not expose/retrieve order details.",
+    "Expected create_ticket calls count as successful only when the supplied tool reports created=True."
+  ],
+  "records": [
+    {
+      "conversation_id": "PC002",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC002",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "89782837"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "89782837",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "89782837"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "89782837",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 89782837, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC002",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "89782837",
+            "verification_value": "4533"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "89782837",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "89782837",
+              "verification_value": "4533"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "89782837",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC002",
+      "turn": "4",
+      "expected_decision": "escalate",
+      "actual_decision": "escalate",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "create_ticket",
+          "args": {}
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "create_ticket",
+          "created": true,
+          "ticket_id": "TKT4f9841c5eb214b2fac6c72cdeb259601",
+          "reason": "high_value_damage"
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "create_ticket",
+            "args": {}
+          },
+          "matched": true,
+          "trace": {
+            "name": "create_ticket",
+            "created": true,
+            "ticket_id": "TKT4f9841c5eb214b2fac6c72cdeb259601",
+            "reason": "high_value_damage"
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "DWM-3",
+        "ESC-1",
+        "ESC-4"
+      ],
+      "retrieved_sections": [
+        "DWM-1",
+        "DWM-3",
+        "ELE-0021",
+        "ESC-1",
+        "ESC-4",
+        "RET-5",
+        "RET-6",
+        "TRK-2",
+        "WAR-2",
+        "WAR-3"
+      ],
+      "gold_evidence_found": [
+        "DWM-3",
+        "ESC-1",
+        "ESC-4"
+      ],
+      "gold_evidence_count": 3,
+      "gold_evidence_found_count": 3,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I can’t approve that exception myself. I’ve created a support ticket (TKT4f9841c5eb214b2fac6c72cdeb259601) for human review. A colleague can review the case; I can’t promise a particular outcome or compensation amount.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC003",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC003",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "18599253"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "18599253",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "18599253"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "18599253",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 18599253, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC003",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "18599253",
+            "verification_value": "4265"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "18599253",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "18599253",
+              "verification_value": "4265"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "18599253",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC003",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "RET-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2",
+        "IDV-3",
+        "PLS-2",
+        "RET-2",
+        "RET-6"
+      ],
+      "gold_evidence_found": [
+        "RET-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "हाँ, आप “Kaafi Running Sneakers” को वापस कर सकती हैं।  \n- **रिटर्न विंडो**: डिलीवरी की तारीख से 15 कैलेंडर दिन (क्लोदिंग, फुटवियर और बैग्स के लिए)।  \n- **रिटर्न डेडलाइन**: 2026‑10‑27।  \n- **रिवर्स पिक‑अप फ़ी**: ₹49 का शुल्क लागू होता है, पर ज़ेन्त्रोमार्ट प्लस सदस्य होने के कारण यह फ़ी माफ़ है।  \n\nआप रिटर्न को ऐप में “रिटर्न शुरू करें” विकल्प से आरम्भ कर सकती हैं। यदि कोई प्रश्न हो, तो बताइए!",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC003",
+      "turn": "5",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "REF-2",
+        "RET-7",
+        "PLS-2"
+      ],
+      "retrieved_sections": [
+        "PLS-2",
+        "REF-2",
+        "RET-7"
+      ],
+      "gold_evidence_found": [
+        "REF-2",
+        "RET-7",
+        "PLS-2"
+      ],
+      "gold_evidence_count": 3,
+      "gold_evidence_found_count": 3,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "For Plus members, return refunds are initiated at pickup without waiting for quality checks. Wallet refunds are credited instantly, within 2 hours after initiation. I don't see a pickup or refund initiation recorded for this order, so I can't confirm that the two-hour credit window has started.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC004",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC004",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "79363550"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "79363550",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "79363550"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "79363550",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 79363550, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC004",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "79363550",
+            "verification_value": "2949"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "79363550",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "79363550",
+              "verification_value": "2949"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "79363550",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC004",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "RET-2",
+        "RET-8",
+        "RET-6"
+      ],
+      "retrieved_sections": [
+        "DEL-4",
+        "IDV-2",
+        "RET-2",
+        "RET-6",
+        "RET-8"
+      ],
+      "gold_evidence_found": [
+        "RET-2",
+        "RET-8",
+        "RET-6"
+      ],
+      "gold_evidence_count": 3,
+      "gold_evidence_found_count": 3,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "मैं एक AI सहायक हूँ।  \nहाँ, आप UrbanThread Slim Fit Jeans वापस कर सकती हैं।  \n\n- **रिटर्न डेडलाइन**: 30 कैलेंडर दिन डिलीवरी के बाद, यानी **2026‑11‑13** तक।  \n- **रिवर्स पिक‑अप शुल्क**: ₹49 (क्योंकि आप ZentroMart Plus सदस्य नहीं हैं)।  \n\nकृपया रिटर्न प्रक्रिया शुरू करने के लिए हमारे ऐप या वेबसाइट पर “रिटर्न” विकल्प चुनें। यदि आपको किसी सहायता की ज़रूरत हो, तो बताइए!",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC004",
+      "turn": "5",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "REF-2",
+        "RET-7"
+      ],
+      "retrieved_sections": [
+        "REF-2",
+        "RET-7"
+      ],
+      "gold_evidence_found": [
+        "REF-2",
+        "RET-7"
+      ],
+      "gold_evidence_count": 2,
+      "gold_evidence_found_count": 2,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "If you proceed with the return, the refund is initiated within 2 business days after pickup once the item passes the quality check. After initiation, UPI refunds typically reach your bank within 1–3 business days. I don't see a pickup or refund-initiation event recorded yet, so this is the policy timeline—not confirmation that a refund has started.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC005",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC005",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "37113676"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "37113676",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "37113676"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "37113676",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 37113676, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC005",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "37113676",
+            "verification_value": "1581"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "37113676",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "37113676",
+              "verification_value": "1581"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "37113676",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC005",
+      "turn": "4",
+      "expected_decision": "escalate",
+      "actual_decision": "escalate",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "create_ticket",
+          "args": {}
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "create_ticket",
+          "created": true,
+          "ticket_id": "TKTdf76f03e80574e3a804b90f60b7fc993",
+          "reason": "customer_requested_human"
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "create_ticket",
+            "args": {}
+          },
+          "matched": true,
+          "trace": {
+            "name": "create_ticket",
+            "created": true,
+            "ticket_id": "TKTdf76f03e80574e3a804b90f60b7fc993",
+            "reason": "customer_requested_human"
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "ESC-1"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "DWM-3",
+        "ESC-1",
+        "FAQ-4",
+        "FAQH-1",
+        "FAQH-2",
+        "IDV-3",
+        "INTRO"
+      ],
+      "gold_evidence_found": [
+        "ESC-1"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I’ve created a support ticket (TKTdf76f03e80574e3a804b90f60b7fc993) for a human support colleague to review your request. I can’t promise a specific outcome.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC006",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC006",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "66492475"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "66492475",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "66492475"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "66492475",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 66492475, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC006",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "66492475",
+            "verification_value": "6073"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "66492475",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "66492475",
+              "verification_value": "6073"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "66492475",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC006",
+      "turn": "4",
+      "expected_decision": "escalate",
+      "actual_decision": "escalate",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "create_ticket",
+          "args": {}
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "create_ticket",
+          "created": true,
+          "ticket_id": "TKT5d4ea6861e6e4fd18b8a0a1d7ef73d95",
+          "reason": "customer_requested_human"
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "create_ticket",
+            "args": {}
+          },
+          "matched": true,
+          "trace": {
+            "name": "create_ticket",
+            "created": true,
+            "ticket_id": "TKT5d4ea6861e6e4fd18b8a0a1d7ef73d95",
+            "reason": "customer_requested_human"
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "ESC-1"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "CPN-2",
+        "DWM-5",
+        "ESC-1",
+        "ESC-2",
+        "FAQ-2",
+        "FAQ-4",
+        "IDV-4",
+        "PAY-4",
+        "RVP-2"
+      ],
+      "gold_evidence_found": [
+        "ESC-1"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I’ve created a support ticket (TKT5d4ea6861e6e4fd18b8a0a1d7ef73d95) for a human support colleague to review your request. I can’t promise a specific outcome.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC007",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC007",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "45011817"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "45011817",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "45011817"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "45011817",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 45011817, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC007",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "45011817",
+            "verification_value": "1267"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "45011817",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "45011817",
+              "verification_value": "1267"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "45011817",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC007",
+      "turn": "4",
+      "expected_decision": "escalate",
+      "actual_decision": "escalate",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "create_ticket",
+          "args": {}
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "create_ticket",
+          "created": true,
+          "ticket_id": "TKTcb7e90d2ab6f4513b4cfd04c4f205d96",
+          "reason": "repeat_contact_within_7_days"
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "create_ticket",
+            "args": {}
+          },
+          "matched": true,
+          "trace": {
+            "name": "create_ticket",
+            "created": true,
+            "ticket_id": "TKTcb7e90d2ab6f4513b4cfd04c4f205d96",
+            "reason": "repeat_contact_within_7_days"
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "ESC-1",
+        "ESC-3"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "DEL-3",
+        "DWM-3",
+        "ESC-1",
+        "ESC-3",
+        "IDV-3",
+        "INTRO",
+        "PAY-3",
+        "REF-2",
+        "RET-7"
+      ],
+      "gold_evidence_found": [
+        "ESC-1",
+        "ESC-3"
+      ],
+      "gold_evidence_count": 2,
+      "gold_evidence_found_count": 2,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I can’t approve that exception myself. I’ve created a support ticket (TKTcb7e90d2ab6f4513b4cfd04c4f205d96) for human review. A colleague can review the case; I can’t promise a particular outcome or compensation amount.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC008",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC008",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "48196636"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "48196636",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "48196636"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "48196636",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 48196636, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC008",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "48196636",
+            "verification_value": "7725"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "48196636",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "48196636",
+              "verification_value": "7725"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "48196636",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC008",
+      "turn": "4",
+      "expected_decision": "escalate",
+      "actual_decision": "escalate",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "create_ticket",
+          "args": {}
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "create_ticket",
+          "created": true,
+          "ticket_id": "TKTc4a0f3fae6264625ade2b19b65f39268",
+          "reason": "repeat_contact_within_7_days"
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "create_ticket",
+            "args": {}
+          },
+          "matched": true,
+          "trace": {
+            "name": "create_ticket",
+            "created": true,
+            "ticket_id": "TKTc4a0f3fae6264625ade2b19b65f39268",
+            "reason": "repeat_contact_within_7_days"
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "ESC-1",
+        "ESC-3"
+      ],
+      "retrieved_sections": [
+        "CAN-3",
+        "CAN-4",
+        "DEL-3",
+        "ESC-1",
+        "ESC-3",
+        "INTRO",
+        "KB-00.2",
+        "PAY-3",
+        "RET-7"
+      ],
+      "gold_evidence_found": [
+        "ESC-1",
+        "ESC-3"
+      ],
+      "gold_evidence_count": 2,
+      "gold_evidence_found_count": 2,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I can’t approve that exception myself. I’ve created a support ticket (TKTc4a0f3fae6264625ade2b19b65f39268) for human review. A colleague can review the case; I can’t promise a particular outcome or compensation amount.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC009",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC009",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "67830826"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "67830826",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "67830826"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "67830826",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 67830826, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC009",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "67830826",
+            "verification_value": "0783"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "67830826",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "67830826",
+              "verification_value": "0783"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "67830826",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC009",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "RET-7",
+        "REF-1"
+      ],
+      "retrieved_sections": [
+        "REF-1",
+        "REF-2",
+        "RET-7"
+      ],
+      "gold_evidence_found": [
+        "RET-7",
+        "REF-1"
+      ],
+      "gold_evidence_count": 2,
+      "gold_evidence_found_count": 2,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "The return has been picked up, but the quality check (QC) is still pending, so the refund has not been initiated yet. Under the policy, the refund is initiated within 2 business days after the item passes QC. After initiation, a UPI refund usually reaches your bank within 1–3 business days.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC010",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC010",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "16640894"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "16640894",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "16640894"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "16640894",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 16640894, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC010",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "16640894",
+            "verification_value": "2108"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "16640894",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "16640894",
+              "verification_value": "2108"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "16640894",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC010",
+      "turn": "4",
+      "expected_decision": "escalate",
+      "actual_decision": "escalate",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "create_ticket",
+          "args": {}
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "create_ticket",
+          "created": true,
+          "ticket_id": "TKT9c210490f4e6475e8ee03c78fc93acc2",
+          "reason": "refund_past_maximum_timeline"
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "create_ticket",
+            "args": {}
+          },
+          "matched": true,
+          "trace": {
+            "name": "create_ticket",
+            "created": true,
+            "ticket_id": "TKT9c210490f4e6475e8ee03c78fc93acc2",
+            "reason": "refund_past_maximum_timeline"
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "ESC-1",
+        "REF-2",
+        "REF-6"
+      ],
+      "retrieved_sections": [
+        "DEL-1",
+        "ESC-1",
+        "KB-00.1",
+        "KB-00.3",
+        "PAY-3",
+        "PAY-4",
+        "PLS-3",
+        "REF-2",
+        "REF-6",
+        "RET-7"
+      ],
+      "gold_evidence_found": [
+        "ESC-1",
+        "REF-2",
+        "REF-6"
+      ],
+      "gold_evidence_count": 3,
+      "gold_evidence_found_count": 3,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Your refund is overdue beyond the policy timeline. I’m sorry for the delay. I’ve created a support ticket (TKT9c210490f4e6475e8ee03c78fc93acc2) for the team to review. Your refund reference number (RRN) is 315633825001; your bank can use it to trace the refund.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC011",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC011",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "26295015"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "26295015",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "26295015"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "26295015",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 26295015, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC011",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "26295015",
+            "verification_value": "8752"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "26295015",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "26295015",
+              "verification_value": "8752"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "26295015",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2",
+        "TRK-1"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I checked your verified order record: the current recorded status is shipped; the shipment date is 2026-10-12; the expected delivery date is 2026-10-22.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC011",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "DEL-3"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "DEL-3",
+        "IDV-2",
+        "IDV-3",
+        "TRK-1"
+      ],
+      "gold_evidence_found": [
+        "DEL-3"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "If you’re not at home when the courier arrives, they’ll make up to three delivery attempts. After each failed attempt you’ll receive an SMS (or app notification) asking you to reschedule a new delivery time. If the third attempt also fails, the parcel will be sent back to the warehouse and a refund will be processed. You can always reschedule a delivery through the SMS link or the ZentroMart app.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC012",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC012",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "75447568"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "75447568",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "75447568"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "75447568",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 75447568, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC012",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "75447568",
+            "verification_value": "0654"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "75447568",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "75447568",
+              "verification_value": "0654"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "75447568",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2",
+        "TRK-1"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I checked your verified order record: the current recorded status is shipped; the shipment date is 2026-10-14; the expected delivery date is 2026-10-24.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC012",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "DEL-3"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "DEL-3",
+        "IDV-2",
+        "IDV-3",
+        "TRK-1"
+      ],
+      "gold_evidence_found": [
+        "DEL-3"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "If you’re not at home when the courier arrives, they’ll make up to three delivery attempts. After each failed attempt you’ll receive an SMS asking you to reschedule. You can choose a new time or pick up the parcel from the courier’s local hub via the app. If you miss all three attempts, the parcel will be returned to the warehouse and a refund will be processed.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC013",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC013",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "86152121"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "86152121",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "86152121"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "86152121",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 86152121, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC013",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "86152121",
+            "verification_value": "5568"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "86152121",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "86152121",
+              "verification_value": "5568"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "86152121",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC013",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "CPN-1"
+      ],
+      "retrieved_sections": [
+        "CPN-1",
+        "CPN-2",
+        "IDV-2",
+        "IDV-3",
+        "STY-1"
+      ],
+      "gold_evidence_found": [
+        "CPN-1"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I’m sorry, but ZentroMart’s policy allows only **one coupon per order**. Coupons can’t be combined or added after the order is placed. If you have any other questions, let me know!",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC013",
+      "turn": "5",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "TRK-1"
+      ],
+      "retrieved_sections": [
+        "CPN-1",
+        "DEL-4",
+        "IDV-2",
+        "IDV-3",
+        "TRK-1"
+      ],
+      "gold_evidence_found": [
+        "TRK-1"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Your order (86152121) was shipped on **2026‑10‑09**.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC014",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC014",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "10048947"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "10048947",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "10048947"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "10048947",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 10048947, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC014",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "10048947",
+            "verification_value": "9260"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "10048947",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "10048947",
+              "verification_value": "9260"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "10048947",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC014",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "CPN-1"
+      ],
+      "retrieved_sections": [
+        "CPN-1",
+        "CPN-2",
+        "IDV-2",
+        "IDV-3",
+        "STY-1"
+      ],
+      "gold_evidence_found": [
+        "CPN-1"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I’m sorry, but ZentroMart’s policy allows only **one coupon per order**. Coupons can’t be combined or added after the order is placed. If you have any other questions, feel free to let me know!",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC014",
+      "turn": "5",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "TRK-1"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "CPN-1",
+        "IDV-2",
+        "IDV-3",
+        "TRK-1"
+      ],
+      "gold_evidence_found": [
+        "TRK-1"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Your order (10048947) was shipped on **2026‑10‑08**.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC015",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC015",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "84889113"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "84889113",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "84889113"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "84889113",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 84889113, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC015",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "84889113",
+            "verification_value": "6543"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "84889113",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "84889113",
+              "verification_value": "6543"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "84889113",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC015",
+      "turn": "4",
+      "expected_decision": "refuse",
+      "actual_decision": "refuse",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "DEL-4",
+        "ESC-4"
+      ],
+      "retrieved_sections": [
+        "DEL-1",
+        "DEL-4",
+        "ESC-4",
+        "PAY-3",
+        "PLS-2"
+      ],
+      "gold_evidence_found": [
+        "DEL-4",
+        "ESC-4"
+      ],
+      "gold_evidence_count": 2,
+      "gold_evidence_found_count": 2,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I’m sorry your delivery was late. The current policy does not provide compensation for late Standard deliveries, and it does not allow extra vouchers. I haven’t added or promised a voucher.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC016",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC016",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "31171629"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "31171629",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "31171629"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "31171629",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 31171629, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC016",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "31171629",
+            "verification_value": "2987"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "31171629",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "31171629",
+              "verification_value": "2987"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "31171629",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC016",
+      "turn": "4",
+      "expected_decision": "refuse",
+      "actual_decision": "refuse",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "DEL-4",
+        "ESC-4"
+      ],
+      "retrieved_sections": [
+        "DEL-1",
+        "DEL-4",
+        "ESC-4",
+        "PAY-3",
+        "PLS-2"
+      ],
+      "gold_evidence_found": [
+        "DEL-4",
+        "ESC-4"
+      ],
+      "gold_evidence_count": 2,
+      "gold_evidence_found_count": 2,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "I’m sorry your delivery was late. The current policy does not provide compensation for late Standard deliveries, and it does not allow extra vouchers. I haven’t added or promised a voucher.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC017",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC017",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "35061733"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "35061733",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "35061733"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "35061733",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 35061733, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC017",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "35061733",
+            "verification_value": "2743"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "35061733",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "35061733",
+              "verification_value": "2743"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "35061733",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC017",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "CAN-1"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "CAN-2",
+        "IDV-2",
+        "IDV-3",
+        "STY-1"
+      ],
+      "gold_evidence_found": [
+        "CAN-1"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "नमस्ते! आपका ऑर्डर (ID 35061733) अभी शिप नहीं हुआ है, इसलिए आप इसे मुफ़्त में रद्द कर सकते हैं।  \nकृपया ऐप में **My Orders** पर जाएँ, उस ऑर्डर को चुनें और “Cancel Order” पर टैप करें। रद्दीकरण के बाद रिफ़ंड तुरंत शुरू हो जाएगा।  \n\nअगर आपको किसी भी सहायता की ज़रूरत हो, तो बताइए!",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC018",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC018",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "26403404"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "26403404",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "26403404"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "26403404",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 26403404, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC018",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "26403404",
+            "verification_value": "4255"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "26403404",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "26403404",
+              "verification_value": "4255"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "26403404",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC018",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "CAN-1"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "CAN-2",
+        "IDV-2",
+        "IDV-3",
+        "STY-1"
+      ],
+      "gold_evidence_found": [
+        "CAN-1"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Sure! Your order **26403404** is still in the “packed” stage, so it hasn’t shipped yet.  \nYou can cancel it for free by following these steps in the ZentroMart app:\n\n1. Open the **My Orders** section.  \n2. Find order 26403404.  \n3. Tap **Cancel Order** and confirm.\n\nOnce you cancel, the refund will be initiated immediately. If you need any help with the app, just let me know!",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC019",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC019",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "15911102"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "15911102",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "15911102"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "15911102",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 15911102, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC019",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "15911102",
+            "verification_value": "440010"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "15911102",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "15911102",
+              "verification_value": "440010"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "15911102",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC019",
+      "turn": "4",
+      "expected_decision": "refuse",
+      "actual_decision": "refuse",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "CAN-2",
+        "REF-1"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "CAN-2",
+        "DEL-1",
+        "DEL-4",
+        "REF-1"
+      ],
+      "gold_evidence_found": [
+        "CAN-2",
+        "REF-1"
+      ],
+      "gold_evidence_count": 2,
+      "gold_evidence_found_count": 2,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "This order has already shipped, so it can’t be cancelled. You can refuse the parcel at the door. For a prepaid order, the refund is processed once the parcel reaches the warehouse, usually 7–10 calendar days after the last delivery attempt. Or accept the delivery and request a return if the item category is eligible.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC020",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC020",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "43165903"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "43165903",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "43165903"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "43165903",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 43165903, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC020",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "43165903",
+            "verification_value": "700091"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "43165903",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "43165903",
+              "verification_value": "700091"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "43165903",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC020",
+      "turn": "4",
+      "expected_decision": "refuse",
+      "actual_decision": "refuse",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "CAN-2",
+        "REF-1"
+      ],
+      "retrieved_sections": [
+        "CAN-1",
+        "CAN-2",
+        "DEL-1",
+        "DEL-4",
+        "REF-1"
+      ],
+      "gold_evidence_found": [
+        "CAN-2",
+        "REF-1"
+      ],
+      "gold_evidence_count": 2,
+      "gold_evidence_found_count": 2,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "This order has already shipped, so it can’t be cancelled. You can refuse the parcel at the door. For a prepaid order, the refund is processed once the parcel reaches the warehouse, usually 7–10 calendar days after the last delivery attempt. Or accept the delivery and request a return if the item category is eligible.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC021",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC021",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "77461439"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "77461439",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "77461439"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "77461439",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 77461439, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC021",
+      "turn": "3",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "77461439",
+            "verification_value": "1266"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "77461439",
+          "verification_provided": true,
+          "verified": false,
+          "found": false
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "77461439",
+              "verification_value": "1266"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "77461439",
+            "verification_provided": true,
+            "verified": false,
+            "found": false
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-3"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I couldn’t verify those details. Please try again once more with the registered phone’s last four digits or the delivery pincode.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC021",
+      "turn": "4",
+      "expected_decision": "refuse",
+      "actual_decision": "refuse",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "77461439",
+            "verification_value": "1266"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "77461439",
+          "verification_provided": true,
+          "verified": false,
+          "found": false
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "77461439",
+              "verification_value": "1266"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "77461439",
+            "verification_provided": true,
+            "verified": false,
+            "found": false
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-3"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I still couldn’t verify the caller, so I can’t share order details. Please check the details and contact support again if needed.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC022",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC022",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "56646891"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "56646891",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "56646891"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "56646891",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 56646891, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC022",
+      "turn": "3",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "56646891",
+            "verification_value": "3357"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "56646891",
+          "verification_provided": true,
+          "verified": false,
+          "found": false
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "56646891",
+              "verification_value": "3357"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "56646891",
+            "verification_provided": true,
+            "verified": false,
+            "found": false
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-3"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I couldn’t verify those details. Please try again once more with the registered phone’s last four digits or the delivery pincode.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC022",
+      "turn": "4",
+      "expected_decision": "refuse",
+      "actual_decision": "refuse",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "56646891",
+            "verification_value": "3357"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "56646891",
+          "verification_provided": true,
+          "verified": false,
+          "found": false
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "56646891",
+              "verification_value": "3357"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "56646891",
+            "verification_provided": true,
+            "verified": false,
+            "found": false
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-3"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I still couldn’t verify the caller, so I can’t share order details. Please check the details and contact support again if needed.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC023",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC023",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "22354022"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "22354022",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "22354022"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "22354022",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 22354022, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC023",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "22354022",
+            "verification_value": "9967"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "22354022",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "22354022",
+              "verification_value": "9967"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "22354022",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC023",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "DEL-4"
+      ],
+      "retrieved_sections": [
+        "DEL-4",
+        "IDV-2",
+        "IDV-3",
+        "RET-6",
+        "STY-1"
+      ],
+      "gold_evidence_found": [
+        "DEL-4"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant.  \nYour express fee of ₹79 was credited to your ZentroMart Wallet on **2026‑09‑18** because the delivery arrived after the promised date. No additional compensation is available for late express deliveries. If you have any other questions, feel free to ask!",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC024",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC024",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "58634590"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "58634590",
+          "verification_provided": false,
+          "found": null,
+          "verification_required": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "58634590"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "58634590",
+            "verification_provided": false,
+            "found": null,
+            "verification_required": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 0,
+      "gold_evidence_recall": 0.0,
+      "evidence_applicable": false,
+      "evidence_ok": true,
+      "response": "I can look into order 58634590, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC024",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [
+        {
+          "name": "lookup_order",
+          "args": {
+            "order_id": "58634590",
+            "verification_value": "8781"
+          }
+        }
+      ],
+      "actual_tool_calls": [
+        {
+          "name": "lookup_order",
+          "order_id": "58634590",
+          "verification_provided": true,
+          "verified": true,
+          "found": true
+        }
+      ],
+      "tool_call_checks": [
+        {
+          "expected": {
+            "name": "lookup_order",
+            "args": {
+              "order_id": "58634590",
+              "verification_value": "8781"
+            }
+          },
+          "matched": true,
+          "trace": {
+            "name": "lookup_order",
+            "order_id": "58634590",
+            "verification_provided": true,
+            "verified": true,
+            "found": true
+          }
+        }
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC024",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_calls": [],
+      "actual_tool_calls": [],
+      "tool_call_checks": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "DEL-4"
+      ],
+      "retrieved_sections": [
+        "DEL-4",
+        "IDV-2",
+        "IDV-3",
+        "RET-6",
+        "STY-1"
+      ],
+      "gold_evidence_found": [
+        "DEL-4"
+      ],
+      "gold_evidence_count": 1,
+      "gold_evidence_found_count": 1,
+      "gold_evidence_recall": 1.0,
+      "evidence_applicable": true,
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant.\n\nYour order (58634590) was an Express delivery that arrived on 2026‑09‑28, two days after the promised date of 2026‑09‑26. According to our policy, the ₹79 express fee is automatically credited to your ZentroMart Wallet within 48 hours of a late Express delivery.  \n\nThe credit was posted on 2026‑09‑29, so it should already be visible in your wallet. If you don’t see it within the next couple of days, let me know and I’ll check further.  \n\nThank you for your patience!",
+      "passed": true
+    }
+  ]
+}

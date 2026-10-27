@@ -6,7 +6,7 @@ The repository `https://github.com/aayush-as69/voiceops-zentromart` was checked 
 
 1. Download and extract `voiceops-zentromart-submission.zip` to a new folder.
 2. Open PowerShell in the extracted project root (the folder containing `app.py` and `README.md`).
-3. Make sure you have not copied `.env`, the extracted `dataset/`, `.venv/`, or local audio recordings into the folder.
+3. Make sure `.env`, the extracted `dataset/`, `.venv/`, personal audio, generated audio, and runtime outputs are excluded. Keep the five reviewed synthetic WAV fixtures and `sample_audio/transcripts.txt`, which are intentional project test assets.
 4. Run:
 
 ```powershell
@@ -19,7 +19,7 @@ git remote add origin https://github.com/aayush-as69/voiceops-zentromart.git
 git push -u origin main
 ```
 
-Read the staged-file list before committing. `.gitignore` should exclude local keys, environment folders, the supplied course dataset, runtime output, generated indexes, logs, and audio.
+Read the staged-file list before committing. `.gitignore` should exclude local keys, environment folders, the supplied course dataset, runtime output, generated indexes, logs, and extra local audio while allowing only the five reviewed synthetic WAV fixtures and `sample_audio/transcripts.txt`.
 
 If Git requests authentication, use Git Credential Manager or GitHub's browser sign-in. Do not put a personal access token in a remote URL or source file.
 

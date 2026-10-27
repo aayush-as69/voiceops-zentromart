@@ -9,3 +9,4 @@ python-dotenv>=1.0,<2.0
 pytest>=8.0,<9.0
 # Official Gnani.ai speech SDK; speech is never routed to another provider.
 gnani-vachana>=0.8.1,<0.9.0
+httpx2==2.16.0

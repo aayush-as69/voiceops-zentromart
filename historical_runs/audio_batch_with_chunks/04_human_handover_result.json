@@ -1,0 +1,112 @@
+{
+  "input_filename": "04_human_handover.wav",
+  "transcription": "i am not satisfied with this resolution please connect me to a human support agent",
+  "response_text": "Hello, I’m ZentroMart’s AI support assistant. I’ve created a support ticket (TKT6d6cda98040b4d2fb6cc1f2ea467cbd1) for a human support colleague to review your request. I can’t promise a specific outcome.",
+  "retrieved_sources": [
+    {
+      "source": "agent_escalation_handoff.md",
+      "section_id": "ESC-1",
+      "title": "Escalation and human handover",
+      "doc_type": "agent_guide",
+      "effective_from": "2026-07-01",
+      "score": 1.166229,
+      "text": "## [ESC-1] When to hand over to a human\nHand over at once when any of these is true:\n\n1. **Damaged, defective or wrong item worth more than ₹10,000.**\n2. **Customer reports an order, payment or account activity they did not make.**\n3. **Customer mentions legal action, a consumer court or a police complaint.**\n4. **Third or later contact about the same issue within 7 days.**\n5. **Refund more than 3 business days past its maximum timeline.**\n6. **Customer asks for a human agent.**\n7. **Product safety risk such as a swelling battery, burning smell, sparks or injury.**\n\nFor the repeat-contact rule, use the `contacts_last_7_days` field returned by order lookup. It counts earlier contacts only, not the current one. Escalate when it is 2 or more."
+    },
+    {
+      "source": "faq_general.md",
+      "section_id": "FAQ-4",
+      "title": "Frequently asked questions",
+      "doc_type": "faq",
+      "effective_from": "2025-11-01",
+      "score": 0.286876,
+      "text": "## [FAQ-4] Can I talk to a person?\nYes. Ask the assistant to connect you to a human colleague."
+    },
+    {
+      "source": "pol_damaged_wrong_missing.md",
+      "section_id": "DWM-3",
+      "title": "Damaged, wrong or missing items policy",
+      "doc_type": "policy",
+      "effective_from": "2026-05-01",
+      "score": 0.264539,
+      "text": "## [DWM-3] High-value items\nClaims for items worth more than ₹10,000 are handled by the Priority Resolution team. The support agent must create a ticket and hand over; the agent cannot approve these claims."
+    },
+    {
+      "source": "agent_escalation_handoff.md",
+      "section_id": "ESC-2",
+      "title": "Escalation and human handover",
+      "doc_type": "agent_guide",
+      "effective_from": "2026-07-01",
+      "score": 0.227812,
+      "text": "## [ESC-2] What to do first\nCreate a ticket with `create_ticket` before handing over. Tell the customer a human colleague will contact them, and never promise an outcome, amount or time beyond what a policy states."
+    },
+    {
+      "source": "pol_damaged_wrong_missing.md",
+      "section_id": "DWM-5",
+      "title": "Damaged, wrong or missing items policy",
+      "doc_type": "policy",
+      "effective_from": "2026-05-01",
+      "score": 0.211534,
+      "text": "## [DWM-5] Safety issues\nIf a product shows a safety risk, such as a swelling battery, burning smell, sparks or heat, the customer must stop using it immediately. The agent must hand over to a human at once."
+    },
+    {
+      "source": "00_about_this_knowledge_base.md",
+      "section_id": "KB-00.4",
+      "title": "About this knowledge base",
+      "doc_type": "meta",
+      "effective_from": "2026-08-01",
+      "score": 0.118527,
+      "text": "## [KB-00.4] Document list\nSee the file names in this folder. Policy documents start with `pol_`, agent guides with `agent_`, help articles with `help_`, FAQs with `faq_`, and marketing pages with `mkt_`."
+    },
+    {
+      "source": "agent_conversation_style.md",
+      "section_id": "INTRO",
+      "title": "Conversation style",
+      "doc_type": "agent_guide",
+      "effective_from": "2026-07-01",
+      "score": 0.108659,
+      "text": "# Conversation style\n\nCustomers reach ZentroMart support by chat, email, support ticket and voice message. These rules apply on every channel."
+    },
+    {
+      "source": "agent_identity_verification.md",
+      "section_id": "IDV-4",
+      "title": "Verifying the customer",
+      "doc_type": "agent_guide",
+      "effective_from": "2026-07-01",
+      "score": 0.085939,
+      "text": "## [IDV-4] Never read out\nNever read out the full phone number, email or street address, even to a verified customer."
+    },
+    {
+      "source": "help_reverse_pickup.md",
+      "section_id": "RVP-2",
+      "title": "Reverse pickup: how it works",
+      "doc_type": "help",
+      "effective_from": "2026-08-01",
+      "score": 0.080096,
+      "text": "## [RVP-2] Missed pickup\nIf the executive does not arrive, the pickup is rescheduled automatically to the next business day. After two missed pickups, the customer can ask support to raise a priority pickup."
+    },
+    {
+      "source": "pol_payments_cod.md",
+      "section_id": "PAY-4",
+      "title": "Payments and cash on delivery",
+      "doc_type": "policy",
+      "effective_from": "2026-04-01",
+      "score": 0.076796,
+      "text": "## [PAY-4] ZentroMart Wallet\nZentroMart Wallet balance can be used on any order and never expires. It cannot be transferred to a bank account. For cash-on-delivery refunds, the customer chooses Wallet or bank transfer before the refund is made (REF-3); once refunded to the Wallet, it stays there."
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "create_ticket",
+      "created": true,
+      "ticket_id": "TKT6d6cda98040b4d2fb6cc1f2ea467cbd1",
+      "reason": "customer_requested_human"
+    }
+  ],
+  "output_audio_filename": "04_human_handover_e5628841_reply.wav",
+  "status": "success",
+  "error": null,
+  "agent_ok": true,
+  "agent_error": null,
+  "decision": "escalate",
+  "result_json_filename": "04_human_handover_result.json"
+}

@@ -177,3 +177,581 @@ def test_nonexistent_ticket_lookup_does_not_create_ticket_or_call_llm(tmp_path):
     assert result.tool_calls == [{"name": "lookup_ticket", "ticket_id": ticket_id, "found": False}]
     assert not any(call[0] == "create_ticket" for call in tools.calls)
     assert not agent.llm.calls
+
+def test_repeat_contact_escalates_only_after_explicit_third_contact(tmp_path):
+    class RepeatContactTools(FakeTools):
+        def lookup_order(self, order_id, verification_value=None):
+            result = super().lookup_order(order_id, verification_value)
+            if result.get("verified") and result.get("found"):
+                result["contacts_last_7_days"] = 2
+            return result
+
+    tools = RepeatContactTools()
+    agent = make_agent(tmp_path, tools=tools)
+    sid = "repeat-contact-regression"
+
+    first = agent.respond(
+        "I need help with order 12345678", session_id=sid
+    )
+    assert first.decision == "clarify"
+
+    verification = agent.respond(
+        "Last four digits are 4533", session_id=sid
+    )
+    assert verification.decision != "escalate"
+    assert not any(call[0] == "create_ticket" for call in tools.calls)
+
+    repeated = agent.respond(
+        "This is my third call about this issue this week", session_id=sid
+    )
+    assert repeated.decision == "escalate"
+    assert any(call[0] == "create_ticket" for call in tools.calls)
+
+def test_agent_handover_retrieves_required_evidence_sections(tmp_path):
+    from src.document_loader import load_documents
+
+    settings = Settings.from_env()
+    real_retriever = Retriever(load_documents(settings.dataset_dir))
+    tools = FakeTools()
+    agent = make_agent(tmp_path, tools=tools, retriever=real_retriever)
+
+    result = agent.respond(
+        "I want to speak to a human",
+        session_id="handover-evidence-regression",
+    )
+
+    sections = {str(item.get("section_id", "")).upper() for item in result.sources}
+    assert result.decision == "escalate"
+    assert "ESC-1" in sections
+    assert any(call[0] == "create_ticket" for call in tools.calls)
+
+
+def test_repeat_contact_handover_retrieves_escalation_summary_policy(tmp_path):
+    from src.document_loader import load_documents
+
+    settings = Settings.from_env()
+    real_retriever = Retriever(load_documents(settings.dataset_dir))
+    tools = FakeTools()
+    agent = make_agent(tmp_path, tools=tools, retriever=real_retriever)
+
+    result = agent.respond(
+        "This is my third call about the same issue this week.",
+        session_id="repeat-contact-evidence-regression",
+    )
+
+    sections = {str(item.get("section_id", "")).upper() for item in result.sources}
+    assert result.decision == "escalate"
+    assert {"ESC-1", "ESC-3"}.issubset(sections)
+    assert any(call[0] == "create_ticket" for call in tools.calls)
+
+def test_rag_focused_retrieval_keeps_context_specific_policy_sections(tmp_path):
+    from src.document_loader import load_documents
+    from src.rag_pipeline import RAGPipeline
+
+    settings = Settings.from_env()
+    pipeline = RAGPipeline(
+        Retriever(load_documents(settings.dataset_dir)),
+        FakeLLM(),
+    )
+
+    cases = [
+        {
+            "name": "festive-sale jeans return",
+            "question": "Can I return UrbanThread Slim Fit Jeans?",
+            "history": [],
+            "order": {
+                "placed_at": "2026-10-06",
+                "delivered_on": "2026-10-14",
+                "return_deadline": "2026-10-29",
+                "is_plus": False,
+                "items": [{"product_name": "UrbanThread Slim Fit Jeans"}],
+            },
+            "expected": {"RET-2", "RET-6", "RET-8"},
+        },
+        {
+            "name": "Plus-member wallet refund",
+            "question": "Aur refund kitne din mein aayega?",
+            "history": [
+                {"role": "user", "content": "Can I return my Kaafi Running Sneakers?"},
+                {"role": "assistant", "content": "Your return is eligible."},
+            ],
+            "order": {
+                "placed_at": "2026-09-30",
+                "delivered_on": "2026-10-12",
+                "is_plus": True,
+                "payment_method": "wallet",
+                "items": [{"product_name": "Kaafi Running Sneakers"}],
+            },
+            "expected": {"RET-7", "PLS-2", "REF-2"},
+        },
+        {
+            "name": "refund awaiting quality check",
+            "question": "Where is my refund?",
+            "history": [
+                {"role": "user", "content": "My return pickup is complete."},
+                {"role": "assistant", "content": "The quality check is pending."},
+            ],
+            "order": {
+                "return_status": "picked up",
+                "refund_status": "pending",
+                "return_pickup_on": "2026-10-20",
+                "is_plus": False,
+                "payment_method": "upi",
+            },
+            "expected": {"RET-7", "REF-1"},
+        },
+        {
+            "name": "return to an earlier shipment question",
+            "question": "Got it. And going back to my order, when was it shipped?",
+            "history": [
+                {"role": "user", "content": "Can I return my order?"},
+                {"role": "assistant", "content": "I can help with that."},
+            ],
+            "order": {"shipped_on": "2026-10-08"},
+            "expected": {"TRK-1"},
+        },
+    ]
+
+    for case in cases:
+        _, sources, _ = pipeline.answer(
+            case["question"],
+            history=case["history"],
+            verified_order=case["order"],
+            top_k=5,
+        )
+        found = {
+            str(source.get("section_id", "")).upper()
+            for source in sources
+        }
+        missing = case["expected"] - found
+        assert not missing, (
+            f"{case['name']}: missing {sorted(missing)}; "
+            f"retrieved {sorted(found)}"
+        )
+
+def test_upi_return_refund_followup_explains_policy_timeline(tmp_path):
+    from src.document_loader import load_documents
+
+    settings = Settings.from_env()
+    retriever = Retriever(load_documents(settings.dataset_dir))
+    agent = make_agent(tmp_path, tools=FakeTools(), retriever=retriever)
+    sid = "upi-return-refund-followup"
+
+    state = agent.conversations.get(sid)
+    state.introduced = True
+    state.verified_order = {
+        "order_id": "79363550",
+        "payment_method": "upi",
+        "is_plus": False,
+        "placed_at": "2026-10-06T19:44",
+        "delivered_on": "2026-10-14",
+        "items": [{"product_name": "UrbanThread Slim Fit Jeans"}],
+    }
+    state.history = [
+        {"role": "user", "content": "Can I return the jeans?"},
+        {"role": "assistant", "content": "The jeans are eligible for return."},
+    ]
+
+    result = agent.respond(
+        "And how long will the refund take?",
+        session_id=sid,
+    )
+
+    assert result.decision == "answer"
+    assert "2 business days" in result.response.lower()
+    assert "1–3 business days" in result.response.lower()
+    assert "quality check" in result.response.lower()
+    sections = {str(item.get("section_id", "")).upper() for item in result.sources}
+    assert {"RET-7", "REF-2"}.issubset(sections)
+
+
+def test_picked_up_return_explains_pending_quality_check(tmp_path):
+    from src.document_loader import load_documents
+
+    settings = Settings.from_env()
+    retriever = Retriever(load_documents(settings.dataset_dir))
+    agent = make_agent(tmp_path, tools=FakeTools(), retriever=retriever)
+    sid = "picked-up-return-qc-pending"
+
+    state = agent.conversations.get(sid)
+    state.introduced = True
+    state.verified_order = {
+        "order_id": "67830826",
+        "payment_method": "upi",
+        "is_plus": False,
+        "return_status": "picked_up",
+        "refund_status": "pending",
+        "return_pickup_on": "2026-10-20",
+        "return_qc_passed_on": None,
+        "return_refund_initiated_on": None,
+    }
+    state.history = [
+        {"role": "user", "content": "My return was picked up."},
+        {"role": "assistant", "content": "The return is awaiting its next step."},
+    ]
+
+    result = agent.respond(
+        "Where is my refund?",
+        session_id=sid,
+    )
+
+    assert result.decision == "answer"
+    assert "quality check" in result.response.lower()
+    assert "not been initiated yet" in result.response.lower()
+    assert "1–3 business days" in result.response.lower()
+    sections = {str(item.get("section_id", "")).upper() for item in result.sources}
+    assert {"RET-7", "REF-1"}.issubset(sections)
+
+def test_verified_tracking_returns_order_dates_without_reverification(tmp_path):
+    class TrackingTools(FakeTools):
+        def lookup_order(self, order_id, verification_value=None):
+            result = super().lookup_order(order_id, verification_value)
+            if result.get("verified") and result.get("found"):
+                result.update({
+                    "status": "shipped",
+                    "shipped_on": "2026-10-20",
+                    "promised_date": "2026-10-24",
+                })
+            return result
+
+    tools = TrackingTools(status="shipped")
+    agent = make_agent(tmp_path, tools=tools)
+    sid = "tracking-regression"
+
+    first = agent.respond(
+        "Hi, my order hasn't arrived yet. Where is it? Order 12345678",
+        session_id=sid,
+    )
+    assert first.decision == "clarify"
+
+    result = agent.respond("Last four digits are 4533", session_id=sid)
+
+    assert result.decision == "answer"
+    assert "2026-10-20" in result.response
+    assert "2026-10-24" in result.response
+    assert "last four digits" not in result.response.lower()
+    assert "pincode" not in result.response.lower()
+
+def test_rag_retries_once_when_llm_returns_empty_text(tmp_path):
+    class EmptyThenGoodLLM:
+        def __init__(self):
+            self.calls = []
+
+        def complete(self, *, system, user, temperature=0.0):
+            self.calls.append(user)
+            if len(self.calls) == 1:
+                return LLMResult(text="", model="empty-response-test")
+            return LLMResult(
+                text="You may return the item if it meets the current policy.",
+                model="retry-success-test",
+            )
+
+    agent = make_agent(tmp_path, tools=FakeTools())
+    retry_llm = EmptyThenGoodLLM()
+    agent.llm = retry_llm
+    agent.rag.llm = retry_llm
+
+    result = agent.respond(
+        "Can I return the shoes in order 12345678?",
+        session_id="empty-generation-retry",
+    )
+
+    assert result.decision == "clarify"
+    result = agent.respond(
+        "Last four digits are 4533",
+        session_id="empty-generation-retry",
+    )
+
+    assert result.decision == "answer"
+    assert "meets the current policy" in result.response
+    assert len(retry_llm.calls) == 2
+
+def test_empty_llm_return_fallback_uses_verified_order_and_ret2():
+    from src.rag_pipeline import _deterministic_return_deadline_fallback
+
+    question = "Kya main Kaafi Running Sneakers return kar sakti hoon?"
+    order = {
+        "order_id": "18599253",
+        "placed_at": "2026-09-30T21:42",
+        "delivered_on": "2026-10-12",
+        "is_plus": True,
+        "items": [{
+            "sku": "FSH-0033",
+            "title": "Kaafi Running Sneakers, White",
+            "return_category": "fashion",
+        }],
+    }
+    chunks = [{
+        "section_id": "RET-2",
+        "source": "pol_returns_v4.md",
+        "status": "current",
+        "text": (
+            "## [RET-2] Return windows by category\n"
+            "| Category | Return window | Catalog code |\n"
+            "| --- | --- | --- |\n"
+            "| Clothing, footwear and bags | 15 days | `fashion` |"
+        ),
+    }, {
+        "section_id": "PLS-2",
+        "source": "pol_plus.md",
+        "status": "current",
+        "text": "Plus members have the reverse-pickup fee waived.",
+    }]
+
+    answer = _deterministic_return_deadline_fallback(question, order, chunks)
+    assert "2026-10-27" in answer
+    assert "15 calendar days" in answer
+    assert _deterministic_return_deadline_fallback(question, order, []) == ""
+
+def test_pc012_tracking_survives_order_id_and_verification_turns(tmp_path):
+    class PC012Tools(FakeTools):
+        def lookup_order(self, order_id, verification_value=None):
+            self.calls.append(("lookup_order", order_id, bool(verification_value)))
+
+            if verification_value is None:
+                return {"verification_required": True, "order_id": order_id}
+
+            if verification_value == "0654":
+                return {
+                    "found": True,
+                    "verified": True,
+                    "order_id": order_id,
+                    "status": "shipped",
+                    "shipped_on": "2026-10-18",
+                    "promised_date": "2026-10-24",
+                    "payment_method": "wallet",
+                    "delivery_type": "standard",
+                    "total_inr": 18000,
+                    "contacts_last_7_days": 0,
+                    "items": [],
+                    "is_plus": False,
+                }
+
+            return {"verified": False, "verification_required": True}
+
+    tools = PC012Tools()
+    agent = make_agent(tmp_path, tools=tools)
+    sid = "PC012-exact-multiturn"
+
+    first = agent.respond(
+        "Hi, my order hasn't arrived yet. Where is it?",
+        session_id=sid,
+    )
+    assert first.decision == "clarify"
+
+    second = agent.respond(
+        "The order number is 7544 7568.",
+        session_id=sid,
+    )
+    assert second.decision == "clarify"
+
+    third = agent.respond(
+        "The last four digits are 0654.",
+        session_id=sid,
+    )
+
+    assert third.decision == "answer"
+    assert "2026-10-24" in third.response
+    assert "2026-10-18" in third.response
+    assert "last four digits" not in third.response.lower()
+    assert "pincode" not in third.response.lower()
+    assert any(
+        call[0] == "lookup_order"
+        and call[1] == "75447568"
+        and call[2] is True
+        for call in tools.calls
+    )
+
+def test_return_fallback_reports_existing_return_and_deadline():
+    from src.rag_pipeline import _deterministic_return_deadline_fallback
+
+    order = {
+        "order_id": "18599253",
+        "placed_at": "2026-09-30T21:42",
+        "delivered_on": "2026-10-12",
+        "is_plus": True,
+        "return_sku": "FSH-0033",
+        "return_status": "refund_initiated",
+        "return_requested_on": "2026-10-19",
+        "return_pickup_on": "2026-10-20",
+        "return_refund_initiated_on": "2026-10-20",
+        "items": [{
+            "sku": "FSH-0033",
+            "title": "Kaafi Running Sneakers, White",
+            "return_category": "fashion",
+        }],
+    }
+    chunks = [{
+        "section_id": "RET-2",
+        "source": "pol_returns_v4.md",
+        "status": "current",
+        "text": (
+            "## [RET-2] Return windows by category\n"
+            "| Category | Return window | Catalog code |\n"
+            "| --- | --- | --- |\n"
+            "| Clothing, footwear and bags | 15 days | `fashion` |"
+        ),
+    }, {
+        "section_id": "PLS-2",
+        "source": "pol_plus.md",
+        "status": "current",
+        "text": "Plus members have the reverse-pickup fee waived.",
+    }]
+
+    answer = _deterministic_return_deadline_fallback(
+        "Can I return Kaafi Running Sneakers?", order, chunks
+    )
+
+    assert "2026-10-27" in answer
+    assert "refund initiated" in answer.lower()
+    assert "2026-10-19" in answer
+    assert "2026-10-20" in answer
+
+def test_generic_hinglish_order_help_does_not_repeat_verification(tmp_path):
+    class PC003Tools(FakeTools):
+        def lookup_order(self, order_id, verification_value=None):
+            self.calls.append(("lookup_order", order_id, bool(verification_value)))
+            if verification_value is None:
+                return {"verification_required": True, "order_id": order_id}
+            if verification_value == "4265":
+                return {
+                    "found": True,
+                    "verified": True,
+                    "order_id": order_id,
+                    "status": "delivered",
+                    "payment_method": "wallet",
+                    "delivery_type": "standard",
+                    "total_inr": 4758,
+                    "contacts_last_7_days": 0,
+                    "items": [],
+                    "is_plus": True,
+                }
+            return {"verified": False, "verification_required": True}
+
+    tools = PC003Tools()
+    class IdentityRetriever(FakeRetriever):
+        def search(self, query, top_k=5):
+            if "idv-2" in query.casefold():
+                return [{
+                    "text": "IDV-2: After successful identity verification, do not ask the caller to verify again.",
+                    "source": "pol_identity_verification.md",
+                    "section_id": "IDV-2",
+                    "title": "Identity verification",
+                    "doc_type": "policy",
+                    "status": "current",
+                    "effective_from": "2026-05-01",
+                    "score": 0.95,
+                    "priority": 5,
+                }]
+            return super().search(query, top_k)
+
+    agent = make_agent(tmp_path, tools=tools, retriever=IdentityRetriever())
+    sid = "PC003-generic-help-loop"
+
+    first = agent.respond(
+        "Hello, mujhe order ke baare mein help chahiye.",
+        session_id=sid,
+    )
+    assert first.decision == "clarify"
+
+    second = agent.respond(
+        "Order number hai 1859 9253.",
+        session_id=sid,
+    )
+    assert second.decision == "clarify"
+
+    third = agent.respond(
+        "Last four digits 4265 hain.",
+        session_id=sid,
+    )
+
+    assert third.decision == "answer"
+    assert "what would you like help with" in third.response.lower()
+    assert "last four digits" not in third.response.lower()
+    assert "pincode" not in third.response.lower()
+    assert any(
+        str(source.get("section_id", "")).upper() == "IDV-2"
+        for source in third.sources
+    )
+    assert any(
+        call[0] == "lookup_order"
+        and call[1] == "18599253"
+        and call[2] is True
+        for call in tools.calls
+    )
+
+def test_plus_wallet_refund_explains_initiation_and_credit_separately(tmp_path):
+    class PlusWalletTools(FakeTools):
+        def lookup_order(self, order_id, verification_value=None):
+            result = super().lookup_order(order_id, verification_value)
+            if result.get("verified") and result.get("found"):
+                result.update({
+                    "payment_method": "wallet",
+                    "is_plus": True,
+                    "return_sku": "FSH-0033",
+                    "return_status": "refund_initiated",
+                    "return_requested_on": "2026-10-19",
+                    "return_pickup_on": "2026-10-20",
+                    "return_refund_initiated_on": "2026-10-20",
+                    "return_refund_completed_on": "",
+                })
+            return result
+
+    class PlusWalletRetriever(FakeRetriever):
+        def search(self, query, top_k=5):
+            policies = {
+                "PLS-2": (
+                    "Plus return refunds are initiated at pickup without waiting for QC.",
+                    "pol_plus_membership.md",
+                ),
+                "RET-7": (
+                    "Plus refunds are initiated at pickup; standard returns wait for QC.",
+                    "pol_returns_v4.md",
+                ),
+                "REF-2": (
+                    "ZentroMart Wallet refunds are instant, within 2 hours after initiation.",
+                    "pol_refunds.md",
+                ),
+            }
+            low = query.casefold()
+            for section, (content, source) in policies.items():
+                if section.casefold() in low:
+                    return [{
+                        "text": content,
+                        "source": source,
+                        "section_id": section,
+                        "title": section,
+                        "doc_type": "policy",
+                        "status": "current",
+                        "effective_from": "2026-06-15",
+                        "score": 0.95,
+                        "priority": 5,
+                    }]
+            return super().search(query, top_k)
+
+    tools = PlusWalletTools()
+    agent = make_agent(
+        tmp_path,
+        tools=tools,
+        retriever=PlusWalletRetriever(),
+    )
+    sid = "plus-wallet-refund-policy"
+
+    agent.respond("I need help with order 12345678", session_id=sid)
+    verified = agent.respond("Last four digits are 4533", session_id=sid)
+    assert verified.decision == "answer"
+
+    result = agent.respond(
+        "And how long until the refund arrives?",
+        session_id=sid,
+    )
+
+    assert result.decision == "answer"
+    assert "within 2 hours" in result.response.lower()
+    assert "without waiting for quality checks" in result.response.lower()
+    assert "no completion date is recorded" in result.response.lower()
+    assert "passes quality check" not in result.response.lower()
+    assert {
+        str(source.get("section_id", "")).upper()
+        for source in result.sources
+    } >= {"PLS-2", "RET-7", "REF-2"}

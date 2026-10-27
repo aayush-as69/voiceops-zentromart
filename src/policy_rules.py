@@ -111,5 +111,14 @@ def intent_for(message: str) -> str:
     if any(x in low for x in ("return", "pickup", "exchange", "वापस")): return "return"
     if DAMAGE.search(low): return "damage_or_defect"
     if "warranty" in low or "assured" in low: return "warranty"
-    if "delivery" in low or "arrived" in low or "shipped" in low: return "delivery"
+    if any(x in low for x in (
+        "delivery", "arrived", "shipped", "track", "tracking",
+        "shipment", "shipping", "order status", "delivery status",
+        "expected delivery", "when will it arrive",
+        "when will my order arrive", "where is my order",
+        "where's my order", "kab aayega", "kahan hai mera order",
+        "कहाँ है मेरा ऑर्डर", "कहां है मेरा ऑर्डर",
+        "मेरा ऑर्डर कब आएगा", "डिलीवरी स्टेटस",
+    )):
+        return "delivery"
     return "general_support"

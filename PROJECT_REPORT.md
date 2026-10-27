@@ -23,9 +23,17 @@ Ticket lookup was also added to the adapter. It reads the existing ticket CSV pa
 6. **Retrieval:** current Markdown policies, guides, help, FAQs and product catalog are indexed using TF-IDF vectors with cosine similarity and explicit metadata/authority ranking.
 7. **Ticket tracking:** ticket creation delegates to the supplied synthetic dataset tool. Ticket retrieval reads that tool's configured CSV log. Current schema contains creation metadata but not live case-state transitions.
 
-## Previously observed manual tests
+## Latest manual acceptance tests (owner-reported, Windows, 25 October 2026)
 
-In the prior local run described by the project owner, the standalone Gemini `gemini-3.5-flash-lite` test returned `GEMINI_OK`; order lookup prompted for verification; order `69520867` returned a shipped status and promised date; a return-policy response referenced the `home_kitchen` category and a 10-calendar-day window; escalation returned a ticket ID; and an uploaded audio test generated an STT transcript followed by an audible TTS response. The earlier run transcribed “ZentroMart” as “gentromart”. These are owner-reported observations from a prior run, not live integrations re-executed in this packaging workspace.
+The project owner ran the updated application locally after adding the landing page. The homepage returned HTTP 200, the CSS and JavaScript assets loaded, and `/health` returned a healthy response. Text chat answered the ZentroMart return-policy question with category windows and condition requirements; the answer contained a duplicated assistant greeting and an unnecessary human-support prompt, so response polish remains recommended.
+
+The browser-microphone workflow produced a transcript, received a Gemini response, completed Gnani TTS synthesis, and returned HTTP 200 from `/api/voice`. The browser fetched the generated WAV with HTTP 206 Partial Content. The logs also showed successful Gnani STT/TTS completion and Gemini HTTP 200 responses. The available log evidence proves audio generation and retrieval, but audible playback was not separately confirmed in the latest exchange. Two `ConnectionResetError: [WinError 10054]` callbacks occurred after voice responses and a favicon request returned 404; neither caused the shown chat/voice endpoints to fail.
+
+Order lookup prompted for an ID and returned details following successful verification. In a fresh browser session, an incorrect verification value was rejected with a retry prompt, and the owner confirmed a second incorrect attempt was also rejected without details. An earlier response in an already-used conversation repeated order facts after prior successful verification; this emphasizes why verification must be bound to the right session/order and enforced server-side rather than relying on conversational history alone.
+
+Human escalation returned a ticket ID. A subsequent query found the ticket in the saved support records and accurately explained that the record contains the creation timestamp and handover reason but no live assignment or resolution status. This confirms CSV persistence and lookup in the tested run, not actual delivery to a staffed human queue.
+
+These results are owner-reported manual observations from the target Windows machine. They are distinct from the automated/offline metrics below and do not replace a reproducible full evaluation run.
 
 ## Measured results in this build
 
@@ -39,7 +47,7 @@ In the prior local run described by the project owner, the standalone Gemini `ge
 | Questions with gold evidence, hit at least one item | 47/47 = 100% | A hit-rate metric; it does not establish answer correctness. |
 | Full baseline-vs-RAG answer score | Pending | No LLM API key was present in the packaging workspace. |
 | Multi-turn conversation score | 0/96 turns executed; pending | The evaluator wrote `pending_missing_llm_configuration`, not a fabricated score. |
-| Real browser microphone with live Gnani | Pending | Browser automation was blocked by the packaging environment's Chromium policy. Must be tested on the target Windows browser. |
+| Browser microphone with live Gnani | Manual workflow observed | Windows run showed STT transcript, Gemini response, completed Gnani TTS, `/api/voice` HTTP 200 and WAV fetch HTTP 206. Audible playback should be explicitly confirmed on the final demo run. |
 | Final demo video | Pending | No demo video has been fabricated or included. |
 
 The measured retrieval results were reproduced with `scripts/evaluate_questions.py`. The evaluation uses the supplied gold evidence IDs. Recall@5 measures retrieval, not whether the generated answer is factually correct. The full answer evaluation uses the same 52 questions for baseline and RAG but needs working LLM credentials. Conversation evaluation needs a configured LLM to run all 96 turns.
@@ -58,7 +66,7 @@ The measured retrieval results were reproduced with `scripts/evaluate_questions.
 1. On the target Windows machine, run the updated source with valid Gemini/Gnani credentials. Test Record → Stop → preview → Send Audio and verify actual Gnani transcription, the actual agent response, and audible Gnani WAV playback.
 2. Run the full 52-question baseline-versus-RAG evaluation and the 96-turn conversation evaluation. Save the resulting JSON and review failed cases.
 3. Re-run the complete test suite and dataset validator after any final change.
-4. Record a genuine demo no longer than two minutes, including browser microphone interaction. Keep the demo pending if live speech does not work.
+4. Record a genuine demo no longer than two minutes, including the landing page, return policy, order-verification fail-closed test, ticket lookup and browser microphone/audio. Keep the demo pending if the final voice playback check fails.
 5. Publish to a public repository only after excluding `.env`, dataset files, temporary test folders, vector indexes, and runtime outputs; verify public access.
 
 ## Reproduction commands (PowerShell)

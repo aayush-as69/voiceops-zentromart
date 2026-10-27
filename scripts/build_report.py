@@ -107,7 +107,7 @@ def page_one(c):
     header(c, 1)
     tag(c, 40, 694, 125, "REFERENCE DATE  |  20 OCT 2026")
     tag(c, 173, 694, 101, "OFFLINE TESTED")
-    tag(c, 282, 694, 138, "LIVE API TESTS PENDING", fill=colors.HexColor("#FFF1E6"), ink=AMBER)
+    tag(c, 282, 694, 138, "FULL EVALUATIONS PENDING", fill=colors.HexColor("#FFF1E6"), ink=AMBER)
     y = section(c, "01", "Problem and solution", 40, 665)
     y = para(c, "ZentroMart support handles repeated questions about delivery, cancellations, returns, refunds, warranty and damaged goods. This capstone implements an AI support agent that retrieves company evidence, keeps conversation context, gates protected order lookups behind caller verification, and uses the same agent for text and voice.", 40, 640, PAGE_W-80, "body")
     y -= 18
@@ -118,7 +118,7 @@ def page_one(c):
     card(c,40+cw+gap,top_y-ch,cw,ch,"Verified order support","Uses supplied lookup tool; asks for phone last four or delivery pincode; no order facts before tool verification.",ORANGE)
     second_y = top_y-ch-11
     card(c,40,second_y-ch,cw,ch,"Human handover","Uses the provided ticket tool for configured escalation rules; confirms a ticket only after `created=True`.",TEAL_DARK)
-    card(c,40+cw+gap,second_y-ch,cw,ch,"Voice interface","Browser microphone Record / Stop / preview / Send Audio, plus upload; actual audio is converted to WAV and sent through Gnani STT -> same agent -> Gnani TTS. Real-mic regression still pending.",ORANGE)
+    card(c,40+cw+gap,second_y-ch,cw,ch,"Voice interface","Browser microphone Record / Stop / preview / Send Audio, plus upload; audio is converted to WAV and sent through Gnani STT -> same agent -> Gnani TTS. Latest Windows logs show STT, TTS, API 200 and WAV fetch 206; explicitly confirm audible playback in the final demo.",ORANGE)
     y = second_y-ch-24
     y = section(c, "03", "Technology stack", 40, y)
     tags = [("Python", 54),("FastAPI", 61),("TF-IDF + cosine", 106),("OpenAI-compatible LLM", 129),("Gnani.ai STT / TTS", 116)]
@@ -129,7 +129,7 @@ def page_one(c):
     y -= 42
     c.setFillColor(NAVY); c.roundRect(40,y-80,PAGE_W-80,80,9,stroke=0,fill=1)
     c.setFillColor(ORANGE); c.setFont("Helvetica-Bold",7.3); c.drawString(54,y-18,"IMPLEMENTATION STATUS")
-    para(c,"45 automated tests pass, dataset validation passes, and retrieval finds 81/90 gold evidence IDs in the top five. Live baseline/RAG answer scoring and all 96 conversation turns remain pending without provider keys. A prior uploaded-audio STT/TTS pass was reported; browser-microphone end-to-end testing remains pending on Windows.",54,y-29,PAGE_W-108,"white_body_small")
+    para(c,"45 automated tests pass, dataset validation passes, and retrieval finds 81/90 gold evidence IDs in the top five. The latest Windows voice run produced an STT transcript, Gemini response, completed Gnani TTS, `/api/voice` HTTP 200 and WAV fetch HTTP 206. Confirm audible playback during the final demo. Live baseline/RAG scoring and all 96 conversation turns remain pending unless rerun with configured credentials.",54,y-29,PAGE_W-108,"white_body_small")
     c.showPage()
 
 def arrow(c,x1,y,x2,color=TEAL):
@@ -171,7 +171,7 @@ def page_two(c):
     call_y=second-ch-20
     c.setFillColor(NAVY); c.roundRect(40,call_y-68,PAGE_W-80,68,8,stroke=0,fill=1)
     c.setFillColor(ORANGE); c.setFont("Helvetica-Bold",7.4); c.drawString(54,call_y-18,"SPEECH INTEGRATION BOUNDARY")
-    para(c,"Official `gnani-vachana` adapters are configured for STT `en-IN` and TTS `timbre-v2.5` / `Kaveri`. Browser `MediaRecorder` output is decoded and encoded as true WAV before upload. No alternate speech provider is used. The package's changed microphone workflow still requires a real Windows-device + live-Gnani check; no credentials are available in this build workspace.",54,call_y-29,PAGE_W-108,"white_body_small")
+    para(c,"Official `gnani-vachana` adapters are configured for STT `en-IN` and TTS `timbre-v2.5` / `Kaveri`. Browser `MediaRecorder` output is decoded and encoded as true WAV before upload. No alternate speech provider is used. The owner-reported Windows run completed STT, response generation, TTS and WAV retrieval through the microphone workflow. Explicit audible-playback confirmation remains a final demo check; no live provider credentials are stored in this build workspace.",54,call_y-29,PAGE_W-108,"white_body_small")
     c.showPage()
 
 def draw_table(c, x, y_top, widths, rows, row_h=30):
@@ -211,7 +211,7 @@ def page_three(c, metrics, conv):
     recall_pct = retrieval.get("gold_evidence_recall_at_k", 0.9) * 100
     question_hits = round(retrieval.get("question_hit_rate_at_k", 1.0) * retrieval.get("questions_with_gold_evidence", 47))
     question_total = retrieval.get("questions_with_gold_evidence", 47)
-    cards=[(f"{test_passed} / {test_total}","pytest tests passed",GREEN),(f"{recall_pct:.1f}%","gold evidence Recall@5",TEAL_DARK),(f"{question_hits} / {question_total}","questions hit at least one gold item",TEAL),("0","live API calls claimed",AMBER)]
+    cards=[(f"{test_passed} / {test_total}","pytest tests passed",GREEN),(f"{recall_pct:.1f}%","gold evidence Recall@5",TEAL_DARK),(f"{question_hits} / {question_total}","questions hit at least one gold item",TEAL),("0","fabricated scores claimed",AMBER)]
     gap=10; cw=(PAGE_W-80-gap*3)/4
     for i,(value,label,accent) in enumerate(cards):
         x=40+i*(cw+gap)
@@ -234,8 +234,8 @@ def page_three(c, metrics, conv):
         ("Step 1 baseline accuracy","PENDING","Requires configured live LLM; no answer accuracy inferred from retrieval alone."),
         ("Step 2 RAG answer accuracy","PENDING","Same 52 questions and rubric await the live LLM evaluation."),
         ("Conversation evaluation",conversation_value,"Live evaluation status; answer and context checks require an LLM-configured run."),
-        ("Gnani STT / TTS","UPLOAD TURN REPORTED PASS","A prior local uploaded-audio transcript and audible reply were reported; updated microphone flow still needs a real Windows/Gnani run."),
-        ("Application / batch smoke","PASS (offline)","`/` and `/health`: HTTP 200; no-key chat: 503 as expected. No live provider was called in this packaging workspace."),
+        ("Gnani STT / TTS","WINDOWS MIC RUN OBSERVED","Latest owner-reported logs show STT/TTS complete, `/api/voice` 200 and WAV fetch 206; confirm audible playback on final demo."),
+        ("Application / batch smoke","PASS (offline + manual)","Offline smoke covered `/` and `/health`; owner logs also show live `/api/chat` and `/api/voice` 200 on Windows. Full scoring evaluations remain pending."),
     ]
     end=draw_table(c,40,y-11,[130,112,PAGE_W-80-242],rows,row_h=30)
     note_y=end-16
@@ -250,7 +250,7 @@ def page_four(c):
     y=PAGE_H-91
     y=section(c,"05","Limitations and next work",left_x,y)
     points=[
-        ("Live scores and new microphone path pending.","No provider keys were available in this packaging workspace. Run the full baseline/RAG and 96-turn evaluations, then test a real browser microphone recording through live Gnani STT/TTS on Windows. A prior uploaded-audio test was reported to work."),
+        ("Full scores and final playback confirmation pending.","The owner-reported Windows microphone run reached Gnani STT, Gemini, TTS and returned the WAV. Explicitly confirm audible playback on the final demo; run baseline/RAG and 96-turn evaluations with configured provider credentials."),
         ("Lexical retrieval, not dense embeddings.","Current retriever is sparse TF-IDF with cosine similarity and intent-aware ranking. Evaluate neural embeddings or hybrid reranking if allowed, using the same gold evidence set."),
         ("Session state is in memory.","Restarting the app loses context; use durable, access-controlled session storage and stronger identity controls before production."),
         ("Demo and public repo pending.","No fabricated `demo.mp4` was added. Record a real <=120-second demo after direct-microphone/live provider checks; publish this local project to a public repo and verify access."),
@@ -288,7 +288,7 @@ def page_four(c):
         ty-=16 if i not in (3,7) else 19
     yr-=315
     c.setFillColor(WHITE); c.setStrokeColor(LINE); c.roundRect(right_x,yr-117,right_w,108,7,stroke=1,fill=1)
-    para(c,"<b>Links / submission status</b><br/>GitHub: github.com/aayush-as69/voiceops-zentromart<br/>Verify this source is pushed and public before review.<br/>Demo MP4: pending target-browser and credentialed voice test.<br/>SDK: github.com/Gnani-AI-Mintlify/gnani-vachana",right_x+10,yr-14,right_w-20,"body_small")
+    para(c,"<b>Links / submission status</b><br/>GitHub: github.com/aayush-as69/voiceops-zentromart<br/>Verify this source is pushed and public before review.<br/>Demo MP4: pending final audible-playback check and recording.<br/>SDK: github.com/Gnani-AI-Mintlify/gnani-vachana",right_x+10,yr-14,right_w-20,"body_small")
     yr-=132
     c.setFillColor(MINT); c.roundRect(right_x,yr-64,right_w,57,7,stroke=0,fill=1)
     para(c,"<b>Batch command</b><br/>`python run.py --input-dir sample_audio --output-dir outputs` processes actual audio files; missing configuration exits clearly without mock substitutions.",right_x+10,yr-15,right_w-20,"body_small")

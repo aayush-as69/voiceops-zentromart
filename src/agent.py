@@ -9,7 +9,7 @@ from .config import Settings
 from .conversation_manager import ConversationManager, ConversationState
 from .identity_verification import extract_order_id, extract_verification_value, looks_like_order_id_only
 from .llm_client import ChatClient, LLMConfigurationError
-from .policy_rules import COMPENSATION, escalation_reason, intent_for, requests_cancellation, requires_order_lookup
+from .policy_rules import COMPENSATION, escalation_reason, intent_for, requests_cancellation, requires_order_lookup, REPEAT_CONTACT
 from .rag_pipeline import RAGPipeline
 from .retriever import Retriever
 from .ticket_service import create_handover_ticket
@@ -61,6 +61,31 @@ class SupportAgent:
         blocked = {"phone", "delivery_pincode", "pincode", "email", "address", "customer_id", "verification_value"}
         return {k: v for k, v in order.items() if k not in blocked}
 
+    @staticmethod
+    def _is_generic_order_help(message: str) -> bool:
+        low = re.sub(r"\\s+", " ", (message or "").casefold()).strip()
+
+        mentions_order = any(term in low for term in (
+            "order", "ऑर्डर", "आर्डर",
+        ))
+        asks_generic_help = any(term in low for term in (
+            "need help", "help with", "help chahiye",
+            "madad chahiye", "sahayata chahiye",
+            "ke baare mein help", "ke bare mein help",
+            "के बारे में मदद", "के बारे में सहायता",
+        ))
+        specific_issue = any(term in low for term in (
+            "refund", "money back", "रिफंड", "रिफ़ंड",
+            "return", "रिटर्न", "वापस", "cancel", "रद्द",
+            "arrived", "delivery", "delivered", "shipped",
+            "track", "tracking", "not arrived", "hasn't arrived",
+            "damage", "damaged", "broken", "defect", "warranty",
+            "invoice", "payment", "charged", "voucher", "compensation",
+            "पहुंचा", "पहुंची", "डिलीवरी", "खराब",
+        ))
+
+        return mentions_order and asks_generic_help and not specific_issue
+
     def _retrieve_sources(self, query: str) -> tuple[list[dict], list[dict]]:
         if not self.rag:
             return [], []
@@ -71,6 +96,203 @@ class SupportAgent:
         self, state: ConversationState, issue: str, current_message: str, prefix: str, trace: list[dict]
     ) -> AgentResponse | None:
         combined = f"{issue}\n{current_message}".strip()
+        # Resolve known UPI return timelines from verified order state and
+        # current policy evidence, rather than letting the model invent or omit QC.
+        order = state.verified_order or {}
+        refund_terms = ("refund", "money back", "रिफंड", "रिफ़ंड")
+        asks_refund = any(term in combined.casefold() for term in refund_terms)
+        payment = str(order.get("payment_method") or "").casefold()
+        plus = str(order.get("is_plus", "")).casefold() in {"true", "1", "yes"}
+        pickup_date = order.get("return_pickup_on")
+        qc_passed = order.get("return_qc_passed_on")
+        refund_started = (
+            order.get("return_refund_initiated_on")
+            or order.get("refund_initiated_at")
+        )
+
+        # Deterministic Plus + Wallet refund answer: pickup initiation and
+        # post-initiation wallet credit are separate policy steps.
+        if asks_refund and order and plus and "wallet" in payment and self.rag:
+            targets = [
+                (
+                    "PLS-2",
+                    "PLS-2 Plus return refunds initiated at pickup without quality check",
+                ),
+                (
+                    "RET-7",
+                    "RET-7 Plus member refund initiation at pickup without waiting for QC",
+                ),
+                (
+                    "REF-2",
+                    "REF-2 Wallet refunds instant within 2 hours after initiation",
+                ),
+            ]
+
+            focused = []
+            for section_id, query in targets:
+                try:
+                    candidates = self.rag.retrieve(query, top_k=10)
+                except Exception as exc:
+                    logger.warning(
+                        "Plus wallet refund evidence retrieval failed for %s (%s)",
+                        section_id, type(exc).__name__,
+                    )
+                    continue
+
+                hit = next(
+                    (
+                        chunk for chunk in candidates
+                        if str(chunk.get("section_id", "")).upper() == section_id
+                    ),
+                    None,
+                )
+                if hit is not None:
+                    focused.append(hit)
+
+            required_sections = {"PLS-2", "RET-7", "REF-2"}
+            found_sections = {
+                str(chunk.get("section_id", "")).upper()
+                for chunk in focused
+            }
+
+            if required_sections.issubset(found_sections):
+                initiated_on = str(refund_started or "").strip()
+                completed_on = str(
+                    order.get("return_refund_completed_on")
+                    or order.get("refund_completed_at")
+                    or ""
+                ).strip()
+                pickup_on = str(pickup_date or "").strip()
+
+                if completed_on:
+                    message = (
+                        "Under the Plus policy, return refunds are initiated at pickup "
+                        "without waiting for quality checks. Wallet refunds are credited "
+                        "instantly, within 2 hours after initiation. The order record "
+                        f"shows initiation on {initiated_on or 'an unrecorded date'} "
+                        f"and completion on {completed_on}."
+                    )
+                elif initiated_on:
+                    message = (
+                        "Under the Plus policy, return refunds are initiated at pickup "
+                        "without waiting for quality checks. Wallet refunds are credited "
+                        "instantly, within 2 hours after initiation. Your order record "
+                        f"shows that the refund was initiated on {initiated_on}, but "
+                        "no completion date is recorded, so I can't confirm that the "
+                        "wallet credit completed. If the amount is still missing, "
+                        "I can connect you with support."
+                    )
+                elif pickup_on:
+                    message = (
+                        "Your order record shows the return pickup on "
+                        f"{pickup_on}. Under the Plus policy, the refund is initiated "
+                        "at pickup without waiting for quality checks, and Wallet "
+                        "refunds are credited instantly, within 2 hours after initiation. "
+                        "I don't see a refund initiation or completion date recorded, "
+                        "so I can't confirm that the credit completed."
+                    )
+                else:
+                    message = (
+                        "For Plus members, return refunds are initiated at pickup "
+                        "without waiting for quality checks. Wallet refunds are credited "
+                        "instantly, within 2 hours after initiation. I don't see a pickup "
+                        "or refund initiation recorded for this order, so I can't confirm "
+                        "that the two-hour credit window has started."
+                    )
+
+                return AgentResponse(
+                    prefix + message,
+                    decision="answer",
+                    sources=self.rag.summarize_sources(focused),
+                    tool_calls=trace,
+                )
+
+        history_items = getattr(state, "history", []) or []
+        history_text = "\n".join(
+            str(entry.get("content", ""))
+            for entry in history_items[-10:]
+            if isinstance(entry, dict)
+        )
+        prior_return = bool(re.search(
+            r"\breturn\b|return window|वापस|लौट|रिटर्न",
+            history_text,
+            re.IGNORECASE,
+        ))
+
+        refund_mode = None
+        if asks_refund and order and "upi" in payment and not plus:
+            if pickup_date and not qc_passed and not refund_started:
+                refund_mode = "qc_pending"
+            elif not pickup_date and prior_return:
+                refund_mode = "return_timeline"
+
+        if refund_mode and self.rag:
+            targets = [
+                (
+                    "RET-7",
+                    "RET-7 returned item pickup quality check refund initiation within 2 business days",
+                ),
+                (
+                    "REF-2",
+                    "REF-2 UPI refund usually credited 1 to 3 business days after initiation",
+                ),
+            ]
+            if refund_mode == "qc_pending":
+                targets.append((
+                    "REF-1",
+                    "REF-1 returned item refund after quality check and pickup",
+                ))
+
+            focused = []
+            for section_id, query in targets:
+                try:
+                    candidates = self.rag.retrieve(query, top_k=10)
+                except Exception:
+                    continue
+                hit = next(
+                    (
+                        chunk for chunk in candidates
+                        if str(chunk.get("section_id", "")).upper() == section_id
+                    ),
+                    None,
+                )
+                if hit:
+                    focused.append(hit)
+
+            found_sections = {
+                str(chunk.get("section_id", "")).upper() for chunk in focused
+            }
+            needed_sections = (
+                {"RET-7", "REF-1"}
+                if refund_mode == "qc_pending"
+                else {"RET-7", "REF-2"}
+            )
+
+            if needed_sections.issubset(found_sections):
+                if refund_mode == "qc_pending":
+                    message = (
+                        "The return has been picked up, but the quality check (QC) "
+                        "is still pending, so the refund has not been initiated yet. "
+                        "Under the policy, the refund is initiated within 2 business "
+                        "days after the item passes QC. After initiation, a UPI refund "
+                        "usually reaches your bank within 1–3 business days."
+                    )
+                else:
+                    message = (
+                        "If you proceed with the return, the refund is initiated "
+                        "within 2 business days after pickup once the item passes the "
+                        "quality check. After initiation, UPI refunds typically reach "
+                        "your bank within 1–3 business days. I don't see a pickup or "
+                        "refund-initiation event recorded yet, so this is the policy "
+                        "timeline—not confirmation that a refund has started."
+                    )
+                return AgentResponse(
+                    prefix + message,
+                    decision="answer",
+                    sources=self.rag.summarize_sources(focused),
+                    tool_calls=trace,
+                )
+
 
         # Policy explicitly prohibits discretionary vouchers/compensation. Retrieve the current
         # delivery and escalation sections before refusing; do not invent a ticket or a credit.
@@ -90,7 +312,7 @@ class SupportAgent:
             credit = order.get("express_late_credit_inr")
             credit_on = order.get("express_late_credit_on")
             if delivery_type == "standard":
-                message = "The current policy does not provide compensation for late Standard deliveries, and it does not allow extra vouchers. I haven’t added or promised a voucher."
+                message = "I’m sorry your delivery was late. The current policy does not provide compensation for late Standard deliveries, and it does not allow extra vouchers. I haven’t added or promised a voucher."
             elif delivery_type == "express" and plus:
                 message = "The policy says ZentroMart Plus members pay no Express fee and therefore do not qualify for the late Express-fee credit. It does not authorize a separate voucher, and I haven’t added one."
             elif delivery_type == "express" and credit not in (None, "", 0, "0"):
@@ -120,7 +342,7 @@ class SupportAgent:
             if "cod" in payment or "cash on delivery" in payment:
                 message = "This order has already shipped, so it can’t be cancelled. You can refuse the parcel at the door; for cash on delivery, nothing is charged. Or accept it and request a return if the item category is eligible."
             else:
-                message = "This order has already shipped, so it can’t be cancelled. You can refuse the parcel at the door; the prepaid refund follows the policy after the parcel returns to the warehouse. Or accept it and request a return if the item category is eligible."
+                message = "This order has already shipped, so it can’t be cancelled. You can refuse the parcel at the door. For a prepaid order, the refund is processed once the parcel reaches the warehouse, usually 7–10 calendar days after the last delivery attempt. Or accept the delivery and request a return if the item category is eligible."
             return AgentResponse(prefix + message, decision="refuse", sources=sources, tool_calls=trace)
         return None
 
@@ -225,15 +447,42 @@ class SupportAgent:
                 state.pending_order_id = None
                 issue = state.pending_issue.strip()
                 state.pending_issue = ""
-                if not issue:
+                if not issue or self._is_generic_order_help(issue):
                     answer = prefix + "Thanks, I’ve verified your identity. What would you like help with on this order?"
+                    sources = []
+                    if self.rag:
+                        try:
+                            candidates = self.rag.retrieve(
+                                "IDV-2 verified caller identity confirmation after successful order verification",
+                                top_k=10,
+                            )
+                            hit = next(
+                                (
+                                    chunk for chunk in candidates
+                                    if str(chunk.get("section_id", "")).upper() == "IDV-2"
+                                ),
+                                None,
+                            )
+                            if hit is not None:
+                                sources = self.rag.summarize_sources([hit])
+                        except Exception as exc:
+                            logger.warning(
+                                "Identity evidence retrieval failed (%s)",
+                                type(exc).__name__,
+                            )
                     self.conversations.add_turn(state, "[Caller verification proof withheld]", answer)
-                    return AgentResponse(answer, decision="clarify", tool_calls=trace)
+                    decision = "answer" if issue else "clarify"
+                    return AgentResponse(
+                        answer,
+                        decision=decision,
+                        sources=sources,
+                        tool_calls=trace,
+                    )
                 result = self._answer_or_escalate(state, issue, "[Caller verification proof withheld]", prefix, trace)
                 self.conversations.add_turn(state, "[Caller verification proof withheld]", result.response)
                 return result
             if state.verification_attempts < 2:
-                answer = prefix + "I couldn’t verify those details. Please try once more with the registered phone’s last four digits or the delivery pincode."
+                answer = prefix + "I couldn’t verify those details. Please try again once more with the registered phone’s last four digits or the delivery pincode."
                 self.conversations.add_turn(state, "[Caller verification attempt; supplied value withheld]", answer)
                 return AgentResponse(answer, decision="clarify", tool_calls=trace)
             state.pending_order_id = None
@@ -252,6 +501,16 @@ class SupportAgent:
         intent = intent_for(issue if issue and issue != current_message else current_message)
         state.last_intent = intent
         reason = escalation_reason(issue + "\n" + current_message, state.verified_order, self.dataset_dir)
+
+        # Verification proof alone should not trigger count-based repeat-contact escalation.
+        # Explicit repeat-contact statements and other escalation rules still apply.
+        if (
+            reason == "repeat_contact_within_7_days"
+            and current_message == "[Caller verification proof withheld]"
+            and not REPEAT_CONTACT.search(issue)
+        ):
+            reason = None
+
         if reason:
             state.escalation_required = True
             sources: list[dict] = []
@@ -260,7 +519,79 @@ class SupportAgent:
                 try:
                     # Retrieval is independent of generation, so escalation remains evidence-auditable
                     # even when the human handover itself does not need an LLM completion.
-                    evidence_chunks = self.rag.retrieve(issue or current_message, top_k=5)
+                    reason_queries = {
+                        "high_value_damage": (
+                            "damaged high-value item over 10000 Priority Resolution "
+                            "replacement DWM-3 ESC-1 ESC-4"
+                        ),
+                        "repeat_contact_within_7_days": (
+                            "repeat contact third call within seven days ticket "
+                            "handover summary ESC-1 ESC-3"
+                        ),
+                        "customer_requested_human": (
+                            "customer requests human representative support colleague "
+                            "handover ticket ESC-1"
+                        ),
+                        "refund_past_maximum_timeline": (
+                            "overdue refund reference number RRN bank trace "
+                            "REF-2 REF-6 ESC-1"
+                        ),
+                        "product_safety_risk": (
+                            "product safety risk human handover ESC-1 ESC-4"
+                        ),
+                    }
+                    reason_query = reason_queries.get(
+                        reason, f"human support handover policy {reason} ESC-1"
+                    )
+                    evidence_query = "\n".join(
+                        part for part in (issue, current_message, reason_query) if part
+                    )
+
+                    # Keep the broad evidence, but retrieve required handover
+                    # policies individually so top-k ranking cannot bury them.
+                    evidence_chunks = self.rag.retrieve(evidence_query, top_k=10)
+
+                    target_sections = ["ESC-1"]
+                    if reason == "high_value_damage":
+                        target_sections.extend(["DWM-3", "ESC-4"])
+                    elif reason == "repeat_contact_within_7_days":
+                        target_sections.append("ESC-3")
+                    elif reason == "refund_past_maximum_timeline":
+                        target_sections.extend(["REF-2", "REF-6"])
+                    elif reason == "product_safety_risk":
+                        target_sections.append("ESC-4")
+
+                    focused_chunks = []
+                    for section_id in target_sections:
+                        focused_query = (
+                            f"{section_id} {reason_query} "
+                            f"policy evidence {section_id}"
+                        )
+                        candidates = self.rag.retrieve(focused_query, top_k=10)
+                        hit = next(
+                            (
+                                chunk for chunk in candidates
+                                if str(chunk.get("section_id", "")).upper()
+                                == section_id
+                            ),
+                            None,
+                        )
+                        if hit is not None:
+                            focused_chunks.append(hit)
+
+                    # Put explicitly targeted sections first; deduplicate by section/source.
+                    merged = []
+                    seen = set()
+                    for chunk in focused_chunks + evidence_chunks:
+                        key = (
+                            str(chunk.get("section_id", "")).upper(),
+                            str(chunk.get("source", "")),
+                        )
+                        if key not in seen:
+                            merged.append(chunk)
+                            seen.add(key)
+
+                    evidence_chunks = merged
                     sources = self.rag.summarize_sources(evidence_chunks)
                 except Exception as exc:
                     logger.warning("Escalation evidence retrieval failed (%s)", type(exc).__name__)
@@ -283,6 +614,33 @@ class SupportAgent:
                     message = f"I’ve created a support ticket ({ticket.get('ticket_id')}) for a human support colleague to review your request. I can’t promise a specific outcome."
                 elif reason == "product_safety_risk":
                     message = f"This may be a product safety issue, so I’ve created a support ticket ({ticket.get('ticket_id')}) for human review. Please stop using the product if it may be unsafe."
+                elif reason == "refund_past_maximum_timeline":
+                    order = state.verified_order or {}
+                    rrn = ""
+                    for key, value in order.items():
+                        key_lower = str(key).casefold()
+                        if value in (None, ""):
+                            continue
+                        is_reference = (
+                            "rrn" in key_lower
+                            or ("refund" in key_lower and "reference" in key_lower)
+                            or key_lower in {"reference_number", "refund_reference_no"}
+                        )
+                        if is_reference:
+                            digits = re.sub(r"\\D", "", str(value))
+                            if digits:
+                                rrn = digits
+                                break
+                    message = (
+                        f"Your refund is overdue beyond the policy timeline. "
+                        f"I’m sorry for the delay. I’ve created a support ticket "
+                        f"({ticket.get('ticket_id')}) for the team to review."
+                    )
+                    if rrn:
+                        message += (
+                            f" Your refund reference number (RRN) is {rrn}; "
+                            "your bank can use it to trace the refund."
+                        )
                 else:
                     message = f"I can’t approve that exception myself. I’ve created a support ticket ({ticket.get('ticket_id')}) for human review. A colleague can review the case; I can’t promise a particular outcome or compensation amount."
                 answer = prefix + message
@@ -293,6 +651,82 @@ class SupportAgent:
         deterministic = self._deterministic_policy_refusal(state, issue, current_message, prefix, trace)
         if deterministic is not None:
             return deterministic
+
+        # Use authoritative order data for tracking once identity has been verified.
+        verified = state.verified_order or {}
+        tracking_text = f"{issue}\\n{current_message}".casefold()
+        tracking_terms = (
+            "track", "tracking", "shipment", "shipping",
+            "order status", "delivery status", "expected delivery",
+            "when will it arrive", "when will my order arrive",
+            "where is my order", "where's my order", "where is it",
+            "hasn't arrived", "has not arrived", "not arrived",
+            "shipped on",
+            "कहाँ है मेरा ऑर्डर", "कहां है मेरा ऑर्डर",
+            "मेरा ऑर्डर कब आएगा", "डिलीवरी स्टेटस",
+        )
+
+        if verified and any(term in tracking_text for term in tracking_terms):
+            shipped_on = str(verified.get("shipped_on") or "").strip()
+            promised_date = str(
+                verified.get("promised_date")
+                or verified.get("expected_delivery_date")
+                or verified.get("expected_delivery_on")
+                or ""
+            ).strip()
+            status = str(
+                verified.get("shipment_status")
+                or verified.get("delivery_status")
+                or verified.get("order_status")
+                or verified.get("status")
+                or ""
+            ).strip().replace("_", " ").replace("-", " ")
+
+            details = []
+            if status:
+                details.append(f"the current recorded status is {status}")
+            if shipped_on:
+                details.append(f"the shipment date is {shipped_on}")
+            if promised_date:
+                details.append(f"the expected delivery date is {promised_date}")
+
+            # A status alone is insufficient for a deterministic ETA response.
+            # Use this shortcut only when the verified record contains a shipment
+            # date or promised delivery date; otherwise preserve normal RAG flow.
+            if shipped_on or promised_date:
+                tracking_sources = []
+                if self.rag:
+                    targeted_chunks = []
+                    for section_id in ("IDV-2", "TRK-1"):
+                        try:
+                            candidates = self.rag.retrieve(
+                                f"{section_id} verified identity order tracking shipment date expected delivery",
+                                top_k=10,
+                            )
+                            hit = next(
+                                (
+                                    chunk for chunk in candidates
+                                    if str(chunk.get("section_id", "")).upper() == section_id
+                                ),
+                                None,
+                            )
+                            if hit is not None:
+                                targeted_chunks.append(hit)
+                        except Exception as exc:
+                            logger.warning(
+                                "Tracking evidence retrieval failed for %s (%s)",
+                                section_id, type(exc).__name__,
+                            )
+                    if targeted_chunks:
+                        tracking_sources = self.rag.summarize_sources(targeted_chunks)
+
+                answer = prefix + "I checked your verified order record: " + "; ".join(details) + "."
+                return AgentResponse(
+                    answer,
+                    decision="answer",
+                    sources=tracking_sources,
+                    tool_calls=trace,
+                )
 
         # Order-specific intents with no ID should gather the minimum missing information first.
         if not state.verified_order and not state.pending_order_id and requires_order_lookup(current_message):

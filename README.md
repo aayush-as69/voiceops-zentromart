@@ -1,71 +1,147 @@
-# VoiceOps 2026: ZentroMart AI Voice Support Agent
+# VoiceOps — ZentroMart AI Customer Support Assistant
 
-A reproducible capstone prototype for document-grounded customer support, multi-turn order help, identity-gated lookups, human handovers, and a Gnani.ai-only speech interface. ZentroMart and all supplied records are fictional/synthetic.
+An academic capstone prototype for text- and voice-based customer support. VoiceOps combines retrieval-grounded answers, guarded order lookup, support-ticket creation/lookup, and Gnani.ai speech services for the fictional ZentroMart store. All supplied records and the five bundled audio clips are synthetic test material.
 
-> **Honest status (25 Oct 2026):** The baseline suite passed 22 tests; the updated suite passes 45 tests with the supplied dataset configured. Dataset validation passes and current retrieval evaluation measures 81/90 gold evidence items at top 5 (90% Recall@5). A prior local uploaded-audio run was reported to transcribe speech successfully and play a Gnani TTS response. This updated source adds a responsive landing page, direct browser microphone recording and read-only ticket lookup. The real-microphone flow still needs manual verification on the target Windows browser. Baseline-vs-RAG answer accuracy and the 96-turn live conversation evaluation remain pending in this packaging workspace because no LLM/Gnani keys are available here. The dataset ZIP is intentionally not included.
+> **Verification status (26 October 2026):** The current package-only offline test run completed with **45 passed, 2 skipped, 0 failed**. The two skips require the separately supplied challenge dataset. A retained dataset-configured run recorded successful dataset validation and retrieval Recall@5 of 90% (81/90 gold-evidence identifiers). These results came from separate runs. Live baseline-vs-RAG answer scoring and the 96-turn conversation evaluation remain pending unless rerun with valid local API credentials. The five bundled WAV files are structurally valid audio files, but live Gnani transcription has not been run in this packaging environment. Final microphone-to-audible-playback verification on the target Windows browser remains a manual check.
+
+## Contents
+
+- [Overview and objectives](#overview-and-objectives)
+- [Features](#features)
+- [Architecture](#architecture)
+- [Repository structure](#repository-structure)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Dataset and environment configuration](#dataset-and-environment-configuration)
+- [Run the web application](#run-the-web-application)
+- [Run batch audio processing](#run-batch-audio-processing)
+- [Included sample audio](#included-sample-audio)
+- [Outputs](#outputs)
+- [Testing and evaluation](#testing-and-evaluation)
+- [Security, limitations, and future work](#security-limitations-and-future-work)
+
+## Overview and objectives
+
+Conventional support workflows repeatedly handle questions about delivery delays, return rules, order status, refunds, and escalation. The project demonstrates how a shared customer-support agent can respond to those questions through text or audio, retrieve relevant policy evidence, and call the supplied order/ticket tools when appropriate.
+
+The capstone objectives are to:
+
+- answer in-scope questions using retrieved evidence where available;
+- keep relevant multi-turn context within a session;
+- require order verification before protected order details are returned;
+- create and look up synthetic support-ticket records where supported by the supplied tools;
+- accept voice recordings through the browser or batch interface and process them using speech-to-text and text-to-speech providers; and
+- provide tests and evaluation scripts that distinguish retrieval metrics from generated-answer correctness.
+
+ZentroMart is fictional. The sample audio and course-provided records are intended for software testing, not real customer support.
 
 ## Features
 
-- Public-facing responsive ZentroMart landing page with clear **Start voice support** and **Chat with support** calls to action; the existing support workspace is opened only after a user chooses a path.
-- Basic LLM response mode and an evidence-grounded RAG pipeline.
-- Markdown ingestion preserving source filename, document ID/type, status, effective date, section ID, version, and chunk index. Superseded policy documents are excluded from answer authority.
-- Persistent TF-IDF sparse-vector retrieval (`scikit-learn`, cosine similarity), including structured product-catalog records keyed by SKU. This build uses lexical vectors rather than a neural dense-embedding model; retrieval metrics are reported explicitly below.
-- Policy/source precedence: current policies, agent guides, help articles, FAQs, marketing. Current policy sections receive explicit ranking priority.
-- Evidence/source metadata returned with responses and written into evaluation/batch output records.
-- Stateful sessions with order ID and issue context; unverified order details remain gated by the supplied `lookup_order` tool.
-- Deterministic ticket creation through the supplied `create_ticket` tool; the customer is told a ticket exists only after the tool returns `created=True`. Read-only ticket lookup searches the actual CSV file configured by the supplied tool; no live status is invented.
-- Gnani.ai STT and TTS adapters (`en-IN`, `timbre-v2.5`, `Kaveri` defaults) with no alternate speech provider.
-- FastAPI chat and audio interface with browser microphone recording (`MediaRecorder`), WAV conversion, preview, Send Audio, retained upload option, transcription and generated-audio playback; backend file/type/signature/size validation.
-- Reproducible question/conversation evaluations and pytest unit tests.
-- Required batch command: `python run.py --input-dir sample_audio --output-dir outputs`.
+- Responsive landing page with separate **Start Voice Support** and **Chat with Support** paths.
+- FastAPI web endpoints for text chat, audio, health checks, and session reset.
+- Browser microphone recording controls with preview and WAV conversion, plus file upload.
+- Batch processing of WAV, MP3, FLAC, M4A, and OGG inputs through `run.py`.
+- Gnani.ai STT and TTS adapters; the configured workflow does not silently switch to another speech provider.
+- Gemini-compatible LLM access configured using the OpenAI-compatible chat-completions interface.
+- TF-IDF/cosine-similarity retrieval over the capstone knowledge base, with source/section metadata and policy precedence.
+- Order lookup gated by registered-phone suffix or delivery-pincode verification using the supplied tools.
+- Support-ticket creation and read-only lookup against the saved ticket log. Saved tickets do not contain live assignment or resolution updates.
+- Automated tests, dataset validation and evaluation scripts.
+
+Features requiring credentials or the challenge dataset cannot operate fully until those dependencies are configured. Passing mocked/offline tests is not evidence of a successful live API call.
 
 ## Architecture
 
-```text
-Customer text / uploaded audio
-          |
-          +-- Text ---------------------------+
-          |                                   |
-          +-- Audio -> Gnani STT (en-IN) -----+
-                                              v
-                                    Conversation manager
-                                              |
-                                   Deterministic routing
-                                /             |             \
-                         Order lookup     RAG retrieval    Ticket tool
-                         + verification   + source policy  + handover
-                                \             |             /
-                                              v
-                                      LLM generation
-                                              |
-                                     Response + evidence
-                                              |
-                                 +------------+-----------+
-                                 |                        |
-                              Chat UI          Gnani TTS (wav)
+```mermaid
+flowchart TD
+    C[Customer] --> UI[Landing page / chat / audio input]
+    UI -->|Text| API[FastAPI application]
+    UI -->|Recording or upload| STT[Gnani speech-to-text]
+    STT --> Agent[Conversation manager and support agent]
+    API --> Agent
+    Agent --> Route[Policy and tool routing]
+    Route --> RAG[TF-IDF retrieval and source metadata]
+    Route --> Orders[Supplied order and ticket tools]
+    RAG --> LLM[LLM response generation]
+    Orders --> LLM
+    LLM --> Reply[Response text and evidence]
+    Reply --> TTS[Gnani text-to-speech for voice turns]
+    Reply --> UI
+    TTS --> WAV[Generated WAV output]
 ```
 
-### Important implementation boundaries
+The retrieval layer uses lexical TF-IDF vectors and cosine similarity, not a neural dense-embedding model. The browser interface uses `MediaRecorder` and converts the captured browser audio to mono 16-bit PCM WAV before submitting it to the backend. The backend processes audio as **Gnani STT → the same support agent → Gnani TTS**.
 
-- The app uses the real supplied mock tools and data; it does not create substitute customer records.
-- Order identifiers and verification values stay strings. A caller must provide either the registered phone's last four digits or the delivery pincode. There is one retry after a failed proof; the application never reads the expected proof aloud or passes contact fields to the LLM.
-- The source dataset README defines 20 October 2026 as the fixed reference date, business days as Monday-Saturday excluding `holidays.csv`, and return windows as calendar days.
-- The app does not answer with ungrounded company policy when retrieval gives no evidence. Missing LLM/speech credentials cause an explicit error, not a prerecorded or simulated answer.
-- Conversation state is in memory, per session. This is a capstone prototype, not production authentication or durable conversation storage.
+## Repository structure
 
-## Prerequisites
+```text
+voiceops-zentromart-submission/
+├── app.py                       # FastAPI web application
+├── run.py                       # Required batch audio runner
+├── requirements.txt             # Python dependencies
+├── .env.example                 # Safe environment-variable template
+├── README.md
+├── report.pdf                   # Four-page capstone engineering report
+├── src/                          # Agent, retrieval, policy, tools and voice adapters
+├── static/                       # Browser JavaScript and CSS
+├── templates/                    # Landing page and support interface
+├── scripts/                      # Index, evaluation and report scripts
+├── tests/                        # Automated unit/integration tests
+├── docs/                         # Demo recording guide
+├── sample_audio/                 # Five supplied synthetic WAV fixtures + transcripts
+├── sample_outputs/               # Retained evaluation snapshots and explanations
+├── storage/                      # Local vector index location (generated, ignored)
+└── outputs/                      # Runtime result JSON and generated audio (ignored)
+```
 
-- Python 3.12 recommended for the local Windows demo (the checked local run used Python 3.12).
-- Git.
-- A Gemini API key from Google AI Studio (the `.env.example` configures Gemini through its OpenAI-compatible endpoint; a different compatible provider can be configured if required).
-- A Gnani.ai API key for live STT/TTS (create it at the portal linked by the capstone brief). Official SDK: https://github.com/Gnani-AI-Mintlify/gnani-vachana
-- The original challenge dataset ZIP provided separately by VoiceOps 2026.
+The course dataset and local `.env` are intentionally not bundled. The source ZIP includes only synthetic sample audio fixtures, not private customer recordings.
 
-## Dataset setup
+## Requirements
 
-The challenge ZIP is **not included** here. Obtain `Capstone_Project_Dataset_FTTT_2026.zip` from the course, extract it outside version control, and confirm the extracted directory contains `README.md`, `DATA_DICTIONARY.md`, `kb/`, `data/`, `practice/`, and `tools/tools.py`.
+- Python 3.12 is recommended for the Windows demo; the current offline packaging checks were run in a Python 3.13.5 environment.
+- pip and a virtual environment.
+- The VoiceOps 2026 challenge dataset ZIP, obtained from the course, extracted outside version control.
+- A Gemini-compatible LLM API key for live response generation.
+- A Gnani.ai API key for live STT/TTS processing.
+- Network access to the configured external services for live runs.
 
-Example (PowerShell):
+The declared dependencies are in `requirements.txt`, including FastAPI/Uvicorn, the OpenAI-compatible client, scikit-learn, pandas, joblib, python-dotenv, pytest, and the Gnani speech SDK.
+
+## Setup
+
+### Windows PowerShell
+
+From the extracted project root (the directory containing `run.py` and `app.py`):
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+Copy-Item .env.example .env
+```
+
+If PowerShell blocks virtual-environment activation, call the interpreter directly instead:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+### macOS/Linux
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+cp .env.example .env
+```
+
+## Dataset and environment configuration
+
+Obtain `Capstone_Project_Dataset_FTTT_2026.zip` from the course and extract it locally. The configured dataset directory must directly contain `kb/`, `data/`, `practice/`, and `tools/tools.py`.
+
+Example PowerShell commands, assuming the dataset ZIP is in the project root:
 
 ```powershell
 Expand-Archive .\Capstone_Project_Dataset_FTTT_2026.zip -DestinationPath .\dataset
@@ -73,175 +149,136 @@ $env:DATASET_DIR = (Resolve-Path .\dataset\Capstone_Project_Dataset_FTTT_2026).P
 python $env:DATASET_DIR\validate_dataset.py
 ```
 
-If the ZIP was extracted one folder level differently, set `DATASET_DIR` to the directory that directly contains `kb`, `data`, `practice`, and `tools`. Never commit extracted data or `.env` credentials unless the challenge organizers explicitly permit it.
+Configure `.env` locally using `.env.example` as the starting point. Relevant variables used by `src/config.py` are:
 
-## Installation and configuration
+| Variable | Purpose | Required for |
+|---|---|---|
+| `LLM_API_KEY` | Key for the configured OpenAI-compatible LLM endpoint | Live AI responses and LLM-based evaluations |
+| `LLM_MODEL` | Model identifier; `.env.example` sets the Gemini-compatible model | LLM calls |
+| `LLM_BASE_URL` | Optional OpenAI-compatible endpoint base URL | Provider-specific endpoint configuration |
+| `GNANI_API_KEY` | Gnani speech service credential | Live STT and TTS |
+| `GNANI_STT_LANGUAGE` | STT language (example: `en-IN`) | Speech recognition configuration |
+| `GNANI_TTS_LANGUAGE` | TTS language (example: `en-IN`) | Speech synthesis configuration |
+| `GNANI_TTS_MODEL` | TTS model (example: `timbre-v2.5`) | Speech synthesis configuration |
+| `GNANI_TTS_VOICE` | TTS voice (example: `Kaveri`) | Speech synthesis configuration |
+| `DATASET_DIR` | Extracted challenge dataset directory, not the ZIP file | RAG and supplied tools |
+| `VECTOR_STORE_PATH` | Local persisted retrieval index path | Index storage |
+| `LOG_LEVEL` | Logging verbosity | Optional configuration |
+| `APP_HOST`, `APP_PORT` | Web server bind host and port values read by settings | Application configuration |
 
-```bash
-python -m venv .venv
-# Windows PowerShell: .\.venv\Scripts\Activate.ps1
-# macOS/Linux: source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-cp .env.example .env
+Do not put real credentials in source code, screenshots, reports, Git history, or chat messages. If a key has ever been exposed, revoke or rotate it. Never commit `.env`, the extracted challenge dataset, or private customer data.
+
+Build or refresh the retrieval index from the repository root when needed:
+
+```powershell
+python .\scripts\build_index.py
 ```
 
-Edit `.env` locally (do not commit it):
-
-```dotenv
-LLM_API_KEY=
-LLM_MODEL=gemini-3.5-flash-lite
-LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/
-GNANI_API_KEY=
-GNANI_STT_LANGUAGE=en-IN
-GNANI_TTS_LANGUAGE=en-IN
-GNANI_TTS_MODEL=timbre-v2.5
-GNANI_TTS_VOICE=Kaveri
-DATASET_DIR=./dataset/Capstone_Project_Dataset_FTTT_2026
-VECTOR_STORE_PATH=./storage/vector_index.joblib
-```
-
-`LLM_BASE_URL` is optional and supports an OpenAI-compatible gateway. Do not paste keys into source files, terminal screenshots, reports, public issues, or chat messages.
-
-## Build the knowledge index
-
-```bash
-python scripts/build_index.py
-```
-
-The script loads Markdown sections, structured catalog rows, and the superseded policy reference retained for one explicitly preserved legacy scenario, then writes a local index to `VECTOR_STORE_PATH`. The app reuses the persisted index when it is newer than the source documents. Rebuild after the KB or product catalog changes. Generated indexes are ignored by Git and should not be committed.
+The generated index is local and ignored by Git. Rebuild it after changing the knowledge documents or product catalog.
 
 ## Run the web application
 
-```bash
-uvicorn app:app --host 127.0.0.1 --port 8000
+```powershell
+python -m uvicorn app:app --host 127.0.0.1 --port 8000
 ```
 
-Open `http://127.0.0.1:8000`. The `/health` endpoint reports whether dataset, LLM and Gnani configuration values are present; it does not test live provider connectivity. The text UI shows returned source/section references.
+Open <http://127.0.0.1:8000>. The health endpoint is <http://127.0.0.1:8000/health>; it reports configuration readiness but is not proof that upstream services are reachable. The browser voice flow requires microphone permission and a final manual check that the generated audio plays audibly.
 
-### Browser microphone recording
+## Run batch audio processing
 
-Use the **Talk to ZentroMart** panel: select **Record**, allow browser microphone access, speak, select **Stop**, review the playable recording, then select **Send audio**. The browser uses `MediaRecorder`, then decodes the browser's real recording format and encodes a proper mono 16-bit PCM WAV before upload; it does not relabel WebM as WAV or use browser speech synthesis. Recordings are limited to 55 seconds in the UI and 10 MB after conversion. The backend accepts WAV, MP3, FLAC, M4A and OGG, checks the declared content type and container signature, then runs Gnani STT -> the existing session agent -> Gnani TTS. The upload control remains available if microphone permissions or recording are unavailable. Microphone access needs a secure context; `http://127.0.0.1:8000` is considered secure by browsers for local development.
-
-The response shows the transcript and agent text and provides an audio player for the actual Gnani-generated WAV. A successful interface response requires a nonempty generated output file. This package's new direct-microphone workflow must still be manually validated on the target Windows browser with valid keys; static tests and mocked backend tests are not a live Gnani test.
-
-The dataset's `lookup_order` tool intentionally returns no order details on the first call. The demo will ask for phone last-four or pincode proof. Use only the challenge's synthetic rows. Ticket IDs follow `TKT` plus 32 hexadecimal characters. The application can retrieve a matching row from the CSV log configured by the supplied tools; the CSV does not contain live assignment/resolution state, so the assistant explicitly says it cannot confirm review or resolution status.
-
-## Evaluation
-
-A public CI run intentionally does not include the course dataset or provider secrets. In that environment, dataset-dependent integration tests are skipped; unit tests, Python compilation, and JavaScript syntax checks still run. For a full local dataset-configured run, follow the commands below and preserve the actual command output in your submission evidence.
-
-### 1) Dataset validation
-
-From the extracted dataset root:
-
-```bash
-python validate_dataset.py
-```
-
-### 2) Retrieval-only offline measurement
-
-This works without an LLM key and evaluates whether the top-k retrieved evidence contains the supplied gold section/source identifiers; it does not pretend to measure answer accuracy.
-
-```bash
-python scripts/evaluate_questions.py --retrieval-only
-```
-
-### 3) Step 1 baseline versus Step 2 RAG answer evaluation
-
-With `LLM_API_KEY` and `LLM_MODEL` set:
-
-```bash
-python scripts/evaluate_questions.py
-```
-
-The script uses identical practice questions, checks the supplied `must_include`/`must_not_include` expectations, and writes `outputs/question_evaluation.json`. If credentials are missing, answer accuracy remains `null`/pending instead of being fabricated.
-
-### 4) Multi-turn conversation evaluation
-
-```bash
-python scripts/evaluate_conversations.py
-```
-
-The script sorts by `conversation_id` and `turn`, replays each conversation through the stateful agent, and checks expected decisions, required/forbidden phrases, expected tool arguments, and gold-evidence coverage where retrieval should occur. Verification digits are not written into traces. Live results require an LLM key; without it the output is marked pending. Tool/verification behavior is separately covered by offline unit tests.
-
-### 5) Tests
+**Exact batch command for submission** (run from the repository root):
 
 ```powershell
-$env:DATASET_DIR = (Resolve-Path .\dataset\Capstone_Project_Dataset_FTTT_2026).Path
-New-Item -ItemType Directory -Force ".\.pytest-temp" | Out-Null
-.\.venv\Scripts\python.exe -m pytest -q --basetemp ".\.pytest-temp"
-```
-
-With `DATASET_DIR` configured, the updated suite includes voice-upload validation, speech-pipeline failure cases, browser-control source checks, ticket log readback, and a supplied-tool integration test that creates and reads a ticket only inside a temporary dataset copy. Tests mock upstream LLM/STT/TTS clients where appropriate; mock success is not a live integration success.
-
-## Required reproducible audio batch command
-
-Place your own short, consented test recordings in `sample_audio/` (the challenge ZIP contains no audio). Then run:
-
-```bash
 python run.py --input-dir sample_audio --output-dir outputs
 ```
 
-The runner discovers supported files in sorted filename order, sends each actual audio file to Gnani STT, sends each transcript to the same conversational agent, calls the supplied order/ticket tools when required, synthesizes a response with Gnani TTS, and writes per-file JSON plus `outputs/batch_summary.json`. It exits with a non-zero status if configuration is missing, no supported input files are found, or any file fails. If configuration is missing, it still writes a blocked result record for each discovered supported input instead of silently dropping it. To isolate each file into a new context use `--new-session-per-file`.
+Before running, ensure that:
 
-Each result record contains input filename, transcription, response text, sources/section IDs, tool trace, output audio filename, decision, success/failure, and sanitized error information. No offline/pre-recorded answer is substituted for missing external services.
+1. Dependencies are installed from `requirements.txt`.
+2. `.env` is configured with `LLM_API_KEY`, `GNANI_API_KEY`, and a valid `DATASET_DIR`.
+3. The extracted challenge dataset is present at `DATASET_DIR`.
+4. The five bundled WAV clips are in `sample_audio/` (they are included in this ZIP).
+
+`run.py` discovers only files whose extensions are `.wav`, `.mp3`, `.flac`, `.m4a`, or `.ogg`. The accompanying `transcripts.txt` and `README.md` are intentionally ignored as unsupported files; they are not submitted to speech recognition. Each supported audio input must be at most 10 MB.
+
+By default, files are processed in sorted filename order and share one conversation session. Because the five clips are independent scenarios, use this optional flag to isolate each clip in its own session if desired:
+
+```powershell
+python run.py --input-dir sample_audio --output-dir outputs --new-session-per-file
+```
+
+If required credentials or the dataset are missing, the runner writes explicit blocked result records and `batch_summary.json`; it does not create pretend successful transcriptions. Exit codes are `0` when every discovered input succeeds, `1` if processing finishes with failures, and `2` when no supported inputs or required configuration is available.
+
+## Included sample audio
+
+The package includes five short synthetic WAV fixtures and the transcript text file supplied for them. Each WAV was verified as readable mono, 16-bit PCM at 22.05 kHz, and is below 10 MB. The provided transcript text is the intended utterance for each scenario; it has not been independently validated against a live Gnani transcription in this packaging environment.
+
+| File | Scenario | Intended utterance in `sample_audio/transcripts.txt` |
+|---|---|---|
+| `01_delivery_delay.wav` | Delivery status | “Hello, my order has not arrived yet. Can you check the delivery status?” |
+| `02_return_policy.wav` | Damaged item / returns | “I received a damaged product. What is your return and refund policy?” |
+| `03_order_lookup.wav` | Order lookup preparation | “I want to check my order. Please tell me what details you need from me.” |
+| `04_human_handover.wav` | Human escalation | “I am not satisfied with this resolution. Please connect me to a human support agent.” |
+| `05_follow_up.wav` | Refund follow-up | “How long will the refund take after my returned item is approved?” |
+
+These are synthetic test utterances, not real customer recordings. Review outputs against the policy and dataset rather than assuming every generated answer is correct. The batch runner uses the actual recordings and external services when configured; no transcription or response outputs are fabricated in advance.
 
 ## Outputs
 
-- `outputs/question_evaluation.json`: retrieval metrics and, if configured, baseline/RAG answer scores. The 25 Oct 2026 packaging run measured 81/90 gold evidence items (Recall@5 = 90.0%; 47/47 questions had at least one gold evidence hit).
-- `outputs/conversation_evaluation.json`: conversation results or an explicit pending status. The latest packaging run marked all 96 turns pending because `LLM_API_KEY` was not available in that workspace.
-- `outputs/<audio>_result.json`: per-input batch record.
-- `outputs/batch_summary.json`: processed/success/failure totals and result records.
-- `outputs/*_reply.wav`: Gnani-generated speech response when TTS succeeds.
-- `storage/vector_index.joblib`: local persisted retrieval index.
+For each supported input, the runner attempts to generate:
 
-These are runtime artifacts and are not committed by default.
+- `outputs/<input-stem>_result.json` — transcript, response text, retrieved-source metadata, tool-call information, decision/status, output audio filename, and a sanitized error field where applicable.
+- `outputs/batch_summary.json` — batch status, discovered/processed/succeeded/failed totals, ignored unsupported filenames, and result records.
+- `outputs/*_reply.wav` — Gnani-generated speech response when TTS succeeds.
 
-## Security and privacy notes
+Output filenames for generated audio include a random suffix and may differ each run. The runtime `outputs/` directory is ignored by Git; `outputs/.gitkeep` preserves the directory in the source tree.
 
-- Use only the synthetic dataset and your own test voice; do not record anyone without written consent.
-- `.env`, vector indexes, generated tickets and runtime outputs are ignored by Git.
-- Verification proofs and customer contact fields are not written into application logs or model context.
-- Ticket summaries include issue context and verification status, but never the phone suffix or pincode proof.
-- Configure a production CORS allowlist, HTTPS, secure session storage, rate limiting and real identity verification before any production use. The supplied 4/6-digit verification is an educational simulation only.
-- The current app uses in-memory session state and does not implement account login or durable storage.
+## Testing and evaluation
 
-## Troubleshooting
-
-- **Dataset/tool error:** verify `DATASET_DIR` points to the directory containing `kb/`, `data/`, `practice/`, and `tools/`; rerun `validate_dataset.py`.
-- **LLM unavailable:** set `LLM_API_KEY` and `LLM_MODEL`; set `LLM_BASE_URL` only when your provider requires it. Check provider/model access and network.
-- **Gnani STT/TTS unavailable:** set `GNANI_API_KEY`, install `gnani-vachana`, and use a supported voice/language. The application never falls back to another speech provider.
-- **No sources returned:** rebuild index and verify the query is in scope. The correct behavior for unsupported policy questions is abstention.
-- **No audio in supplied ZIP:** record your own voice or provide your own consented audio file; there are no practice audio clips in the dataset.
-- **Batch exits 2:** required credentials or dataset path are missing; inspect `batch_summary.json`.
-
-## Repository and demo
-
-- GitHub repository: <https://github.com/aayush-as69/voiceops-zentromart>. At the time this package was prepared, the repository existed but contained no commits/files. The source is therefore not publicly inspectable until the first push from the submission package is completed.
-- Demo video: **pending final recording**. Local logs confirmed successful Gnani STT, Gemini response generation, Gnani TTS, and `/api/voice` responses. The updated browser-microphone path still needs a fresh end-to-end check with real microphone permission and live credentials. Follow `docs/DEMO_RECORDING_GUIDE.md`, keep the recording at or below 2:00, and do not fabricate `demo.mp4`.
-
-### Publish this project to the existing empty GitHub repository (Windows)
-
-Extract the submission ZIP to a new folder and open PowerShell in that extracted project root. Check that `.env`, the `dataset/` directory, `.venv/`, and runtime audio/output files are not staged. `.gitignore` excludes these by default.
+Run the offline test suite:
 
 ```powershell
-git init -b main
-git add .
-git status --short
-git diff --cached --name-only
-git commit -m "Build VoiceOps ZentroMart AI support agent"
-git remote add origin https://github.com/aayush-as69/voiceops-zentromart.git
-git push -u origin main
+python -m pytest -q
 ```
 
-Before pushing, inspect the staged-file list and ensure no credentials, private records, dataset files, generated audio, or local environment folders are included. If Git asks you to authenticate, use Git Credential Manager or the browser sign-in flow; never embed a token in the remote URL. After pushing, open the repository in an incognito window and check that the README, code, tests, report, and workflow are publicly accessible.
+To run the two tests that require the supplied dataset, set `DATASET_DIR` in the environment first. The package-only run in this workspace produced **45 passed, 2 skipped, 0 failed**. The skipped tests require the separately supplied dataset.
 
-## Reproducibility checklist
+Other useful commands:
 
-- Dataset reference date: `2026-10-20`.
-- Exact batch command: `python run.py --input-dir sample_audio --output-dir outputs`.
-- Rebuild index: `python scripts/build_index.py`.
-- Offline retrieval evaluation: `python scripts/evaluate_questions.py --retrieval-only`.
-- Full practice evaluation: `python scripts/evaluate_questions.py` and `python scripts/evaluate_conversations.py` with LLM credentials configured.
-- Automated tests: `pytest -q`.
+```powershell
+# Check Python syntax/compilation
+python -m compileall -q app.py run.py src scripts tests
+
+# Retrieval-only measurement (no LLM API key needed)
+python scripts/evaluate_questions.py --retrieval-only
+
+# Baseline vs RAG answer evaluation (requires LLM credentials)
+python scripts/evaluate_questions.py
+
+# 96-turn conversation evaluation (requires configured dataset and LLM credentials)
+python scripts/evaluate_conversations.py
+```
+
+Retained evaluation artifacts from a prior dataset-configured run record 81/90 gold evidence identifiers at top five (90% Recall@5) and 47/47 evidence-labeled questions with at least one gold hit. These are retrieval metrics, not proof of answer correctness. Baseline-vs-RAG answer accuracy and live conversation results remain pending until those evaluations are run with valid credentials. A package-only test run is not a live provider test.
+
+## Security, limitations, and future work
+
+- `.env`, the private challenge dataset, local indexes, runtime output audio, logs, virtual environments, and caches are excluded from version control. The five reviewed synthetic sample WAVs are intentionally included; other local recordings remain ignored.
+- Order verification and business rules are educational prototype logic, not production-grade authentication. Production use would require real identity controls, HTTPS, rate limiting, secure session storage, and access-control review.
+- Session state is in memory; the application does not implement account login or durable conversation storage.
+- Ticket creation/lookup reads saved records but does not provide live human-agent assignment or resolution state.
+- Live LLM/STT/TTS behavior depends on provider credentials, API availability, network access, and the course dataset. The real microphone flow still needs final target-browser verification, including audible playback.
+- Evaluation results must be regenerated against the final code before claiming new baseline/RAG scores or conversation results.
+
+Potential improvements include durable authenticated sessions, production-grade identity verification, live ticket-queue integration, more comprehensive evaluation, and better monitoring. These are future improvements, not claims about the current implementation.
+
+## Project information
+
+- **Project:** VoiceOps — ZentroMart AI Customer Support Assistant
+- **Team:** BitBenders
+- **Category:** AI-powered customer support / voice agent
+- **Repository:** <https://github.com/aayush-as69/voiceops-zentromart>
+- **Demo video:** Pending final recording
+- **License:** No license is declared in this package. Confirm ownership and course rules before adding one.
+
+The repository should be considered published only after the local Git commit and push succeed and the public repository has been checked while logged out. Do not claim a live demo link until one has been recorded and made accessible.

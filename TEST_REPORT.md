@@ -6,14 +6,15 @@
 
 ## Summary
 
-The final offline run after the microphone UI, backend audio validation, ticket lookup and new test coverage completed **45 passed, 0 failed** with `DATASET_DIR` configured. The dataset validator passes. External LLM and Gnani credentials were not available in the packaging workspace, so live baseline/RAG answer evaluation and the 96-turn live conversation evaluation are explicitly pending.
+Two runs are distinguished below. The earlier dataset-configured run after the microphone UI, backend audio validation, ticket lookup and new test coverage recorded **45 passed, 0 failed**. A fresh package-only run in the current workspace (where the challenge dataset is intentionally absent) completed **45 passed, 2 skipped, 0 failed**; the two skips require `DATASET_DIR`. Retained artifacts record a successful dataset validation and retrieval-only evaluation from the dataset-configured run. External LLM and Gnani credentials were not available in the packaging workspace, so live baseline/RAG answer evaluation and the 96-turn live conversation evaluation remain pending.
 
 ## Test commands and outcomes
 
 | Check | Actual outcome | Notes |
 |---|---|---|
 | Initial pre-change tests with dataset path | 22 passed, 0 failed | This is the baseline before the new implementation changes. |
-| Final pytest run | 45 passed, 0 failed | Includes agent, tool, audio-route, voice pipeline, microphone UI source checks and supplied-data integration checks. |
+| Earlier dataset-configured pytest run (retained result) | 45 passed, 0 failed | Includes agent, tool, audio-route, voice pipeline, microphone UI source checks and supplied-data integration checks. |
+| Fresh package-only pytest run | 45 passed, 2 skipped, 0 failed | Re-run in the submission package without the excluded dataset; the skips are dataset-dependent. |
 | Dataset validator | PASS | 9 CSVs, 21 KB documents, keys, order math, practice evidence, verification gates and company naming. Counts: 1,000 orders, 1,783 order items, 244 support logs, 52 questions, 23 conversations / 96 turns. |
 | Index build | PASS | 175 chunks/records. |
 | Retrieval-only evaluation | PASS | 81/90 gold evidence identifiers at top 5 = 90.0% Recall@5; 47/47 labeled questions retrieved at least one gold item. |
@@ -57,3 +58,8 @@ python .\scripts\evaluate_conversations.py
 ```
 
 The final two evaluation commands perform live provider calls only when the required settings are configured. Do not share `.env` or API keys.
+
+
+## Final package re-check — 26 October 2026
+
+After adding the five supplied synthetic WAV fixtures and updating documentation, `python -m pytest -q --tb=short` completed with **45 passed, 2 skipped, 0 failed**. Python compileall and `node --check static/app.js` passed. The exact batch command discovered five WAV inputs and ignored `README.md` and `transcripts.txt`; it returned code 2 with explicit blocked records because the live keys and course dataset were unavailable. No live STT/TTS or generated audio was claimed in this smoke test. See `FINAL_VERIFICATION_REPORT.md`. A separate clean dependency installation could not complete because DNS lookup for `pypi.org` failed.

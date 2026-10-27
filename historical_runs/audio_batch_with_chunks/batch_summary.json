@@ -1,0 +1,319 @@
+{
+  "status": "completed",
+  "inputs_discovered": 5,
+  "ignored_unsupported_files": [
+    "README.md",
+    "transcripts.txt"
+  ],
+  "processed": 5,
+  "succeeded": 5,
+  "failed": 0,
+  "results": [
+    {
+      "input_filename": "01_delivery_delay.wav",
+      "transcription": "hello my order has not arrived yet can you check the delivery status",
+      "response_text": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "retrieved_sources": [],
+      "tool_calls": [],
+      "output_audio_filename": "01_delivery_delay_8e80a98b_reply.wav",
+      "status": "success",
+      "error": null,
+      "agent_ok": true,
+      "agent_error": null,
+      "decision": "clarify",
+      "result_json_filename": "01_delivery_delay_result.json"
+    },
+    {
+      "input_filename": "02_return_policy.wav",
+      "transcription": "i received a damaged product what is your return and refund policy",
+      "response_text": "Hello, I’m ZentroMart’s AI support assistant. For a damaged item you can initiate a return within the return window that applies to the product’s category (see RET‑2).  \n- The return window starts on the delivery date and is counted in calendar days.  \n- Once you return the item, we pick it up and it goes through a quality check (QC).  \n- For a standard‑member, the refund is initiated within 2 business days of pickup (RET‑7).  \n- For ZentroMart Plus members, the refund is initiated at the time of pickup.  \n- After initiation, the refund is credited to the original payment method according to the timelines in REF‑2 (e.g., 1‑3 business days for UPI, 5‑7 business days for cards, instant for ZentroMart Wallet, etc.).  \n\nIf the item’s value exceeds ₹10,000, the claim is handled by the Priority Resolution team and a ticket must be created (DWM‑3).  \n\nTo start the process, please provide your order number and the product category (or let us know the item’s value if it’s above ₹10,000). Once we have that, we can arrange the pickup and proceed with the refund.",
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-7",
+          "title": "Returns policy",
+          "doc_type": "policy",
+          "effective_from": "2026-08-01",
+          "score": 1.81296,
+          "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy."
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "title": "Refunds policy",
+          "doc_type": "policy",
+          "effective_from": "2026-06-15",
+          "score": 4.908917,
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |"
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "title": "Returns policy",
+          "doc_type": "policy",
+          "effective_from": "2026-08-01",
+          "score": 1.417876,
+          "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |"
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-1",
+          "title": "Refunds policy",
+          "doc_type": "policy",
+          "effective_from": "2026-06-15",
+          "score": 0.842757,
+          "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt."
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "title": "Damaged, wrong or missing items policy",
+          "doc_type": "policy",
+          "effective_from": "2026-05-01",
+          "score": 0.746224,
+          "text": "## [DWM-3] High-value items\nClaims for items worth more than ₹10,000 are handled by the Priority Resolution team. The support agent must create a ticket and hand over; the agent cannot approve these claims."
+        }
+      ],
+      "tool_calls": [],
+      "output_audio_filename": "02_return_policy_1f12d3d4_reply.wav",
+      "status": "success",
+      "error": null,
+      "agent_ok": true,
+      "agent_error": null,
+      "decision": "answer",
+      "result_json_filename": "02_return_policy_result.json"
+    },
+    {
+      "input_filename": "03_order_lookup.wav",
+      "transcription": "please tell me what details you need from me",
+      "response_text": "Hello, I’m ZentroMart’s AI support assistant. Could you please share your order ID?",
+      "retrieved_sources": [
+        {
+          "source": "agent_conversation_style.md",
+          "section_id": "STY-5",
+          "title": "Conversation style",
+          "doc_type": "agent_guide",
+          "effective_from": "2026-07-01",
+          "score": 0.314896,
+          "text": "## [STY-5] One question at a time\nWhen you need details, ask for one thing at a time."
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-2",
+          "title": "Escalation and human handover",
+          "doc_type": "agent_guide",
+          "effective_from": "2026-07-01",
+          "score": 0.168521,
+          "text": "## [ESC-2] What to do first\nCreate a ticket with `create_ticket` before handing over. Tell the customer a human colleague will contact them, and never promise an outcome, amount or time beyond what a policy states."
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-3",
+          "title": "Escalation and human handover",
+          "doc_type": "agent_guide",
+          "effective_from": "2026-07-01",
+          "score": 0.16085,
+          "text": "## [ESC-3] Handover summary\nThe ticket summary must contain: the customer's issue, the detected intent, the order ID if any, what the customer has already told you, what you already checked, and the reason for escalation."
+        },
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-1",
+          "title": "Verifying the customer",
+          "doc_type": "agent_guide",
+          "effective_from": "2026-07-01",
+          "score": 0.131402,
+          "text": "## [IDV-1] When verification is needed\nBefore sharing anything about a specific order (status, items, address, amounts, refund details), verify the customer. General policy questions need no verification."
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-3",
+          "title": "Warranty and ZentroMart Assured",
+          "doc_type": "policy",
+          "effective_from": "2026-02-01",
+          "score": 0.079901,
+          "text": "## [WAR-3] What warranty does not cover\nPhysical damage, liquid damage, normal wear and unauthorised repairs are not covered."
+        }
+      ],
+      "tool_calls": [],
+      "output_audio_filename": "03_order_lookup_f91b0342_reply.wav",
+      "status": "success",
+      "error": null,
+      "agent_ok": true,
+      "agent_error": null,
+      "decision": "answer",
+      "result_json_filename": "03_order_lookup_result.json"
+    },
+    {
+      "input_filename": "04_human_handover.wav",
+      "transcription": "i am not satisfied with this resolution please connect me to a human support agent",
+      "response_text": "Hello, I’m ZentroMart’s AI support assistant. I’ve created a support ticket (TKT6d6cda98040b4d2fb6cc1f2ea467cbd1) for a human support colleague to review your request. I can’t promise a specific outcome.",
+      "retrieved_sources": [
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "title": "Escalation and human handover",
+          "doc_type": "agent_guide",
+          "effective_from": "2026-07-01",
+          "score": 1.166229,
+          "text": "## [ESC-1] When to hand over to a human\nHand over at once when any of these is true:\n\n1. **Damaged, defective or wrong item worth more than ₹10,000.**\n2. **Customer reports an order, payment or account activity they did not make.**\n3. **Customer mentions legal action, a consumer court or a police complaint.**\n4. **Third or later contact about the same issue within 7 days.**\n5. **Refund more than 3 business days past its maximum timeline.**\n6. **Customer asks for a human agent.**\n7. **Product safety risk such as a swelling battery, burning smell, sparks or injury.**\n\nFor the repeat-contact rule, use the `contacts_last_7_days` field returned by order lookup. It counts earlier contacts only, not the current one. Escalate when it is 2 or more."
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-4",
+          "title": "Frequently asked questions",
+          "doc_type": "faq",
+          "effective_from": "2025-11-01",
+          "score": 0.286876,
+          "text": "## [FAQ-4] Can I talk to a person?\nYes. Ask the assistant to connect you to a human colleague."
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "title": "Damaged, wrong or missing items policy",
+          "doc_type": "policy",
+          "effective_from": "2026-05-01",
+          "score": 0.264539,
+          "text": "## [DWM-3] High-value items\nClaims for items worth more than ₹10,000 are handled by the Priority Resolution team. The support agent must create a ticket and hand over; the agent cannot approve these claims."
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-2",
+          "title": "Escalation and human handover",
+          "doc_type": "agent_guide",
+          "effective_from": "2026-07-01",
+          "score": 0.227812,
+          "text": "## [ESC-2] What to do first\nCreate a ticket with `create_ticket` before handing over. Tell the customer a human colleague will contact them, and never promise an outcome, amount or time beyond what a policy states."
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-5",
+          "title": "Damaged, wrong or missing items policy",
+          "doc_type": "policy",
+          "effective_from": "2026-05-01",
+          "score": 0.211534,
+          "text": "## [DWM-5] Safety issues\nIf a product shows a safety risk, such as a swelling battery, burning smell, sparks or heat, the customer must stop using it immediately. The agent must hand over to a human at once."
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.4",
+          "title": "About this knowledge base",
+          "doc_type": "meta",
+          "effective_from": "2026-08-01",
+          "score": 0.118527,
+          "text": "## [KB-00.4] Document list\nSee the file names in this folder. Policy documents start with `pol_`, agent guides with `agent_`, help articles with `help_`, FAQs with `faq_`, and marketing pages with `mkt_`."
+        },
+        {
+          "source": "agent_conversation_style.md",
+          "section_id": "INTRO",
+          "title": "Conversation style",
+          "doc_type": "agent_guide",
+          "effective_from": "2026-07-01",
+          "score": 0.108659,
+          "text": "# Conversation style\n\nCustomers reach ZentroMart support by chat, email, support ticket and voice message. These rules apply on every channel."
+        },
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-4",
+          "title": "Verifying the customer",
+          "doc_type": "agent_guide",
+          "effective_from": "2026-07-01",
+          "score": 0.085939,
+          "text": "## [IDV-4] Never read out\nNever read out the full phone number, email or street address, even to a verified customer."
+        },
+        {
+          "source": "help_reverse_pickup.md",
+          "section_id": "RVP-2",
+          "title": "Reverse pickup: how it works",
+          "doc_type": "help",
+          "effective_from": "2026-08-01",
+          "score": 0.080096,
+          "text": "## [RVP-2] Missed pickup\nIf the executive does not arrive, the pickup is rescheduled automatically to the next business day. After two missed pickups, the customer can ask support to raise a priority pickup."
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "title": "Payments and cash on delivery",
+          "doc_type": "policy",
+          "effective_from": "2026-04-01",
+          "score": 0.076796,
+          "text": "## [PAY-4] ZentroMart Wallet\nZentroMart Wallet balance can be used on any order and never expires. It cannot be transferred to a bank account. For cash-on-delivery refunds, the customer chooses Wallet or bank transfer before the refund is made (REF-3); once refunded to the Wallet, it stays there."
+        }
+      ],
+      "tool_calls": [
+        {
+          "name": "create_ticket",
+          "created": true,
+          "ticket_id": "TKT6d6cda98040b4d2fb6cc1f2ea467cbd1",
+          "reason": "customer_requested_human"
+        }
+      ],
+      "output_audio_filename": "04_human_handover_e5628841_reply.wav",
+      "status": "success",
+      "error": null,
+      "agent_ok": true,
+      "agent_error": null,
+      "decision": "escalate",
+      "result_json_filename": "04_human_handover_result.json"
+    },
+    {
+      "input_filename": "05_follow_up.wav",
+      "transcription": "how long will the refund take after my return item is approved",
+      "response_text": "Hello, I’m ZentroMart’s AI support assistant. Refunds are processed after the returned item passes quality check.  \n- **Refund initiation**: within 2 business days of pickup (at pickup for ZentroMart Plus members).  \n- **Time to reach you** (from initiation):  \n\n| Payment method | Time to reach you |\n|----------------|-------------------|\n| UPI | 1–3 business days |\n| Credit/debit card | 5–7 business days |\n| Net banking | 3–5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for COD | 5–7 business days |\n| ZentroMart Wallet for COD | Instant, within 2 hours |\n\nBusiness days are Monday‑Saturday, excluding the warehouse holidays listed in the policy.",
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-7",
+          "title": "Returns policy",
+          "doc_type": "policy",
+          "effective_from": "2026-08-01",
+          "score": 1.81296,
+          "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy."
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "title": "Refunds policy",
+          "doc_type": "policy",
+          "effective_from": "2026-06-15",
+          "score": 4.908917,
+          "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |"
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "title": "Returns policy",
+          "doc_type": "policy",
+          "effective_from": "2026-08-01",
+          "score": 1.525648,
+          "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |"
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-1",
+          "title": "Refunds policy",
+          "doc_type": "policy",
+          "effective_from": "2026-06-15",
+          "score": 1.011749,
+          "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt."
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "title": "About this knowledge base",
+          "doc_type": "meta",
+          "effective_from": "2026-08-01",
+          "score": 0.466863,
+          "text": "## [KB-00.3] Business days\nA business day is Monday to Saturday, excluding the warehouse holidays below. Refund and logistics timelines are counted in business days. Return windows are counted in calendar days.\n\n| Date | Holiday |\n| --- | --- |\n| 2026-08-15 | Independence Day |\n| 2026-10-02 | Gandhi Jayanti |\n| 2026-10-19 | Warehouse closure (festival) |\n| 2026-11-09 | Warehouse closure (festival) |"
+        }
+      ],
+      "tool_calls": [],
+      "output_audio_filename": "05_follow_up_ea6457ca_reply.wav",
+      "status": "success",
+      "error": null,
+      "agent_ok": true,
+      "agent_error": null,
+      "decision": "answer",
+      "result_json_filename": "05_follow_up_result.json"
+    }
+  ]
+}

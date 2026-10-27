@@ -1,0 +1,236 @@
+{
+  "status": "completed",
+  "evaluation_type": "targeted_live_after_latest_fixes",
+  "live_run_performed": true,
+  "scope": [
+    "PC003 turns 1-5",
+    "PC012 turns 1-3"
+  ],
+  "turns_executed": 8,
+  "turns_passed": 8,
+  "turn_pass_rate": 1.0,
+  "records": [
+    {
+      "conversation_id": "PC003",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_names": [],
+      "actual_tool_names": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC003",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_names": [
+        "lookup_order"
+      ],
+      "actual_tool_names": [
+        "lookup_order"
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "evidence_ok": true,
+      "response": "I can look into order 18599253, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC003",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_names": [
+        "lookup_order"
+      ],
+      "actual_tool_names": [
+        "lookup_order"
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "evidence_ok": true,
+      "response": "Thanks, I’ve verified your identity. What would you like help with on this order?",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC003",
+      "turn": "4",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_names": [],
+      "actual_tool_names": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "RET-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2",
+        "IDV-3",
+        "PLS-2",
+        "RET-2",
+        "RET-6"
+      ],
+      "gold_evidence_found": [
+        "RET-2"
+      ],
+      "evidence_ok": true,
+      "response": "हाँ, आप “Kaafi Running Sneakers” को रिटर्न कर सकती हैं।  \n- रिटर्न की वैधता 15 कैलेंडर दिन है, जो डिलीवरी की तारीख से शुरू होती है।  \n- आपकी डिलीवरी 12‑10‑2026 को हुई, इसलिए रिटर्न की अंतिम तिथि **27‑10‑2026** है।  \n- चूँकि आप ZentroMart Plus सदस्य हैं, रिवर्स पिक‑अप फ़ी ₹49 माफ़ है।  \n- रिटर्न के बाद रिफ़ंड तुरंत पिक‑अप पर शुरू हो जाएगा।  \n\nयदि आप रिटर्न शुरू करना चाहती हैं, तो कृपया रिवर्स पिक‑अप शेड्यूल करें।",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC003",
+      "turn": "5",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_names": [],
+      "actual_tool_names": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "REF-2",
+        "RET-7",
+        "PLS-2"
+      ],
+      "retrieved_sections": [
+        "PLS-2",
+        "REF-2",
+        "RET-2",
+        "RET-6",
+        "RET-7"
+      ],
+      "gold_evidence_found": [
+        "REF-2",
+        "RET-7",
+        "PLS-2"
+      ],
+      "evidence_ok": true,
+      "response": "Refund will be credited to your ZentroMart Wallet **instantly (within 2 hours)** once the return is picked up and passes quality check.  \nSince you’re a Plus member, the refund is initiated at the time of pickup, so you’ll see the amount in your wallet right after the pickup is completed. If you haven’t scheduled a reverse‑pickup yet, let me know and I can help set it up.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC012",
+      "turn": "1",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_names": [],
+      "actual_tool_names": [],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "STY-1"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "evidence_ok": true,
+      "response": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC012",
+      "turn": "2",
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_names": [
+        "lookup_order"
+      ],
+      "actual_tool_names": [
+        "lookup_order"
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [],
+      "gold_evidence_found": [],
+      "evidence_ok": true,
+      "response": "I can look into order 75447568, but I need to verify you first. Please provide either the last four digits of the registered phone number or the six-digit delivery pincode. Please do not send the full phone number.",
+      "passed": true
+    },
+    {
+      "conversation_id": "PC012",
+      "turn": "3",
+      "expected_decision": "answer",
+      "actual_decision": "answer",
+      "ok": true,
+      "must_include_met": true,
+      "forbidden_claims_found": [],
+      "decision_match": true,
+      "expected_tool_names": [
+        "lookup_order"
+      ],
+      "actual_tool_names": [
+        "lookup_order"
+      ],
+      "tool_expectations_met": true,
+      "expected_ticket_confirmed": true,
+      "gold_evidence": [
+        "IDV-2"
+      ],
+      "retrieved_sections": [
+        "IDV-2",
+        "TRK-1"
+      ],
+      "gold_evidence_found": [
+        "IDV-2"
+      ],
+      "evidence_ok": true,
+      "response": "I checked your verified order record: the current recorded status is shipped; the shipment date is 2026-10-14; the expected delivery date is 2026-10-24.",
+      "passed": true
+    }
+  ],
+  "note": "Targeted live evaluation with current application code and original practice scenarios. Dataset and gold answers were not modified. Verification secrets and raw expected tool arguments were not recorded."
+}

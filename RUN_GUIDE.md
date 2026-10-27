@@ -122,3 +122,14 @@ $env:DATASET_DIR = (Resolve-Path .\dataset\Capstone_Project_Dataset_FTTT_2026).P
 - **Past dates:** capstone expected dates use fixed dataset reference date `2026-10-20`.
 
 The updated browser recording path has automated checks, but the final credentialed test using a real Windows microphone and live Gnani services must be run on the target machine before claiming fully verified end-to-end voice.
+
+
+## Batch audio processing
+
+The submission package includes five synthetic WAV fixtures in `sample_audio/`. After installing dependencies, configuring `LLM_API_KEY`, `GNANI_API_KEY`, and a valid `DATASET_DIR` in `.env`, run this from the project root:
+
+```powershell
+python .un.py --input-dir .\sample_audio --output-dir .\outputs
+```
+
+The runner processes only `.wav`, `.mp3`, `.flac`, `.m4a`, and `.ogg` files; `transcripts.txt` and `README.md` are ignored as non-audio files. It writes one JSON result per recording and `outputs/batch_summary.json`, plus generated WAV files when TTS succeeds. If the configuration or dataset is missing, it writes a blocked result and exits with code `2`; do not treat that as a completed live batch. By default, inputs share a session; add `--new-session-per-file` to isolate the five independent sample scenarios.

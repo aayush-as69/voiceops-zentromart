@@ -1,0 +1,2653 @@
+{
+  "dataset_reference_date": "2026-10-20",
+  "questions_in_dataset": 52,
+  "retrieval": {
+    "top_k": 5,
+    "questions_with_gold_evidence": 47,
+    "gold_evidence_items_found": 90,
+    "gold_evidence_items_total": 90,
+    "gold_evidence_recall_at_k": 1.0,
+    "question_hit_rate_at_k": 1.0,
+    "superseded_reference_chunks_in_index": true,
+    "superseded_reference_returned_for_generic_query": false,
+    "superseded_reference_returned_for_preserved_legacy_case": true
+  },
+  "answer_evaluation": {
+    "status": "partial",
+    "questions_scored": 42,
+    "baseline_correct": 5,
+    "rag_correct": 30,
+    "baseline_accuracy": 0.119,
+    "rag_accuracy": 0.7143,
+    "accuracy_change_percentage_points": 59.52,
+    "baseline_unsupported_answers_on_unanswerable": 3,
+    "rag_unsupported_answers_on_unanswerable": 0,
+    "note": "LLM answer metrics remain pending unless this script ran all questions with configured LLM credentials."
+  },
+  "records": [
+    {
+      "id": "PQ0002",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-2",
+        "products.csv:ELE-0012"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0012",
+          "section_id": "ELE-0012",
+          "score": 1.019464
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.705317
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.315993
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.166665
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.101532
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details about whether SKU ELE‑0012 is covered under our “Assured” program or the exact claim process. I recommend reaching out to our customer support team or checking the product page on our website for the most accurate information. If you’d like, I can connect you with a human representative who can help you further.",
+      "rag_answer": "Yes, the Kestrel K7 (SKU ELE‑0012) is marked **assured = true**, so it comes with a 12‑month ZentroMart Assured warranty from the delivery date【WAR‑2】【ELE‑0012】.  \n\nTo file a claim:  \n1. Open the ZentroMart app and go to **My Orders**.  \n2. Select the order containing the Kestrel K7.  \n3. Choose the **ZentroMart Assured claim** option.  \n4. Follow the on‑screen steps; ZentroMart will arrange pickup and repair or replacement.  \n\n(You also have the manufacturer’s warranty available for the device.)",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0003",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.495164
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.451975
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.429608
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.405659
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.242715
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details on refund processing times for the ZentroMart Wallet. For the most accurate information, please contact our customer support team or chat with a live agent. They’ll be happy to help!",
+      "rag_answer": "Refunds to the ZentroMart Wallet are instant – they reach your wallet within 2 hours of the refund being initiated.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0004",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.344731
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.229983
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.138964
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.13759
+        },
+        {
+          "source": "pol_plus_membership.md",
+          "section_id": "PLS-2",
+          "score": 0.12526
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the details on delivery scheduling times. It would be best to check the delivery options in your account or contact our customer support team for confirmation. They can let you know if midnight delivery is available.",
+      "rag_answer": "I don’t have any policy that allows scheduling a delivery at midnight. If you’d like to explore other delivery options or need help with scheduling, I can connect you with a human colleague.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0005",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-2",
+        "products.csv:ELE-0002"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0002",
+          "section_id": "ELE-0002",
+          "score": 1.081225
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.705317
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.315993
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.166665
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.101532
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details about whether SKU ELE‑0002 is covered under our “Assured” program or the exact claim process. I recommend reaching out to our customer support team or checking the product page on our website for the most accurate information. If you’d like, I can connect you with a human representative who can help you further.",
+      "rag_answer": "हाँ, Nimbus X2 Wireless Earbuds (SKU ELE‑0002) पर **ZentroMart Assured** लागू है।  \n- **Assured warranty**: 12 महीने की गारंटी, डिलीवरी की तारीख से शुरू।  \n- **Claim procedure**:  \n  1. ZentroMart ऐप खोलें → **My Orders**।  \n  2. संबंधित ऑर्डर चुनें।  \n  3. “Assured Claim” विकल्प चुनें।  \n  4. ऐप में बताए अनुसार पिक‑अप शेड्यूल करें; ZentroMart मरम्मत या प्रतिस्थापन का प्रबंध करेगा।  \n\nध्यान दें कि ब्रांड की 12‑महीने की वारंटी भी मौजूद है, जिसे आप निर्माता के सर्विस सेंटर से दावे कर सकते हैं।",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0006",
+      "intent": "return_fee",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-6",
+        "PLS-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-6",
+          "score": 2.089105
+        },
+        {
+          "source": "pol_plus_membership.md",
+          "section_id": "PLS-2",
+          "score": 0.968066
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.853126
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-2",
+          "score": 0.27015
+        },
+        {
+          "source": "pol_plus_membership.md",
+          "section_id": "INTRO",
+          "score": 0.200003
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details of the Plus member return policy, so I’m not sure whether a pickup fee would apply in this case. I recommend reaching out to our customer support team for the most accurate information. They’ll be happy to help you with your return and any associated fees.",
+      "rag_answer": "No, as a ZentroMart Plus member you won’t be charged the reverse‑pickup fee for returning shoes.  \nPolicy [RET‑6] states the ₹49 fee is waived for Plus members, and policy [PLS‑2] confirms “No reverse pickup fee on any return.”",
+      "baseline_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0008",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.180138
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.676071
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.355653
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.352352
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.322883
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details of your refund timeline. It would be best to check your account or contact our customer support team for an accurate update. If you’d like, I can connect you with a human representative.",
+      "rag_answer": "Refunds to a credit or debit card are credited within **5 to 7 business days** from the day the refund is initiated (REF‑2).  \nBusiness days are Monday‑Saturday, excluding the warehouse holidays listed in KB‑00.3.  \n\nSince the refund was started on **2026‑10‑17 (Saturday)**, the 5‑to‑7 business‑day window falls between **2026‑10‑22** and **2026‑10‑25**. You should see the amount on your card by then.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0009",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-4",
+          "score": 0.256995
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.152771
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.139012
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-9",
+          "score": 0.087789
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-2",
+          "score": 0.083195
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details on student discounts at the moment. I recommend reaching out to our customer support team for the most accurate information. They’ll be happy to help you!",
+      "rag_answer": "I’m not aware of a student discount policy. I don’t have enough information to confirm that. Would you like me to connect you with a human colleague who can check?",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0010",
+      "intent": "return_fee",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-6",
+        "DWM-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-6",
+          "score": 1.497389
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "score": 0.835283
+        },
+        {
+          "source": "products.csv:FSH-0030",
+          "section_id": "FSH-0030",
+          "score": 0.821641
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.805495
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-2",
+          "score": 0.796889
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details of our return or exchange policy for the UrbanThread Slim Fit Jeans. It would be best to check the official policy on our website or contact a customer‑service representative for accurate information. If you’d like, I can help you find the contact details.",
+      "rag_answer": "Yes. Because the jeans were returned due to damage (torn), the reverse‑pickup fee is waived under RET‑6.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0013",
+      "intent": "return_eligibility",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-4"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:BTY-0052",
+          "section_id": "BTY-0052",
+          "score": 0.962257
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.836638
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-4",
+          "score": 0.304981
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-1",
+          "score": 0.262621
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.182713
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "baseline_answer": "नमस्ते! मैं ज़ेन्ट्रोमार्ट का AI ग्राहक सहायता सहायक हूँ।  \n\nमुझे आपके द्वारा खोले गए Gulmohar Matte Lipstick के रिटर्न पॉलिसी के बारे में विशिष्ट जानकारी नहीं है। क्या आप किसी मानव ग्राहक सेवा प्रतिनिधि से बात करना चाहेंगी? वे आपको रिटर्न के नियमों और प्रक्रियाओं के बारे में विस्तृत जानकारी दे सकते हैं।",
+      "rag_answer": "गुलमोहर मैट लिपस्टिक एक “beauty_sealed” श्रेणी का उत्पाद है। RET‑4 के अनुसार, इस श्रेणी के उत्पाद तभी लौटाए जा सकते हैं जब वे **अनखुले और सील intact** हों। चूँकि आपने इसे खोल लिया है, यह शर्त पूरी नहीं होती, इसलिए रिटर्न स्वीकार नहीं किया जा सकता।",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0014",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "products.csv:BKS-0056"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:BKS-0056",
+          "section_id": "BKS-0056",
+          "score": 5.679889
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.27109
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.026489
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.162535
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-3",
+          "score": 0.157617
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific return window for the Pagecraft A5 Ruled Notebook (Pack of 4). Please contact our customer support team or check your order confirmation for the exact return period. If you need further help, I can connect you with a human representative.",
+      "rag_answer": "Pagecraft A5 Ruled Notebook (Pack of 4) **books_media** श्रेणी का है।  \nRET‑2 के अनुसार, इस श्रेणी के लिए रिटर्न विंडो **डिलीवरी की तारीख से 10 कैलेंडर दिन** है।  \n(यदि डिलीवरी की तारीख ज्ञात हो तो 10 दिन बाद की तारीख YYYY‑MM‑DD में बताई जाएगी।)",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0015",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "help_track_order.md",
+          "section_id": "INTRO",
+          "score": 0.281786
+        },
+        {
+          "source": "pol_coupons_offers.md",
+          "section_id": "CPN-1",
+          "score": 0.248818
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-4",
+          "score": 0.192062
+        },
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-2",
+          "score": 0.187526
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.174909
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I’m not certain whether we issue GST invoices for bulk orders. For the most accurate information, please reach out to our customer support team or chat with a live agent.",
+      "rag_answer": "I’m not sure about that. I can connect you to a human colleague who can confirm whether a GST invoice is available for bulk orders.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0016",
+      "intent": "return_eligibility",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-4",
+        "RET-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:BTY-0055",
+          "section_id": "BTY-0055",
+          "score": 1.845729
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.909453
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-4",
+          "score": 0.806626
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.136002
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "INTRO",
+          "score": 0.125455
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific return policy details for the Neelam Eau de Parfum. It would be best to check the return policy on our website or contact a customer service representative for confirmation. I can connect you to a human agent if you’d like.",
+      "rag_answer": "I’m sorry, but beauty and personal‑care items can only be returned if they remain unopened with the seal intact. Since you’ve opened and tried the Neelam Eau de Parfum, it is no longer eligible for return. If you’d like to discuss any other options, I can connect you with a human colleague.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0018",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.016199
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-4",
+          "score": 0.370436
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.180515
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-1",
+          "score": 0.144984
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "INTRO",
+          "score": 0.128885
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "baseline_answer": "मैं एक AI सहायक हूँ। मुझे ज़ेंट्रोमार्ट की रिटर्न नीति के बारे में विशिष्ट जानकारी नहीं है। कृपया किसी मानव ग्राहक सहायता प्रतिनिधि से संपर्क करें ताकि वे आपको सही समय सीमा और प्रक्रिया बता सकें।",
+      "rag_answer": "मुझे आपके ऑर्डर के बारे में जानकारी नहीं है, इसलिए मैं सटीक रिटर्न समय नहीं बता सकता। कृपया ऑर्डर नंबर या उत्पाद की श्रेणी बताएं, या किसी मानव सहायक से बात करें।",
+      "baseline_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0019",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-3",
+        "RETv3-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-3",
+          "score": 1.257989
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.205807
+        },
+        {
+          "source": "products.csv:ELE-0017",
+          "section_id": "ELE-0017",
+          "score": 1.007825
+        },
+        {
+          "source": "pol_returns_v3_superseded.md",
+          "section_id": "RETv3-2",
+          "score": 0.36552
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.191094
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific return window for the Orbix Fit 3 Pro Smartwatch. I recommend reaching out to our customer support team or checking your order confirmation email for the exact return policy. If you’d like, I can connect you with a human representative who can help.",
+      "rag_answer": "The Orbix Fit 3 Pro Smartwatch falls under the **electronics** category.  \nBecause it was delivered on **20 July 2026** (before 1 Aug 2026), the return window is **10 calendar days**.  \nThe last day to initiate a return is **2026‑07‑29**.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0020",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-8",
+        "products.csv:FSH-0038"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:FSH-0038",
+          "section_id": "FSH-0038",
+          "score": 4.037845
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.33149
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.046998
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.167963
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-3",
+          "score": 0.162881
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3,
+      "baseline_answer": "मैं क्षमा चाहता हूँ, लेकिन मेरे पास रिटर्न नीति के बारे में विशिष्ट जानकारी नहीं है। कृपया हमारी ग्राहक सहायता टीम से संपर्क करें या वेबसाइट पर रिटर्न पॉलिसी पृष्ठ देखें। यदि आपको किसी और सहायता की आवश्यकता हो, तो मैं मदद करने के लिए यहाँ हूँ।",
+      "rag_answer": "मुझे आपके ऑर्डर की तारीख नहीं पता है, इसलिए मैं यह नहीं बता सकता कि आपके लिए कितने दिन उपलब्ध हैं। यदि आपका ऑर्डर 1 अक्टूबर से 15 अक्टूबर 2026 के बीच रखा गया था, तो 30 दिन का रिटर्न विंडो लागू होता है; अन्यथा सामान्य 15‑दिन का विंडो लागू होता है।  \n\nक्या आप किसी मानव सहायक से बात करना चाहेंगे?",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0021",
+      "intent": "delivery_attempts",
+      "answerable": "True",
+      "gold_evidence": [
+        "DEL-3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-3",
+          "score": 1.094644
+        },
+        {
+          "source": "help_track_order.md",
+          "section_id": "TRK-1",
+          "score": 0.189992
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-5",
+          "score": 0.146953
+        },
+        {
+          "source": "help_reverse_pickup.md",
+          "section_id": "RVP-2",
+          "score": 0.119401
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-1",
+          "score": 0.116916
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific delivery policy details for your order. If you’re not home when the courier arrives, it’s best to check the tracking information or contact our customer support team for guidance. They can let you know if the courier will leave a notice, arrange a redelivery, or provide other options. If you’d like, I can connect you with a human agent to help further.",
+      "rag_answer": "If you’re not at home, the courier will try to deliver up to three times. After each failed attempt you’ll receive an SMS to reschedule. If the third attempt also fails, the parcel is sent back to the warehouse (RTO) and a refund is processed per REF‑1. If the executive misses the pickup, it is automatically rescheduled for the next business day; after two missed pickups you can ask support to arrange a priority pickup.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0022",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.137554
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.661694
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.361522
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.356938
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.348938
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have access to your specific refund details or the company’s processing timelines. I recommend contacting our customer support team for the most accurate information about when you can expect the credit card refund. They’ll be able to check the status and give you a precise date.",
+      "rag_answer": "Your refund was initiated on 17 October 2026.  \nCredit‑card refunds take **5 to 7 business days** (REF‑2).  \nBusiness days are Monday‑Saturday, excluding the warehouse holidays listed in KB‑00.3.\n\nCounting from 17 October (Saturday) and skipping Sundays and the 19 October holiday:\n\n| Day | Date | Business day count |\n|-----|------|--------------------|\n| 1 | 17 Oct | 1 |\n| 2 | 20 Oct | 2 |\n| 3 | 21 Oct | 3 |\n| 4 | 22 Oct | 4 |\n| 5 | 23 Oct | 5 |\n| 6 | 24 Oct | 6 |\n| 7 | 26 Oct | 7 |\n\nSo you should see the refund credited **by 23 October 2026 at the earliest, and no later than 26 October 2026**.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0023",
+      "intent": "fraud",
+      "answerable": "True",
+      "gold_evidence": [
+        "ESC-1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-4",
+          "score": 0.393673
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.240886
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-4",
+          "score": 0.193051
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.177451
+        },
+        {
+          "source": "pol_coupons_offers.md",
+          "section_id": "CPN-2",
+          "score": 0.156002
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I’m sorry to hear about the unexpected order. I don’t have access to your account details, so I can’t check the order myself. Please contact our customer support team directly so they can investigate and resolve the issue for you. If you need help finding the right contact method, let me know!",
+      "rag_answer": "I’m sorry to hear that. I’m forwarding your request to a human agent who can help you investigate this.",
+      "baseline_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0024",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-8",
+        "products.csv:FSH-0026"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:FSH-0026",
+          "section_id": "FSH-0026",
+          "score": 4.417045
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.452187
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.111185
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.135692
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.126562
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific return window for the Rangoli Cotton Straight Kurta. Please contact our customer support team or visit the “Returns” section on our website for the most accurate information. If you’d like, I can connect you with a human representative.",
+      "rag_answer": "I don’t have enough information to determine the exact return window for your order. I can connect you with a human colleague who can look up the details for you.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0025",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.391819
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.402706
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.388575
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.360028
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.262101
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific refund timeline for net‑banking payments. For the most accurate information, please contact our customer support team or chat with a live agent. They’ll be able to give you the exact details.",
+      "rag_answer": "Refunds to net banking accounts take **3 to 5 business days** from the day the refund is initiated. Business days are Monday‑Saturday, excluding the warehouse holidays listed in the policy.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0026",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-1",
+        "WAR-2",
+        "products.csv:ELE-0008"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0008",
+          "section_id": "ELE-0008",
+          "score": 10.789393
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.539107
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.42299
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.144227
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.093259
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific warranty details for the Voltra PowerCell 10000 mAh Power Bank (SKU ELE‑0008). I recommend contacting our customer support team or checking the product packaging for warranty information. If you’d like, I can connect you with a human representative.",
+      "rag_answer": "The Voltra PowerCell 10000 mAh Power Bank (SKU ELE‑0008) comes with:\n\n- **Manufacturer’s warranty:** 6 months from the delivery date (see WAR‑1).  \n- **ZentroMart Assured warranty:** 12 months from the delivery date, in addition to the brand warranty (see WAR‑2).",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0027",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.014615
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.688739
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.358954
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.34093
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.318364
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details about your UPI refund timeline. It would be best to check the status in your app or contact our customer support team for accurate information. If you’d like, I can connect you to a human representative.",
+      "rag_answer": "Refunds to UPI are credited within **1 to 3 business days** (REF‑2).  \nSince the refund was initiated on **12 Oct 2026 (Tuesday)**, the latest it should reach your UPI account is **15 Oct 2026 (Friday)**.  \n\nIf it hasn’t appeared by then, let us know and we’ll look into it.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0028",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 1.995786
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.656777
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.359602
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.358836
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.307398
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have access to your specific refund details or the company’s processing timelines. I recommend contacting our customer support team or checking your order history for the expected refund date. If you’d like, I can help you find the contact information or direct you to a live agent.",
+      "rag_answer": "Your net‑banking refund was initiated on 14 October 2026.  \nAccording to the refund policy, net‑bank refunds take **3 to 5 business days** from the initiation date.  \nCounting business days (Monday‑Saturday, excluding the warehouse holidays on 02 Oct and 19 Oct) gives:\n\n- 3 business days → 17 October 2026  \n- 5 business days → 21 October 2026  \n\nSo you should see the refund credited to your account by **21 October 2026** at the latest.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0029",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.176999
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.675098
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.355141
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.351845
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.322418
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details of your refund timeline. It would be best to check your account or contact our customer support team for an accurate update. If you’d like, I can connect you to a human representative.",
+      "rag_answer": "Refunds to a credit or debit card take **5 to 7 business days** from the day the refund is initiated (policy REF‑2).  \nSince the refund was started on **2026‑10‑12**, it should reach your card between **2026‑10‑16** and **2026‑10‑18**.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0030",
+      "intent": "damaged_item",
+      "answerable": "True",
+      "gold_evidence": [
+        "DWM-3",
+        "ESC-1",
+        "products.csv:ELE-0023"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0023",
+          "section_id": "ELE-0023",
+          "score": 6.065652
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "score": 0.941976
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-1",
+          "score": 0.680345
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.323578
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-3",
+          "score": 0.181822
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3,
+      "baseline_answer": "I’m sorry to hear about the damage to your Kestrel Book 14 Laptop. I don’t have the details of our return or repair process, but I can connect you with a human support agent who can help resolve this issue. Would you like me to transfer you to a live representative?",
+      "rag_answer": "I’m sorry to hear about the crack.  \nBecause the laptop is worth more than ₹10,000, we need to hand this over to our Priority Resolution team (see DWM‑3 and ESC‑1).  \nPlease send photos of the crack and the packaging. I’ll create a ticket and forward it to a human agent for further assistance.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0031",
+      "intent": "troubleshooting",
+      "answerable": "True",
+      "gold_evidence": [
+        "TRB-4"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0019",
+          "section_id": "ELE-0019",
+          "score": 0.257402
+        },
+        {
+          "source": "help_troubleshooting_electronics.md",
+          "section_id": "TRB-4",
+          "score": 0.141645
+        },
+        {
+          "source": "help_troubleshooting_electronics.md",
+          "section_id": "TRB-3",
+          "score": 0.116432
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.093213
+        },
+        {
+          "source": "help_reverse_pickup.md",
+          "section_id": "RVP-1",
+          "score": 0.074895
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "baseline_answer": "Hello! I’m ZentroMart’s AI customer support assistant. I’m sorry to hear your Bluetooth speaker isn’t turning on. Let’s try a few quick steps:\n\n1. **Check the power source** – Make sure the speaker’s battery is charged or the charger is connected properly.  \n2. **Inspect the power button** – Hold it for at least 5–10 seconds; some models require a longer press.  \n3. **Look for indicator lights** – A steady or flashing light can give clues (e.g., charging, ready, error).  \n4. **Try a different outlet or charger** – If it’s a USB‑powered speaker, use a known‑working charger or cable.  \n5. **Reset the device** – Some speakers have a reset button or a combo of button presses (refer to the manual if you have it).  \n\nIf none of these help, the speaker may have a hardware issue. I don’t have the specific warranty or return details, so I recommend contacting our human support team or visiting a ZentroMart store for further assistance. Let me know if you’d like me to connect you to a live agent.",
+      "rag_answer": "Try these steps first:\n\n1. Charge the speaker for at least 30 minutes using the original cable and charger.  \n2. Hold the power button for 10 seconds to force a restart.  \n\nIf the speaker still won’t turn on, you can either return it within its return window or claim the 12‑month warranty.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0032",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-2",
+        "products.csv:ELE-0003"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0003",
+          "section_id": "ELE-0003",
+          "score": 1.001212
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.705317
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.315993
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.166665
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.101532
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details about whether SKU ELE‑0003 is covered under our Assured program or the exact claim process. I recommend reaching out to our customer support team or checking the product page on our website for the most accurate information. If you’d like, I can connect you with a human agent who can help you further.",
+      "rag_answer": "हाँ, Nimbus X2 Pro Wireless Earbuds (SKU ELE‑0003) पर **ZentroMart Assured** लागू है।  \n\n**Claim कैसे करें?**  \n1. ऐप में **My Orders** पर जाएँ।  \n2. संबंधित ऑर्डर चुनें और “Claim” या “Warranty Claim” विकल्प पर टैप करें।  \n3. आवश्यक विवरण भरें (समस्या का वर्णन, फ़ोटो आदि)।  \n4. ZentroMart पैकेज का पिक‑अप और मरम्मत/रिप्लेसमेंट का प्रबंध करेगा।  \n\nध्यान दें: यह 12‑महीने की वारंटी डिलीवरी की तारीख से शुरू होती है, और इसके अलावा निर्माता की वारंटी भी लागू है।",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0033",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.002767
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.659075
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.36086
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.360091
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.308474
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have access to your specific refund details or the company’s processing timelines. I recommend contacting our customer support team directly for the most accurate information on when you can expect the net‑banking refund. They’ll be able to check the status and give you a precise date.",
+      "rag_answer": "Your net‑bank refund should reach you within 3 to 5 business days from 17 October 2026.  \nCounting business days (Monday‑Saturday, excluding 2026‑10‑19) gives:\n\n* Earliest: 21 October 2026  \n* Latest: 23 October 2026  \n\nSo you should see the credit by 23 October 2026 at the latest.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0034",
+      "intent": "delivery_area",
+      "answerable": "True",
+      "gold_evidence": [
+        "DEL-5",
+        "FAQ-5"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-5",
+          "score": 0.491049
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.353103
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-5",
+          "score": 0.160534
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.125076
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "INTRO",
+          "score": 0.094381
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the shipping details for Dubai in my current knowledge. I recommend reaching out to our customer support team for the most accurate information. They’ll be happy to help you with delivery options.",
+      "rag_answer": "We only ship within India. Delivery to Dubai is not available.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0035",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.039169
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.672317
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.350395
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.326532
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.31381
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details about your refund timeline. It would be best to check your account or contact our customer support team for an accurate update. If you’d like, I can connect you with a human representative.",
+      "rag_answer": "Refunds to a net‑banking account take 3 to 5 business days from the day the refund is initiated (REF‑2).  \nSince the refund started on 12 Oct 2026 (a Tuesday), the earliest you should see the money is **14 Oct 2026** and the latest is **16 Oct 2026**.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0036",
+      "intent": "return_eligibility",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-5",
+        "products.csv:INR-0068"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:INR-0068",
+          "section_id": "INR-0068",
+          "score": 4.429668
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-5",
+          "score": 1.692872
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.013771
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.183503
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.133891
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific return policy details for the Comfi One‑piece Swimsuit. It would be best to check the return instructions on your order confirmation or contact our customer support team for guidance on how to proceed. If you’d like, I can help you find the contact information or connect you with a human representative.",
+      "rag_answer": "I’m sorry, but swimwear (innerwear) is not returnable for a change of mind. According to the current return policy (RET‑5), items in the “innerwear” category cannot be returned once delivered. If the item was damaged, expired, wrong, or missing, you would need to follow the damaged‑or‑wrong‑item procedure instead. If you’d like help with that or have any other questions, I can connect you to a human colleague.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0037",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-1",
+          "score": 0.347149
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.326919
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0,
+      "baseline_answer": "I’m an AI assistant for ZentroMart. I don’t have the information on whether we have a store in Kochi. I can connect you with a human representative who can help you with that.",
+      "rag_answer": "I don’t have that information available right now. I can connect you with a human colleague who can help you with store locations.",
+      "baseline_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": true,
+        "correct": true
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0039",
+      "intent": "return_eligibility",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-5",
+        "products.csv:INR-0065"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:INR-0065",
+          "section_id": "INR-0065",
+          "score": 6.342464
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-5",
+          "score": 1.641765
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.988447
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.175591
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.128118
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific return policy details for the Comfi Cotton Briefs. It would be best to check the return instructions on your order confirmation or contact our customer support team for guidance on how to proceed with a return. If you’d like, I can help you find the contact information or connect you with a human representative.",
+      "rag_answer": "The Comfi Cotton Briefs (Pack of 3) are in the **innerwear** category. According to RET‑5, innerwear items cannot be returned for a change of mind. If the item were damaged, expired, wrong, or missing, a different process would apply, but that does not apply here.  \n\nI’m sorry for the inconvenience. If you’d like to discuss this further, I can connect you with a human colleague.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      }
+    },
+    {
+      "id": "PQ0040",
+      "intent": "cancel_order",
+      "answerable": "True",
+      "gold_evidence": [
+        "FAQH-1",
+        "CAN-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-1",
+          "score": 0.494128
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.333721
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-2",
+          "score": 0.321755
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-4",
+          "score": 0.249474
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-1",
+          "score": 0.125132
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "नमस्ते! मैं ज़ेन्ट्रोमार्ट का AI ग्राहक सहायता सहायक हूँ।  \n\nआपके ऑर्डर के शिप होने के बाद उसे रद्द करने के बारे में सटीक जानकारी देने के लिए मुझे आपके ऑर्डर विवरण और हमारी वर्तमान नीतियों की आवश्यकता है। मेरे पास यह जानकारी उपलब्ध नहीं है, इसलिए मैं इस समय निश्चित उत्तर नहीं दे सकता।  \n\nकृपया हमारी ग्राहक सहायता टीम से संपर्क करें या हमारे हेल्प सेंटर पर जाएँ, जहाँ वे आपकी सहायता कर सकेंगे। यदि आप चाहें, तो मैं आपको संपर्क विवरण भी दे सकता हूँ।  \n\nधन्यवाद!",
+      "rag_answer": "ऑर्डर शिप हो चुका है, इसलिए उसे रद्द नहीं किया जा सकता।  \nआपके पास दो विकल्प हैं:  \n\n1. **डिलीवरी पर पार्सल को अस्वीकार करें** – यदि यह COD ऑर्डर है तो कोई शुल्क नहीं लगेगा; यदि प्रीपे है तो रिफ़ंड REF‑1 के अनुसार, पैकेज लौटने के बाद शुरू होगा।  \n2. **डिलीवरी स्वीकार कर के बाद रिटर्न करें** – यदि आइटम रिटर्नेबल है, तो रिटर्न विंडो के भीतर रिटर्न कर सकते हैं; रिफ़ंड रिटर्न के बाद प्रोसेस होगा।  \n\nकिसी भी स्थिति में, रद्दीकरण संभव नहीं है। यदि आपको और सहायता चाहिए, तो कृपया बताइए।",
+      "baseline_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0041",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-1",
+        "WAR-2",
+        "products.csv:ELE-0003"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0003",
+          "section_id": "ELE-0003",
+          "score": 10.445559
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.553084
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.433957
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.147967
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.095677
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific warranty details for the Nimbus X2 Pro Wireless Earbuds (SKU ELE‑0003). I recommend reaching out to our customer support team for accurate information. They’ll be happy to help!",
+      "rag_answer": "The Nimbus X2 Pro Wireless Earbuds (SKU ELE‑0003) come with:\n\n- **12‑month manufacturer (brand) warranty** – as listed in the product catalog (`warranty_months: 12`).  \n- **12‑month ZentroMart Assured warranty** – because the product is marked `assured = true`. This warranty starts from the delivery date and covers repair or replacement through ZentroMart.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0042",
+      "intent": "cancel_order",
+      "answerable": "True",
+      "gold_evidence": [
+        "CAN-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.808643
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-2",
+          "score": 0.616451
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-5",
+          "score": 0.18585
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-1",
+          "score": 0.177697
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-4",
+          "score": 0.145599
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have access to your order details, so I’m not able to confirm whether a cancellation is still possible. It’s best to contact our customer support team directly—they can check the status of your shipment and let you know if a stop is still feasible. If you’d like, I can provide the contact information or help you reach a live agent.",
+      "rag_answer": "A shipped order can’t be cancelled.  \nYou can either:\n\n* **Refuse the parcel at the delivery door** – for prepaid orders the refund will start once the parcel returns to the warehouse (see REF‑1).  \n* **Accept the delivery and return the item** within its return window if the product is returnable.  \n\nIf you refuse, the refund will be processed after the parcel is back at the warehouse. If you accept, you can return it later and receive a refund after the quality check.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0044",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "products.csv:HOM-0046"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:HOM-0046",
+          "section_id": "HOM-0046",
+          "score": 4.412477
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.311883
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.038193
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.166551
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-3",
+          "score": 0.161511
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific return window for the Aangan Cotton Double Bedsheet Set. Please contact our customer support team or visit the “Returns” section on our website for the exact policy. If you’d like, I can connect you with a human representative.",
+      "rag_answer": "Aangan Cotton Double Bedsheet Set का रिटर्न विंडो **डिलीवरी की तारीख से 10 कैलेंडर दिन** है। यदि आपको डिलीवरी की तारीख पता है, तो उसी दिन से 10 दिन गिनें। यदि आपको डिलीवरी की तारीख या अन्य विवरण चाहिए, तो कृपया ऑर्डर नंबर साझा करें या किसी मानव सहायक से संपर्क करें।",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": true,
+        "decision_ok": false,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0045",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.460524
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.418734
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.393789
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.387804
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.247907
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific details on how long a UPI refund takes for your order. It can vary depending on the bank and the payment method used. For the most accurate information, please contact our customer support team or chat with a live agent. They’ll be able to give you the exact timeline for your refund.",
+      "rag_answer": "Refunds to UPI take 1 to 3 business days from the day the refund is initiated.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0046",
+      "intent": "damaged_item",
+      "answerable": "True",
+      "gold_evidence": [
+        "DWM-3",
+        "ESC-1",
+        "products.csv:ELE-0022"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0022",
+          "section_id": "ELE-0022",
+          "score": 6.010814
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "score": 0.941976
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-1",
+          "score": 0.680345
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.323578
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-3",
+          "score": 0.181822
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3,
+      "baseline_answer": "I’m sorry to hear about the damage to your Kestrel Book 14 Laptop. I don’t have the details of our return or repair process, so I can’t resolve this directly. I recommend contacting our customer support team or visiting the help center for assistance. If you’d like, I can provide the contact information or direct you to a live agent.",
+      "rag_answer": "I’m sorry to hear about the crack.  \nBecause the laptop is worth more than ₹10,000, this falls under **DWM‑3** and **ESC‑1**, so I’ll create a ticket and hand it over to our Priority Resolution team.  \n\nCould you please send photos of the crack and the packaging? Once we have those, a human agent will take over and resolve the issue.",
+      "baseline_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0047",
+      "intent": "late_delivery",
+      "answerable": "True",
+      "gold_evidence": [
+        "DEL-4"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.42159
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.220209
+        },
+        {
+          "source": "pol_plus_membership.md",
+          "section_id": "PLS-2",
+          "score": 0.103664
+        },
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-1",
+          "score": 0.099199
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.093285
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the details of your specific order or our refund policy. I recommend contacting our customer support team for assistance with the late delivery and any potential compensation. They’ll be able to review your order and let you know what options are available.",
+      "rag_answer": "Yes. If an Express order arrives after its promised date, the ₹79 express fee you paid is automatically credited to your ZentroMart Wallet within 48 hours. (If you’re a Plus member, you don’t pay the fee, so no credit is issued.) No other compensation is provided for late deliveries.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0048",
+      "intent": "damaged_item",
+      "answerable": "True",
+      "gold_evidence": [
+        "FAQH-3",
+        "DWM-1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "score": 1.004802
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-1",
+          "score": 0.685752
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-3",
+          "score": 0.265562
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.239788
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "INTRO",
+          "score": 0.179954
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "baseline_answer": "मैं एक AI सहायक हूँ।  \nमुझे आपके ऑर्डर के बारे में पर्याप्त जानकारी नहीं है, इसलिए मैं इस समय विशिष्ट सहायता नहीं दे सकता।  \n\nकृपया हमारे ग्राहक सहायता टीम से संपर्क करें—आप यह हमारे ऐप, वेबसाइट या ग्राहक सहायता नंबर के माध्यम से कर सकते हैं। वे आपको टूटे हुए सामान के लिए रिटर्न, रिफंड या प्रतिस्थापन के बारे में सही निर्देश देंगे।  \n\nयदि आपको किसी और सहायता की आवश्यकता हो, तो कृपया बताइए।",
+      "rag_answer": "कृपया अपने ऑर्डर नंबर के साथ टूटे हुए आइटम और पैकेजिंग की तस्वीरें भेजें।  \n- **रिपोर्टिंग विंडो**: डिलीवरी के 48 घंटे के भीतर शिकायत करें (DWM‑1)।  \n- यदि आइटम का मूल्य ₹10,000 से अधिक है, तो यह प्रायोरिटी रिज़ॉल्यूशन टीम को सौंपा जाएगा और आपको एक टिकट बनाना होगा (DWM‑3, ESC‑1)।  \n\nआपकी सहायता के लिए हमें ऑर्डर विवरण और फ़ोटो चाहिए। यदि आप चाहें तो हम इसे मानव एजेंट को भी भेज सकते हैं।",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0049",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-8"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.856181
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.947377
+        },
+        {
+          "source": "products.csv:FSH-0026",
+          "section_id": "FSH-0026",
+          "score": 0.907329
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.159626
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.129889
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "baseline_answer": "I’m an AI assistant from ZentroMart. I don’t have the specific return window for the Rangoli Cotton Straight Kurta you purchased. For the most accurate information, please contact our customer support team or check your order confirmation email. They’ll be happy to help you with the return policy.",
+      "rag_answer": "You can return the kurta within **30 calendar days from the delivery date** (RET‑8).  \nSince the order was placed on 5 Oct 2026, the return window starts when you receive the item. If you let us know the delivery date, we can give you the exact deadline.",
+      "baseline_score": {
+        "include_requirements_met": false,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": false
+      },
+      "rag_score": {
+        "include_requirements_met": true,
+        "forbidden_claims_found": [],
+        "abstained": false,
+        "decision_ok": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "PQ0050",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-3",
+        "REF-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 1.879095
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.863042
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.667936
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.382016
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.371385
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "llm_error": "RuntimeError"
+    },
+    {
+      "id": "PQ0051",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.957391
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.581581
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.423338
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-7",
+          "score": 0.194998
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.187835
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "llm_error": "RuntimeError"
+    },
+    {
+      "id": "PQ0052",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.042084
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.673278
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.350896
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.326999
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.314259
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "llm_error": "RuntimeError"
+    },
+    {
+      "id": "PQ0053",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.191785
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.191172
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.166726
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-4",
+          "score": 0.165319
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-2",
+          "score": 0.111996
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0,
+      "llm_error": "RuntimeError"
+    },
+    {
+      "id": "PQ0054",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-8"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 3.348685
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.039698
+        },
+        {
+          "source": "products.csv:FSH-0030",
+          "section_id": "FSH-0030",
+          "score": 0.644546
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.111532
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-1",
+          "score": 0.10938
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "llm_error": "RuntimeError"
+    },
+    {
+      "id": "PQ0056",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-8"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.867893
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.951262
+        },
+        {
+          "source": "products.csv:FSH-0037",
+          "section_id": "FSH-0037",
+          "score": 0.854759
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.16028
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.130422
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "llm_error": "RuntimeError"
+    },
+    {
+      "id": "PQ0057",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0017",
+          "section_id": "ELE-0017",
+          "score": 1.265183
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-3",
+          "score": 1.191224
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.186041
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.14587
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.145623
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1,
+      "llm_error": "RuntimeError"
+    },
+    {
+      "id": "PQ0058",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.226036
+        },
+        {
+          "source": "products.csv:ELE-0013",
+          "section_id": "ELE-0013",
+          "score": 1.076966
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-3",
+          "score": 0.941123
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.200461
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.192709
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "llm_error": "RuntimeError"
+    },
+    {
+      "id": "PQ0059",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 1.976884
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.674524
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.375608
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.368532
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.312657
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "llm_error": "RuntimeError"
+    },
+    {
+      "id": "PQ0060",
+      "intent": "policy_override",
+      "answerable": "True",
+      "gold_evidence": [
+        "ESC-4",
+        "IDV-4"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-4",
+          "score": 1.25067
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-4",
+          "score": 0.607987
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-3",
+          "score": 0.238466
+        },
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-2",
+          "score": 0.21091
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.190604
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2,
+      "llm_error": "RuntimeError"
+    }
+  ]
+}

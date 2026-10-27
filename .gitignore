@@ -13,6 +13,7 @@ __pycache__/
 .ruff_cache/
 .coverage
 htmlcov/
+.pytest-temp/
 
 # Private challenge dataset and generated indexes
 /dataset/
@@ -32,7 +33,28 @@ sample_audio/*
 *.webm
 *.log
 
-# OS/editor artifacts
+# Local databases and temporary files
+*.db
+*.sqlite
+*.sqlite3
+*.tmp
+*.temp
+*.bak
+
+# Local IDE and operating-system metadata
+.idea/
+.vscode/
 .DS_Store
 Thumbs.db
-.pytest-temp/
+Desktop.ini
+
+# Intentionally bundled synthetic capstone fixtures (all other local audio remains ignored).
+!/sample_audio/01_delivery_delay.wav
+!/sample_audio/02_return_policy.wav
+!/sample_audio/03_order_lookup.wav
+!/sample_audio/04_human_handover.wav
+!/sample_audio/05_follow_up.wav
+!/sample_audio/transcripts.txt
+
+# Retain generated reply audio for the documented five-input demo
+!/historical_runs/audio_batch_with_chunks/*.wav

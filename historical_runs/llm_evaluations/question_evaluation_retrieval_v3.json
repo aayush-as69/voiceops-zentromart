@@ -1,0 +1,1971 @@
+{
+  "dataset_reference_date": "2026-10-20",
+  "questions_in_dataset": 52,
+  "retrieval": {
+    "top_k": 5,
+    "questions_with_gold_evidence": 47,
+    "gold_evidence_items_found": 86,
+    "gold_evidence_items_total": 90,
+    "gold_evidence_recall_at_k": 0.9556,
+    "question_hit_rate_at_k": 1.0,
+    "superseded_reference_chunks_in_index": true,
+    "superseded_reference_returned_for_generic_query": false,
+    "superseded_reference_returned_for_preserved_legacy_case": true
+  },
+  "answer_evaluation": {
+    "status": "not_requested",
+    "questions_scored": 0,
+    "baseline_correct": null,
+    "rag_correct": null,
+    "baseline_accuracy": null,
+    "rag_accuracy": null,
+    "accuracy_change_percentage_points": null,
+    "baseline_unsupported_answers_on_unanswerable": null,
+    "rag_unsupported_answers_on_unanswerable": null,
+    "note": "LLM answer metrics remain pending unless this script ran all questions with configured LLM credentials."
+  },
+  "records": [
+    {
+      "id": "PQ0002",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-2",
+        "products.csv:ELE-0012"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.818999
+        },
+        {
+          "source": "products.csv:ELE-0012",
+          "section_id": "ELE-0012",
+          "score": 0.779648
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.366925
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.193528
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.117897
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0003",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.495164
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.451975
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.429608
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.405659
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.242715
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0004",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.344731
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.229983
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.138964
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.13759
+        },
+        {
+          "source": "pol_plus_membership.md",
+          "section_id": "PLS-2",
+          "score": 0.12526
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0
+    },
+    {
+      "id": "PQ0005",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-2",
+        "products.csv:ELE-0002"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0002",
+          "section_id": "ELE-0002",
+          "score": 0.826881
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.818999
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.366925
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.193528
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.117897
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0006",
+      "intent": "return_fee",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-6",
+        "PLS-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-6",
+          "score": 2.089105
+        },
+        {
+          "source": "pol_plus_membership.md",
+          "section_id": "PLS-2",
+          "score": 0.968066
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.853126
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-2",
+          "score": 0.27015
+        },
+        {
+          "source": "pol_plus_membership.md",
+          "section_id": "INTRO",
+          "score": 0.200003
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0008",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.180138
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.676071
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.355653
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.352352
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.322883
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0009",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-4",
+          "score": 0.256995
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.152771
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.139012
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-9",
+          "score": 0.087789
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-2",
+          "score": 0.083195
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0
+    },
+    {
+      "id": "PQ0010",
+      "intent": "return_fee",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-6",
+        "DWM-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-6",
+          "score": 1.497389
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "score": 0.835283
+        },
+        {
+          "source": "products.csv:FSH-0030",
+          "section_id": "FSH-0030",
+          "score": 0.821641
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.805495
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-2",
+          "score": 0.796889
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0013",
+      "intent": "return_eligibility",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-4"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:BTY-0052",
+          "section_id": "BTY-0052",
+          "score": 0.962257
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.836638
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-4",
+          "score": 0.304981
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-1",
+          "score": 0.262621
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.182713
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0014",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "products.csv:BKS-0056"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.306014
+        },
+        {
+          "source": "products.csv:BKS-0056",
+          "section_id": "BKS-0056",
+          "score": 1.273064
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.024127
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.165034
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-3",
+          "score": 0.16004
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0015",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "help_track_order.md",
+          "section_id": "INTRO",
+          "score": 0.281786
+        },
+        {
+          "source": "pol_coupons_offers.md",
+          "section_id": "CPN-1",
+          "score": 0.248818
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-4",
+          "score": 0.192062
+        },
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-2",
+          "score": 0.187526
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.174909
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0
+    },
+    {
+      "id": "PQ0016",
+      "intent": "return_eligibility",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-4",
+        "RET-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:BTY-0055",
+          "section_id": "BTY-0055",
+          "score": 1.845729
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.909453
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-4",
+          "score": 0.806626
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.136002
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "INTRO",
+          "score": 0.125455
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0018",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.016199
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-4",
+          "score": 0.370436
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.180515
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-1",
+          "score": 0.144984
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "INTRO",
+          "score": 0.128885
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0019",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-3",
+        "RETv3-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.276266
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.203122
+        },
+        {
+          "source": "products.csv:ELE-0017",
+          "section_id": "ELE-0017",
+          "score": 0.845093
+        },
+        {
+          "source": "pol_returns_v3_superseded.md",
+          "section_id": "RETv3-2",
+          "score": 0.478158
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.169609
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0020",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-8",
+        "products.csv:FSH-0038"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.369838
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.045446
+        },
+        {
+          "source": "products.csv:FSH-0037",
+          "section_id": "FSH-0037",
+          "score": 0.795485
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.170726
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-3",
+          "score": 0.16556
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 3
+    },
+    {
+      "id": "PQ0021",
+      "intent": "delivery_attempts",
+      "answerable": "True",
+      "gold_evidence": [
+        "DEL-3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-3",
+          "score": 1.094644
+        },
+        {
+          "source": "help_track_order.md",
+          "section_id": "TRK-1",
+          "score": 0.189992
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-5",
+          "score": 0.146953
+        },
+        {
+          "source": "help_reverse_pickup.md",
+          "section_id": "RVP-2",
+          "score": 0.119401
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-1",
+          "score": 0.116916
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0022",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.137554
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.661694
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.361522
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.356938
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.348938
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0023",
+      "intent": "fraud",
+      "answerable": "True",
+      "gold_evidence": [
+        "ESC-1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-4",
+          "score": 0.393673
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.240886
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-4",
+          "score": 0.193051
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.177451
+        },
+        {
+          "source": "pol_coupons_offers.md",
+          "section_id": "CPN-2",
+          "score": 0.156002
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0024",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-8",
+        "products.csv:FSH-0026"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.496518
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.111584
+        },
+        {
+          "source": "products.csv:FSH-0026",
+          "section_id": "FSH-0026",
+          "score": 0.88917
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.138145
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.12885
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3
+    },
+    {
+      "id": "PQ0025",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.391819
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.402706
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.388575
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.360028
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.262101
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0026",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-1",
+        "WAR-2",
+        "products.csv:ELE-0008"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0008",
+          "section_id": "ELE-0008",
+          "score": 10.696526
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.587106
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.460651
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.157068
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.101562
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3
+    },
+    {
+      "id": "PQ0027",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.014615
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.688739
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.358954
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.34093
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.318364
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0028",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 1.995786
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.656777
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.359602
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.358836
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.307398
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0029",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.176999
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.675098
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.355141
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.351845
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.322418
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0030",
+      "intent": "damaged_item",
+      "answerable": "True",
+      "gold_evidence": [
+        "DWM-3",
+        "ESC-1",
+        "products.csv:ELE-0023"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0023",
+          "section_id": "ELE-0023",
+          "score": 5.507731
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "score": 0.986319
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-1",
+          "score": 0.712372
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.33881
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-3",
+          "score": 0.190382
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3
+    },
+    {
+      "id": "PQ0031",
+      "intent": "troubleshooting",
+      "answerable": "True",
+      "gold_evidence": [
+        "TRB-4"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0019",
+          "section_id": "ELE-0019",
+          "score": 0.257402
+        },
+        {
+          "source": "help_troubleshooting_electronics.md",
+          "section_id": "TRB-4",
+          "score": 0.141645
+        },
+        {
+          "source": "help_troubleshooting_electronics.md",
+          "section_id": "TRB-3",
+          "score": 0.116432
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.093213
+        },
+        {
+          "source": "help_reverse_pickup.md",
+          "section_id": "RVP-1",
+          "score": 0.074895
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0032",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-2",
+        "products.csv:ELE-0003"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.818999
+        },
+        {
+          "source": "products.csv:ELE-0003",
+          "section_id": "ELE-0003",
+          "score": 0.76569
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.366925
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.193528
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.117897
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0033",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.002767
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.659075
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.36086
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.360091
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.308474
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0034",
+      "intent": "delivery_area",
+      "answerable": "True",
+      "gold_evidence": [
+        "DEL-5",
+        "FAQ-5"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-5",
+          "score": 0.491049
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.353103
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-5",
+          "score": 0.160534
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.125076
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "INTRO",
+          "score": 0.094381
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0035",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.039169
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.672317
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.350395
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.326532
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.31381
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0036",
+      "intent": "return_eligibility",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-5",
+        "products.csv:INR-0068"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-5",
+          "score": 1.737126
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.040272
+        },
+        {
+          "source": "products.csv:INR-0067",
+          "section_id": "INR-0067",
+          "score": 0.884468
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.1883
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.137391
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 3
+    },
+    {
+      "id": "PQ0037",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-1",
+          "score": 0.347149
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.326919
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0
+    },
+    {
+      "id": "PQ0039",
+      "intent": "return_eligibility",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-5",
+        "products.csv:INR-0065"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-5",
+          "score": 1.680931
+        },
+        {
+          "source": "products.csv:INR-0065",
+          "section_id": "INR-0065",
+          "score": 1.367426
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.012027
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.17978
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-4",
+          "score": 0.131174
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3
+    },
+    {
+      "id": "PQ0040",
+      "intent": "cancel_order",
+      "answerable": "True",
+      "gold_evidence": [
+        "FAQH-1",
+        "CAN-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-1",
+          "score": 0.494128
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.333721
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-2",
+          "score": 0.321755
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-4",
+          "score": 0.249474
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-1",
+          "score": 0.125132
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0041",
+      "intent": "warranty",
+      "answerable": "True",
+      "gold_evidence": [
+        "WAR-1",
+        "WAR-2",
+        "products.csv:ELE-0003"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0003",
+          "section_id": "ELE-0003",
+          "score": 10.295328
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-2",
+          "score": 0.605291
+        },
+        {
+          "source": "pol_warranty_assured.md",
+          "section_id": "WAR-1",
+          "score": 0.474919
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.161934
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.104708
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3
+    },
+    {
+      "id": "PQ0042",
+      "intent": "cancel_order",
+      "answerable": "True",
+      "gold_evidence": [
+        "CAN-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.808643
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-2",
+          "score": 0.616451
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-5",
+          "score": 0.18585
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-1",
+          "score": 0.177697
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-4",
+          "score": 0.145599
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0044",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "products.csv:HOM-0046"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.349256
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.036367
+        },
+        {
+          "source": "products.csv:HOM-0046",
+          "section_id": "HOM-0046",
+          "score": 0.925748
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-2",
+          "score": 0.169243
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-3",
+          "score": 0.164122
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0045",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.460524
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.418734
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.393789
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.387804
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.247907
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0046",
+      "intent": "damaged_item",
+      "answerable": "True",
+      "gold_evidence": [
+        "DWM-3",
+        "ESC-1",
+        "products.csv:ELE-0022"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0022",
+          "section_id": "ELE-0022",
+          "score": 5.457937
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "score": 0.986319
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-1",
+          "score": 0.712372
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.33881
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-3",
+          "score": 0.190382
+        }
+      ],
+      "gold_evidence_found": 3,
+      "gold_evidence_count": 3
+    },
+    {
+      "id": "PQ0047",
+      "intent": "late_delivery",
+      "answerable": "True",
+      "gold_evidence": [
+        "DEL-4"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.42159
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.220209
+        },
+        {
+          "source": "pol_plus_membership.md",
+          "section_id": "PLS-2",
+          "score": 0.103664
+        },
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-1",
+          "score": 0.099199
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.093285
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0048",
+      "intent": "damaged_item",
+      "answerable": "True",
+      "gold_evidence": [
+        "FAQH-3",
+        "DWM-1"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-3",
+          "score": 1.004802
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-1",
+          "score": 0.685752
+        },
+        {
+          "source": "faq_hindi.md",
+          "section_id": "FAQH-3",
+          "score": 0.265562
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.239788
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "INTRO",
+          "score": 0.179954
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0049",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-8"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.856181
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.947377
+        },
+        {
+          "source": "products.csv:FSH-0026",
+          "section_id": "FSH-0026",
+          "score": 0.907329
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.159626
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.129889
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0050",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-3",
+        "REF-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 1.879095
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.863042
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.667936
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.382016
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-1",
+          "score": 0.371385
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0051",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.957391
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.581581
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.423338
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-7",
+          "score": 0.194998
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-1",
+          "score": 0.187835
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0052",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 2.042084
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.673278
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.350896
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.326999
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.314259
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0053",
+      "intent": "unsupported",
+      "answerable": "False",
+      "gold_evidence": [],
+      "retrieved_sources": [
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.191785
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.191172
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-3",
+          "score": 0.166726
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-4",
+          "score": 0.165319
+        },
+        {
+          "source": "pol_payments_cod.md",
+          "section_id": "PAY-2",
+          "score": 0.111996
+        }
+      ],
+      "gold_evidence_found": 0,
+      "gold_evidence_count": 0
+    },
+    {
+      "id": "PQ0054",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-8"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 3.355542
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.027173
+        },
+        {
+          "source": "products.csv:FSH-0030",
+          "section_id": "FSH-0030",
+          "score": 0.626287
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.11176
+        },
+        {
+          "source": "pol_damaged_wrong_missing.md",
+          "section_id": "DWM-1",
+          "score": 0.109603
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0056",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-8"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.867893
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 0.951262
+        },
+        {
+          "source": "products.csv:FSH-0037",
+          "section_id": "FSH-0037",
+          "score": 0.854759
+        },
+        {
+          "source": "faq_general.md",
+          "section_id": "FAQ-2",
+          "score": 0.16028
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.130422
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0057",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "products.csv:ELE-0017",
+          "section_id": "ELE-0017",
+          "score": 1.265183
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.186041
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-3",
+          "score": 1.077774
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 0.14587
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.145623
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 1
+    },
+    {
+      "id": "PQ0058",
+      "intent": "return_window",
+      "answerable": "True",
+      "gold_evidence": [
+        "RET-2",
+        "RET-3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 2.393648
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-2",
+          "score": 1.205352
+        },
+        {
+          "source": "products.csv:ELE-0013",
+          "section_id": "ELE-0013",
+          "score": 0.880722
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-1",
+          "score": 0.173811
+        },
+        {
+          "source": "pol_delivery_shipping.md",
+          "section_id": "DEL-4",
+          "score": 0.167447
+        }
+      ],
+      "gold_evidence_found": 1,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0059",
+      "intent": "refund_timeline",
+      "answerable": "True",
+      "gold_evidence": [
+        "REF-2",
+        "KB-00.3"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-2",
+          "score": 1.976884
+        },
+        {
+          "source": "pol_returns_v4.md",
+          "section_id": "RET-8",
+          "score": 0.674524
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.1",
+          "score": 0.375608
+        },
+        {
+          "source": "00_about_this_knowledge_base.md",
+          "section_id": "KB-00.3",
+          "score": 0.368532
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-3",
+          "score": 0.312657
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    },
+    {
+      "id": "PQ0060",
+      "intent": "policy_override",
+      "answerable": "True",
+      "gold_evidence": [
+        "ESC-4",
+        "IDV-4"
+      ],
+      "retrieved_sources": [
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-4",
+          "score": 1.369617
+        },
+        {
+          "source": "agent_escalation_handoff.md",
+          "section_id": "ESC-4",
+          "score": 0.665811
+        },
+        {
+          "source": "agent_identity_verification.md",
+          "section_id": "IDV-2",
+          "score": 0.214604
+        },
+        {
+          "source": "pol_refunds.md",
+          "section_id": "REF-6",
+          "score": 0.170178
+        },
+        {
+          "source": "pol_cancellations.md",
+          "section_id": "CAN-1",
+          "score": 0.143327
+        }
+      ],
+      "gold_evidence_found": 2,
+      "gold_evidence_count": 2
+    }
+  ]
+}
