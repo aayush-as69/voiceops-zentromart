@@ -1,3 +1,4 @@
+import pytest
 import json
 from dataclasses import replace
 from pathlib import Path
@@ -207,10 +208,22 @@ def test_repeat_contact_escalates_only_after_explicit_third_contact(tmp_path):
     assert repeated.decision == "escalate"
     assert any(call[0] == "create_ticket" for call in tools.calls)
 
+def _require_optional_capstone_dataset(settings):
+    """Skip real-dataset integration tests when the private dataset is unavailable."""
+    from pathlib import Path
+
+    products_csv = Path(settings.dataset_dir) / "data" / "products.csv"
+    if not products_csv.is_file():
+        pytest.skip(
+            "Private capstone challenge dataset is not available in this environment."
+        )
+
+
 def test_agent_handover_retrieves_required_evidence_sections(tmp_path):
     from src.document_loader import load_documents
 
     settings = Settings.from_env()
+    _require_optional_capstone_dataset(settings)
     real_retriever = Retriever(load_documents(settings.dataset_dir))
     tools = FakeTools()
     agent = make_agent(tmp_path, tools=tools, retriever=real_retriever)
@@ -230,6 +243,7 @@ def test_repeat_contact_handover_retrieves_escalation_summary_policy(tmp_path):
     from src.document_loader import load_documents
 
     settings = Settings.from_env()
+    _require_optional_capstone_dataset(settings)
     real_retriever = Retriever(load_documents(settings.dataset_dir))
     tools = FakeTools()
     agent = make_agent(tmp_path, tools=tools, retriever=real_retriever)
@@ -249,6 +263,7 @@ def test_rag_focused_retrieval_keeps_context_specific_policy_sections(tmp_path):
     from src.rag_pipeline import RAGPipeline
 
     settings = Settings.from_env()
+    _require_optional_capstone_dataset(settings)
     pipeline = RAGPipeline(
         Retriever(load_documents(settings.dataset_dir)),
         FakeLLM(),
@@ -333,6 +348,7 @@ def test_upi_return_refund_followup_explains_policy_timeline(tmp_path):
     from src.document_loader import load_documents
 
     settings = Settings.from_env()
+    _require_optional_capstone_dataset(settings)
     retriever = Retriever(load_documents(settings.dataset_dir))
     agent = make_agent(tmp_path, tools=FakeTools(), retriever=retriever)
     sid = "upi-return-refund-followup"
@@ -369,6 +385,7 @@ def test_picked_up_return_explains_pending_quality_check(tmp_path):
     from src.document_loader import load_documents
 
     settings = Settings.from_env()
+    _require_optional_capstone_dataset(settings)
     retriever = Retriever(load_documents(settings.dataset_dir))
     agent = make_agent(tmp_path, tools=FakeTools(), retriever=retriever)
     sid = "picked-up-return-qc-pending"
