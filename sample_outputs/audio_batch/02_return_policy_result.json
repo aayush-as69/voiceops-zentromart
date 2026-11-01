@@ -1,0 +1,60 @@
+{
+  "input_filename": "02_return_policy.wav",
+  "transcription": "i received a damaged product what is your return and refund policy",
+  "response_text": "Hello, I’m ZentroMart’s AI support assistant. – here’s how returns and refunds work for a damaged item:\n\n**Return process**  \n1. Request a return/pick‑up for the damaged product.  \n2. After the item is picked up, it goes through a quality‑check (QC) at our warehouse.  \n\n**Refund initiation** – per **RET‑7**  \n* For regular members, the refund is started within **2 business days** after the pickup once the item passes QC.  \n* For ZentroMart Plus members, the refund is initiated at the time of pickup.  \n\n**Refund timelines** – per **REF‑2** (counted in business days from the initiation date)  \n\n| Payment method | Time to reach you |\n|----------------|-------------------|\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for COD orders | 5 to 7 business days |\n| ZentroMart Wallet for COD orders | Instant, within 2 hours |\n\n**Return window** – per **RET‑2** (starts on the delivery date, counted in calendar days)  \n\n| Category | Return window |\n|----------|---------------|\n| Electronics & accessories | 7 days |\n| Clothing, footwear & bags | 15 days |\n| Home, kitchen & furniture | 10 days |\n| Beauty & personal care (unopened) | 7 days |\n| Books & stationery | 10 days |\n| Grocery, fresh & perishables | Not returnable |\n| Innerwear, lingerie & swimwear | Not returnable |\n| Gift cards & digital codes | Not returnable |\n\nIf your item’s value exceeds **₹10,000**, it is treated as a high‑value claim (policy **DWM‑3**) and will be handed to our Priority Resolution team; a support ticket will be created for you.\n\nLet me know if you’d like help initiating the return or need a ticket for a high‑value item. If you prefer to speak with a human colleague, I can connect you.",
+  "retrieved_sources": [
+    {
+      "source": "pol_returns_v4.md",
+      "section_id": "RET-7",
+      "title": "Returns policy",
+      "doc_type": "policy",
+      "effective_from": "2026-08-01",
+      "score": 1.81296,
+      "text": "## [RET-7] After pickup\nReturned items go through a quality check (QC) at the warehouse. The refund is initiated within 2 business days of pickup once the item passes QC. For ZentroMart Plus members, the refund is initiated at the time of pickup. Refund timelines after initiation are in the Refunds policy."
+    },
+    {
+      "source": "pol_refunds.md",
+      "section_id": "REF-2",
+      "title": "Refunds policy",
+      "doc_type": "policy",
+      "effective_from": "2026-06-15",
+      "score": 4.908917,
+      "text": "## [REF-2] How long refunds take after initiation\nRefunds go back to the original payment method. Timelines are counted in business days from the day the refund is initiated.\n\n| Payment method | Time to reach you |\n| --- | --- |\n| UPI | 1 to 3 business days |\n| Credit or debit card | 5 to 7 business days |\n| Net banking | 3 to 5 business days |\n| ZentroMart Wallet | Instant, within 2 hours |\n| Bank transfer (NEFT) for cash-on-delivery orders | 5 to 7 business days |\n| ZentroMart Wallet for cash-on-delivery orders | Instant, within 2 hours |"
+    },
+    {
+      "source": "pol_returns_v4.md",
+      "section_id": "RET-2",
+      "title": "Returns policy",
+      "doc_type": "policy",
+      "effective_from": "2026-08-01",
+      "score": 1.417876,
+      "text": "## [RET-2] Return windows by category\nThe return window starts on the **delivery date** and is counted in calendar days. The category of every product is listed in the `return_category` column of the product catalog.\n\n| Category | Return window | Catalog code |\n| --- | --- | --- |\n| Electronics and accessories | 7 days | `electronics` |\n| Clothing, footwear and bags | 15 days | `fashion` |\n| Home, kitchen and furniture | 10 days | `home_kitchen` |\n| Beauty and personal care (unopened, seal intact) | 7 days | `beauty_sealed` |\n| Books and stationery | 10 days | `books_media` |\n| Grocery, fresh and perishables | Not returnable | `grocery` |\n| Innerwear, lingerie and swimwear | Not returnable | `innerwear` |\n| Gift cards and digital codes | Not returnable | `digital` |"
+    },
+    {
+      "source": "pol_refunds.md",
+      "section_id": "REF-1",
+      "title": "Refunds policy",
+      "doc_type": "policy",
+      "effective_from": "2026-06-15",
+      "score": 0.842757,
+      "text": "## [REF-1] When a refund is initiated\n- **Cancelled before shipping:** immediately on cancellation.\n- **Returned item:** after the item passes quality check, within 2 business days of pickup. ZentroMart Plus members: at pickup.\n- **Prepaid order refused at the door or not delivered after 3 attempts:** once the parcel reaches the warehouse, usually 7 to 10 calendar days after the last delivery attempt."
+    },
+    {
+      "source": "pol_damaged_wrong_missing.md",
+      "section_id": "DWM-3",
+      "title": "Damaged, wrong or missing items policy",
+      "doc_type": "policy",
+      "effective_from": "2026-05-01",
+      "score": 0.746224,
+      "text": "## [DWM-3] High-value items\nClaims for items worth more than ₹10,000 are handled by the Priority Resolution team. The support agent must create a ticket and hand over; the agent cannot approve these claims."
+    }
+  ],
+  "tool_calls": [],
+  "output_audio_filename": "02_return_policy_816480aa_reply.wav",
+  "status": "success",
+  "error": null,
+  "agent_ok": true,
+  "agent_error": null,
+  "decision": "answer",
+  "result_json_filename": "02_return_policy_result.json"
+}

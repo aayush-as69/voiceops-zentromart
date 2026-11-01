@@ -1,0 +1,14 @@
+{
+  "input_filename": "03_order_lookup.wav",
+  "transcription": "i want to check my order please tell me what details you need from me",
+  "response_text": "Hello, I’m ZentroMart’s AI support assistant. I can check that for you. Please share your order ID first.",
+  "retrieved_sources": [],
+  "tool_calls": [],
+  "output_audio_filename": "03_order_lookup_a231a141_reply.wav",
+  "status": "success",
+  "error": null,
+  "agent_ok": true,
+  "agent_error": null,
+  "decision": "clarify",
+  "result_json_filename": "03_order_lookup_result.json"
+}

@@ -1,0 +1,60 @@
+# Environment secrets — keep the example template only
+.env
+.env.*
+!.env.example
+
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.pytest-temp/
+
+# Private challenge dataset and generated indexes
+/dataset/
+storage/*
+!storage/.gitkeep
+
+# Runtime output and audio artifacts
+outputs/*
+!outputs/.gitkeep
+sample_audio/*
+!sample_audio/README.md
+*.wav
+*.mp3
+*.flac
+*.m4a
+*.ogg
+*.webm
+*.log
+
+# Local databases and temporary files
+*.db
+*.sqlite
+*.sqlite3
+*.tmp
+*.temp
+*.bak
+
+# Local IDE and operating-system metadata
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Intentionally bundled synthetic capstone fixtures (all other local audio remains ignored).
+!/sample_audio/01_delivery_delay.wav
+!/sample_audio/02_return_policy.wav
+!/sample_audio/03_order_lookup.wav
+!/sample_audio/04_human_handover.wav
+!/sample_audio/05_follow_up.wav
+!/sample_audio/transcripts.txt
+
+# Retain generated reply audio from the documented five-input batch run
+!/sample_outputs/audio_batch/*.wav
